@@ -1,0 +1,90 @@
+---
+// Signature brand graphic: an abstract orthogonal process schematic
+// (in the spirit of a P&ID / circuit trace). Purely a visual motif — every
+// element ties back to the diagnose → fix narrative rather than being
+// decoration for its own sake: one node marks where a constraint is found,
+// one marks where the result shows up, and the rest is the connecting
+// system between them.
+---
+
+<svg
+  class="schematic"
+  viewBox="0 0 640 640"
+  aria-hidden="true"
+  focusable="false"
+  preserveAspectRatio="xMidYMid meet"
+>
+  <g class="schematic-lines" fill="none" stroke-width="1.5">
+    <path d="M80,120 L280,120 L280,80" />
+    <path d="M80,120 L80,280 L280,280" />
+    <path d="M280,280 L480,280 L480,200" />
+    <path d="M280,280 L160,280 L160,400" />
+    <path d="M160,400 L160,520 L360,520" />
+    <path d="M480,200 L520,200 L520,440" />
+    <path d="M360,520 L520,520 L520,440" />
+  </g>
+
+  <g class="schematic-nodes">
+    <rect x="73" y="113" width="14" height="14" />
+    <rect x="273" y="73" width="14" height="14" />
+    <rect x="473" y="193" width="14" height="14" />
+    <rect x="153" y="393" width="14" height="14" />
+    <rect x="353" y="513" width="14" height="14" />
+  </g>
+
+  <g class="schematic-marker schematic-marker-constraint">
+    <circle cx="280" cy="280" r="10" />
+    <text x="298" y="284">CONSTRAINT</text>
+  </g>
+
+  <g class="schematic-marker schematic-marker-result">
+    <circle cx="520" cy="440" r="10" />
+    <text x="538" y="444">RESULT</text>
+  </g>
+</svg>
+
+<style>
+  .schematic {
+    width: 100%;
+    height: 100%;
+  }
+
+  .schematic-lines path {
+    stroke: var(--color-line-on-panel);
+  }
+
+  .schematic-nodes rect {
+    fill: var(--color-panel);
+    stroke: var(--color-on-panel-muted);
+    stroke-width: 1.5;
+  }
+
+  .schematic-marker circle {
+    stroke-width: 2;
+  }
+
+  .schematic-marker text {
+    font-family: var(--font-mono);
+    font-size: 15px;
+    letter-spacing: 0.09em;
+    stroke: none;
+  }
+
+  .schematic-marker-constraint circle {
+    fill: var(--color-panel);
+    stroke: var(--color-copper-bright);
+  }
+
+  .schematic-marker-constraint text {
+    fill: var(--color-copper-bright);
+  }
+
+  .schematic-marker-result circle {
+    fill: var(--color-petrol-bright);
+    stroke: var(--color-petrol-bright);
+  }
+
+  .schematic-marker-result text {
+    fill: var(--color-petrol-bright);
+  }
+</style>

@@ -1,0 +1,357 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import Icon from '../../../components/Icon.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import { breadcrumbSchema } from '../../../lib/schema';
+
+const title = 'How Our Fractional CTO Service Works | Curavest';
+const description =
+  'Curavest uses a practical three-stage method for fractional CTO engagements: Diagnose the real constraint, Engineer the right fix and Prove it in everyday work.';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Services', path: '/services/' },
+  { name: 'Fractional CTO Services', path: '/services/fractional-cto/' },
+  { name: 'How It Works', path: '/services/fractional-cto/how-it-works/' },
+];
+
+const stages = [
+  {
+    index: '01',
+    icon: 'diagnose',
+    title: 'Diagnose',
+    intro:
+      'The problem people describe is not always the problem the business has.',
+    body: [
+      'A department may ask for more staff when the real issue is poor prioritisation. A sales team may ask for a faster system when the delay is caused by unclear ownership. A production line may appear to have a capacity problem when the constraint is machine setup and changeover.',
+      'Diagnosis means spending time with the people doing the work and tracing the process from start to finish.',
+    ],
+    listIntro: 'That includes:',
+    list: [
+      'Speaking to the people closest to the work.',
+      'Following real examples through the business.',
+      'Identifying waiting, repetition and rework.',
+      'Testing assumptions made by management.',
+      'Separating the symptom from the cause.',
+      'Establishing what a useful improvement would look like.',
+    ],
+    outro: 'The output is not a large document. It is a clear understanding of what needs to change and why.',
+  },
+  {
+    index: '02',
+    icon: 'engineer',
+    title: 'Engineer',
+    intro: 'Once the cause is understood, the fix can be designed.',
+    body: [
+      'This is where operational change and technology are considered together. The question is not, “Where can we add AI?” The question is, “What needs to happen differently, and what will make that possible?”',
+    ],
+    listIntro: 'The solution may involve:',
+    list: [
+      'Changing the sequence of work.',
+      'Giving one person end-to-end ownership.',
+      'Removing an unnecessary handover.',
+      'Standardising information.',
+      'Automating a repetitive task.',
+      'Connecting existing systems.',
+      'Introducing better reporting.',
+      'Building a new service around an overlooked customer need.',
+      'Using AI for a specific task where it is reliable and worthwhile.',
+    ],
+    outro: 'Every proposed change should have a reason. That includes the decision to leave something alone.',
+  },
+  {
+    index: '03',
+    icon: 'prove',
+    title: 'Prove',
+    intro: 'The change is piloted at a useful scale.',
+    body: [
+      'A small, controlled test makes it possible to see what works, what needs adjustment and whether the expected result is appearing in real conditions.',
+    ],
+    listIntro: 'The result might be measured through:',
+    list: [
+      'Time saved.',
+      'Faster quote turnaround.',
+      'Increased production.',
+      'Reduced rework.',
+      'Improved quality.',
+      'More reliable delivery.',
+      'Greater capacity without additional headcount.',
+      'Revenue from a new service.',
+      'Fewer manual interventions.',
+    ],
+    outro:
+      'The aim is not to prove that a presentation is persuasive. It is to prove that the new way of working produces a better result.',
+  },
+];
+
+const workingTogether = [
+  'Regular time with the owner or board.',
+  'Direct conversations with operational teams.',
+  'Review of live work and performance information.',
+  'Prioritised actions between meetings.',
+  'Practical testing of proposed changes.',
+  'Coordination with internal teams and external suppliers.',
+  'Regular review of the result.',
+  'Training and handover before stepping back.',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/services/fractional-cto/how-it-works/"
+  jsonLd={[breadcrumbSchema(crumbs)]}
+>
+  <PageHero
+    eyebrow="Method"
+    title="Diagnose. Engineer. Prove."
+    lede="Every fractional CTO engagement follows the same underlying discipline."
+    breadcrumbs={crumbs}
+  >
+    <p class="lede hero-extra">
+      First, understand the real problem. Then design the smallest effective change. Finally, prove that it
+      works in the business — not just in a presentation.
+    </p>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <ol class="stage-list">
+        {
+          stages.map((stage) => (
+            <li class="stage-item">
+              <div class="stage-marker">
+                <span class="stage-icon-ring">
+                  <Icon name={stage.icon} class="stage-icon" />
+                </span>
+                <span class="stage-connector" aria-hidden="true" />
+              </div>
+              <div class="stage-copy">
+                <p class="stage-index">{stage.index}</p>
+                <h2>{stage.title}</h2>
+                <p class="lede">{stage.intro}</p>
+                {stage.body.map((para) => (
+                  <p>{para}</p>
+                ))}
+                <p class="list-intro">{stage.listIntro}</p>
+                <ul class="check-list">
+                  {stage.list.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+                <p class="stage-outro">{stage.outro}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section on-panel">
+    <div class="container together-grid">
+      <div>
+        <p class="eyebrow">What working together looks like</p>
+        <h2>Embedded enough to make the change stick</h2>
+        <p class="lede">
+          Fractional CTO engagements are part-time and contracted, giving the business access to senior
+          judgement without requiring a full-time CTO appointment.
+        </p>
+      </div>
+      <div>
+        <p class="together-lead-in">The work may include:</p>
+        <ul class="together-list">
+          {
+            workingTogether.map((item) => (
+              <li>
+                <Icon name="prove" class="scope-icon" />
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+        <p class="lede together-outro">
+          The exact rhythm depends on the problem. The principle remains the same: stay close enough to the
+          work to understand it, and focused enough to move it forward.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    eyebrow="Get in touch"
+    title="If you know something is not working, find out why"
+    lede="A useful first conversation does not require a specification. It requires an honest description of what is getting in the way."
+    ctaLabel="Talk through your bottleneck"
+    ctaHref="/start-a-conversation/"
+    tone="petrol"
+  />
+</BaseLayout>
+
+<style>
+  .hero-extra {
+    margin-top: var(--space-4);
+  }
+
+  .stage-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stage-item {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: var(--space-6);
+  }
+
+  .stage-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stage-icon-ring {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    flex-shrink: 0;
+    border: 1.5px solid var(--color-ink);
+    background: var(--color-paper-raised);
+  }
+
+  /* :global — Icon.astro renders its own <svg>, so this class lives on an
+     element scoped to Icon's component hash, not this page's. A plain
+     scoped selector here would never match it. */
+  :global(.stage-icon) {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-ink);
+  }
+
+  .stage-connector {
+    flex: 1;
+    width: 1.5px;
+    background: var(--color-line);
+    margin-block: var(--space-3);
+  }
+
+  .stage-item:last-child .stage-connector {
+    display: none;
+  }
+
+  .stage-copy {
+    max-width: 62ch;
+    padding-bottom: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .stage-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wider);
+    color: var(--color-copper);
+  }
+
+  .stage-copy h2 {
+    margin-top: -0.5rem;
+  }
+
+  .stage-copy .lede {
+    font-size: var(--text-md);
+  }
+
+  .stage-copy p {
+    color: var(--color-ink-2);
+    line-height: var(--leading-relaxed);
+  }
+
+  .list-intro {
+    font-weight: 600;
+    color: var(--color-ink) !important;
+  }
+
+  .check-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .check-list li {
+    position: relative;
+    padding-left: 1.2rem;
+    color: var(--color-ink-2);
+    line-height: var(--leading-relaxed);
+  }
+
+  .check-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+    background: var(--color-petrol);
+  }
+
+  .stage-outro {
+    font-style: italic;
+    color: var(--color-ink-3) !important;
+  }
+
+  .together-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: var(--space-7);
+  }
+
+  .together-grid h2 {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-4);
+    max-width: 18ch;
+  }
+
+  .together-lead-in {
+    font-weight: 600;
+    margin-bottom: var(--space-4);
+  }
+
+  .together-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .together-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: var(--text-sm);
+  }
+
+  :global(.scope-icon) {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    color: var(--color-petrol-bright);
+  }
+
+  .together-outro {
+    margin-top: var(--space-5);
+  }
+
+  @media (max-width: 63.9375rem) {
+    .stage-item {
+      grid-template-columns: 3.25rem 1fr;
+    }
+
+    .together-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

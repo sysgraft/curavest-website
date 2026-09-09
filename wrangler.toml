@@ -1,0 +1,9 @@
+name = "curavest-website"
+compatibility_date = "2026-01-01"
+pages_build_output_dir = "dist"
+
+# Environment variables / secrets for the /api/contact Pages Function are
+# configured in the Cloudflare dashboard (Pages project → Settings →
+# Environment variables), not in this file:
+#   RESEND_API_KEY, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL
+# See README.md for full setup instructions.

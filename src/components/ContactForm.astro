@@ -1,0 +1,300 @@
+---
+const SERVICE_OPTIONS = [
+  { value: 'fractional-cto', label: 'Fractional CTO Services' },
+  { value: 'other-services', label: 'Other Curavest services' },
+  { value: 'sysgraft', label: 'Sysgraft' },
+  { value: 'not-sure', label: 'Not sure yet' },
+];
+
+const CONTACT_PREFERENCE_OPTIONS = [
+  { value: 'email', label: 'Email' },
+  { value: 'phone', label: 'Phone' },
+  { value: 'either', label: 'Either' },
+];
+---
+
+<form class="contact-form" data-contact-form action="/api/contact" method="post" novalidate>
+  <div class="form-grid">
+    <div class="field">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" autocomplete="name" placeholder="Your name" required aria-describedby="name-error" />
+      <p class="error-text" id="name-error" role="alert" hidden></p>
+    </div>
+
+    <div class="field">
+      <label for="business">Business</label>
+      <input type="text" id="business" name="business" autocomplete="organization" placeholder="Your company name" required aria-describedby="business-error" />
+      <p class="error-text" id="business-error" role="alert" hidden></p>
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" autocomplete="email" placeholder="Your email address" required aria-describedby="email-error" />
+      <p class="error-text" id="email-error" role="alert" hidden></p>
+    </div>
+
+    <div class="field">
+      <label for="phone">Phone</label>
+      <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="Your phone number" aria-describedby="phone-hint" />
+      <p class="hint" id="phone-hint">Optional, but useful if you'd prefer to talk it through.</p>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="message">What would you like to discuss?</label>
+    <textarea
+      id="message"
+      name="message"
+      placeholder="Briefly describe the problem, bottleneck or opportunity."
+      required
+      aria-describedby="message-error"
+    ></textarea>
+    <p class="error-text" id="message-error" role="alert" hidden></p>
+  </div>
+
+  <fieldset>
+    <legend>Which service are you most interested in?</legend>
+    <div class="field-radio-group">
+      {
+        SERVICE_OPTIONS.map((option, index) => (
+          <label class="field-radio">
+            <input type="radio" name="service" value={option.value} checked={index === 3} />
+            {option.label}
+          </label>
+        ))
+      }
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>How would you prefer to be contacted?</legend>
+    <div class="field-radio-group">
+      {
+        CONTACT_PREFERENCE_OPTIONS.map((option, index) => (
+          <label class="field-radio">
+            <input type="radio" name="contactPreference" value={option.value} checked={index === 2} />
+            {option.label}
+          </label>
+        ))
+      }
+    </div>
+  </fieldset>
+
+  {/* Honeypot field — invisible to people, catches simple bots. Not a substitute for real spam defences. */}
+  <div class="hp-field" aria-hidden="true">
+    <label for="company-website">Leave this field blank</label>
+    <input type="text" id="company-website" name="company-website" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="form-footer">
+    <button type="submit" class="btn btn-primary btn-block form-submit" data-submit-btn>
+      <span data-submit-label>Start the conversation</span>
+    </button>
+    <p class="form-reassurance">Your message will be read directly. There is no obligation to proceed.</p>
+  </div>
+
+  <div class="form-status" role="status" aria-live="polite" data-form-status hidden></div>
+</form>
+
+<style>
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+  }
+
+  .hp-field {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  .form-footer {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  .form-submit {
+    position: relative;
+  }
+
+  .form-reassurance {
+    font-size: var(--text-xs);
+    color: var(--color-ink-3);
+    text-align: center;
+  }
+
+  .form-status {
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+  }
+
+  .form-status[data-state='success'] {
+    background: var(--color-success-bg);
+    color: var(--color-success);
+    border: 1px solid color-mix(in srgb, var(--color-success) 35%, transparent);
+  }
+
+  .form-status[data-state='error'] {
+    background: var(--color-error-bg);
+    color: var(--color-error);
+    border: 1px solid color-mix(in srgb, var(--color-error) 35%, transparent);
+  }
+
+  .form-status a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  @media (max-width: 40rem) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+  if (form) {
+    const statusEl = form.querySelector<HTMLDivElement>('[data-form-status]');
+    const submitBtn = form.querySelector<HTMLButtonElement>('[data-submit-btn]');
+    const submitLabel = form.querySelector<HTMLSpanElement>('[data-submit-label]');
+
+    const requiredFields = ['name', 'business', 'email', 'message'] as const;
+
+    function fieldError(name: string): HTMLParagraphElement | null {
+      return form!.querySelector<HTMLParagraphElement>(`#${name}-error`);
+    }
+
+    function clearErrors() {
+      requiredFields.forEach((name) => {
+        const input = form!.querySelector<HTMLInputElement | HTMLTextAreaElement>(`[name="${name}"]`);
+        const err = fieldError(name);
+        input?.removeAttribute('aria-invalid');
+        if (err) {
+          err.hidden = true;
+          err.textContent = '';
+        }
+      });
+    }
+
+    function validate(): boolean {
+      clearErrors();
+      let valid = true;
+      const data = new FormData(form!);
+
+      const email = String(data.get('email') || '');
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+      for (const name of requiredFields) {
+        const value = String(data.get(name) || '').trim();
+        const input = form!.querySelector<HTMLInputElement | HTMLTextAreaElement>(`[name="${name}"]`);
+        const err = fieldError(name);
+        let message = '';
+
+        if (!value) {
+          message = 'This field is required.';
+        } else if (name === 'email' && !emailOk) {
+          message = 'Enter a valid email address.';
+        }
+
+        if (message) {
+          valid = false;
+          input?.setAttribute('aria-invalid', 'true');
+          if (err) {
+            err.hidden = false;
+            err.textContent = message;
+          }
+        }
+      }
+
+      return valid;
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      // Honeypot: if filled, silently treat as success without submitting.
+      const hp = String(new FormData(form).get('company-website') || '');
+      if (hp) {
+        showStatus('success', "Thanks — we'll be in touch shortly.");
+        form.reset();
+        return;
+      }
+
+      if (!validate()) {
+        const firstInvalid = form.querySelector<HTMLElement>('[aria-invalid="true"]');
+        firstInvalid?.focus();
+        return;
+      }
+
+      setLoading(true);
+      hideStatus();
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
+        });
+
+        if (response.ok) {
+          showStatus('success', "Thanks — your message has been sent. We'll be in touch shortly.");
+          form.reset();
+        } else if (response.status === 503) {
+          showStatus(
+            'error',
+            `The contact form isn't fully configured yet. Please email us directly at <a href="mailto:euan.pallister@curavest.co.uk">euan.pallister@curavest.co.uk</a> instead — your message will be read directly.`
+          );
+        } else {
+          const body = await response.json().catch(() => null);
+          showStatus(
+            'error',
+            body?.message ||
+              `Something went wrong sending your message. Please email us directly at <a href="mailto:euan.pallister@curavest.co.uk">euan.pallister@curavest.co.uk</a>.`
+          );
+        }
+      } catch {
+        showStatus(
+          'error',
+          `We couldn't reach the server. Please email us directly at <a href="mailto:euan.pallister@curavest.co.uk">euan.pallister@curavest.co.uk</a>.`
+        );
+      } finally {
+        setLoading(false);
+      }
+    });
+
+    function setLoading(isLoading: boolean) {
+      if (!submitBtn || !submitLabel) return;
+      submitBtn.disabled = isLoading;
+      submitLabel.textContent = isLoading ? 'Sending…' : 'Start the conversation';
+    }
+
+    function showStatus(state: 'success' | 'error', html: string) {
+      if (!statusEl) return;
+      statusEl.hidden = false;
+      statusEl.dataset.state = state;
+      statusEl.innerHTML = html;
+      statusEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function hideStatus() {
+      if (!statusEl) return;
+      statusEl.hidden = true;
+      statusEl.removeAttribute('data-state');
+    }
+  }
+</script>

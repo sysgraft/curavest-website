@@ -1,0 +1,27 @@
+---
+interface Item {
+  question: string;
+  answer: string;
+}
+interface Props {
+  items: readonly Item[];
+  openFirst?: boolean;
+}
+const { items, openFirst = false } = Astro.props;
+---
+
+<div class="faq-list">
+  {
+    items.map((item, index) => (
+      <details class="faq-item" open={openFirst && index === 0}>
+        <summary>
+          <span>{item.question}</span>
+          <span class="faq-icon" aria-hidden="true" />
+        </summary>
+        <div class="faq-answer">
+          <p>{item.answer}</p>
+        </div>
+      </details>
+    ))
+  }
+</div>

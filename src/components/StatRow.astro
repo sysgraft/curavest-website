@@ -1,0 +1,59 @@
+---
+interface Stat {
+  value: string;
+  label: string;
+}
+interface Props {
+  stats: Stat[];
+}
+const { stats } = Astro.props;
+---
+
+<div class="stat-row">
+  {
+    stats.map((stat) => (
+      <div class="stat">
+        <p class="stat-figure">{stat.value}</p>
+        <p class="stat-label">{stat.label}</p>
+      </div>
+    ))
+  }
+</div>
+
+<style is:global>
+  /* is:global — this component is always mounted inside a page-level
+     ancestor that carries .on-panel; Astro's per-component CSS scoping
+     would otherwise attach the scope hash to .on-panel too and the
+     descendant selector would never match. See global.css for the
+     equivalent pattern used elsewhere. */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+    gap: var(--space-6);
+  }
+
+  .stat {
+    min-width: 0;
+    padding-top: var(--space-4);
+    border-top: 2px solid var(--color-line);
+  }
+
+  .on-panel .stat {
+    border-color: var(--color-line-on-panel);
+  }
+
+  .stat .stat-figure {
+    font-size: var(--text-3xl);
+  }
+
+  .stat-label {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-ink-2);
+    max-width: 22ch;
+  }
+
+  .on-panel .stat-label {
+    color: var(--color-on-panel-muted);
+  }
+</style>

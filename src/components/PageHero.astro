@@ -1,0 +1,64 @@
+---
+import Breadcrumbs from './Breadcrumbs.astro';
+
+interface Crumb {
+  name: string;
+  path: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lede?: string;
+  breadcrumbs?: Crumb[];
+  size?: 'default' | 'compact';
+}
+
+const { eyebrow, title, lede, breadcrumbs, size = 'default' } = Astro.props;
+---
+
+<section class={`page-hero on-panel ${size === 'compact' ? 'page-hero-compact' : ''}`}>
+  <div class="grid-device" aria-hidden="true">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="container hero-content">
+    {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h1>{title}</h1>
+    {lede && <p class="lede hero-lede">{lede}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--space-7) var(--space-8);
+  }
+
+  .page-hero-compact {
+    padding-block: var(--space-6) var(--space-7);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .page-hero .eyebrow {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .page-hero h1 {
+    max-width: 22ch;
+  }
+
+  .hero-lede {
+    margin-top: var(--space-5);
+    max-width: 56ch;
+    font-size: var(--text-md);
+  }
+</style>

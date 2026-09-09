@@ -1,0 +1,314 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import Icon from '../../../components/Icon.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import { breadcrumbSchema } from '../../../lib/schema';
+
+const title = 'Fractional CTO for Manufacturing and Operational Businesses | Curavest';
+const description =
+  'Curavest – Fractional CTO Services help ambitious UK manufacturers and operational businesses improve processes, output and technology decisions through part-time CTO support.';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Services', path: '/services/' },
+  { name: 'Fractional CTO Services', path: '/services/fractional-cto/' },
+  { name: 'Who I Work With', path: '/services/fractional-cto/who-i-work-with/' },
+];
+
+const rightFit = [
+  'The business is established and commercially serious.',
+  'Turnover is broadly in the £5m–£10m range.',
+  'Growth is being limited by a process, bottleneck or capacity constraint.',
+  'The owner or board wants a practical person to take responsibility.',
+  'There is no full-time CTO, or hiring one would be premature.',
+  'The business has capable people but not enough time or specialist judgement.',
+  'Decisions can be made without prolonged internal politics.',
+  'The leadership team is prepared to act on evidence.',
+];
+
+const wrongFit = [
+  'Has no clear appetite for growth or improvement.',
+  'Wants a software purchase without examining the process around it.',
+  'Expects advice to replace leadership decisions.',
+  'Is unwilling to involve the people doing the work.',
+  'Has a culture of entrenched departmental conflict.',
+  'Wants a one-off report with no implementation involvement.',
+  'Needs a large permanent technology department immediately.',
+];
+
+const ownerRole = [
+  'Explain what is creating pressure.',
+  'Provide access to the people and processes involved.',
+  'Be open to finding that the stated problem is not the real one.',
+  'Make decisions when the evidence is clear.',
+  'Support the people responsible for adopting the change.',
+];
+
+const sectors = [
+  {
+    icon: 'manufacturing',
+    title: 'Manufacturing',
+    body: 'Improve production flow, capacity, quality, reporting and the systems around the factory floor.',
+  },
+  {
+    icon: 'construction',
+    title: 'Construction supply',
+    body: 'Reduce quote delays, improve product and service delivery, and identify opportunities hidden in how customers currently work.',
+  },
+  {
+    icon: 'fire-safety',
+    title: 'Fire safety',
+    body: 'Strengthen the processes, information flow and customer delivery mechanisms that support a safety-critical service.',
+  },
+  {
+    icon: 'tools-fixings',
+    title: 'Tool and fixings supply',
+    body: 'Improve quoting, fulfilment, customer responsiveness and the connection between commercial and operational teams.',
+  },
+  {
+    icon: 'product-dev',
+    title: 'Outsourced product development',
+    body: 'Create better visibility and control across the relationship between the customer, the product and the delivery team.',
+  },
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/services/fractional-cto/who-i-work-with/"
+  jsonLd={[breadcrumbSchema(crumbs)]}
+>
+  <PageHero
+    eyebrow="Who I work with"
+    title="For owners who need the business to move"
+    lede="Curavest – Fractional CTO Services are designed for owners, MDs and boards of growing UK businesses where operational complexity is beginning to limit performance."
+    breadcrumbs={crumbs}
+  >
+    <p class="lede hero-extra">
+      The business may be successful already. The problem is that the way it works has not kept pace with its
+      ambition.
+    </p>
+  </PageHero>
+
+  <section class="section">
+    <div class="container fit-grid">
+      <div class="fit-heading">
+        <p class="eyebrow">The right fit</p>
+        <h2>A strong fit usually looks like this</h2>
+      </div>
+      <div class="fit-body">
+        <ul class="check-list">
+          {rightFit.map((item) => <li>{item}</li>)}
+        </ul>
+        <p class="lede fit-outro">This service suits businesses that want improvement to show up in the work itself.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Sectors</p>
+        <h2>Experience closest to operational businesses</h2>
+      </div>
+      <div class="sector-grid">
+        {
+          sectors.map((sector) => (
+            <div class="sector-card">
+              <Icon name={sector.icon} class="sector-icon" />
+              <h3>{sector.title}</h3>
+              <p>{sector.body}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="lede sector-note">
+        The approach can apply beyond these sectors. The common factor is not the product. It is a business
+        where work moves through people, processes, equipment and systems — and where a constraint in one part
+        affects everything else.
+      </p>
+    </div>
+  </section>
+
+  <section class="section on-panel">
+    <div class="container fit-grid">
+      <div class="fit-heading">
+        <p class="eyebrow">The wrong fit</p>
+        <h2>Not every business needs this service</h2>
+        <p class="lede">
+          Curavest – Fractional CTO Services are unlikely to be the right fit for a business that:
+        </p>
+      </div>
+      <div class="fit-body">
+        <ul class="dash-list">
+          {wrongFit.map((item) => <li><span class="scope-dash" aria-hidden="true"></span><span>{item}</span></li>)}
+        </ul>
+        <p class="lede fit-outro">Being clear about fit protects everyone&rsquo;s time.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container fit-grid">
+      <div class="fit-heading">
+        <p class="eyebrow">The role of the owner</p>
+        <h2>The work needs access and decisiveness</h2>
+        <p class="lede">The owner or board does not need to understand every technical detail.</p>
+      </div>
+      <div class="fit-body">
+        <p class="list-intro">They do need to:</p>
+        <ul class="check-list">
+          {ownerRole.map((item) => <li>{item}</li>)}
+        </ul>
+        <p class="lede fit-outro">
+          The best results come when leadership is available, direct and willing to let the facts change the
+          plan.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    eyebrow="A quick gut check"
+    title="Does this sound like your business?"
+    lede="If your business is growing but the way it operates is becoming a constraint, start a conversation."
+    ctaLabel="See if Fractional CTO Services are a fit"
+    ctaHref="/start-a-conversation/"
+    tone="ink"
+  />
+</BaseLayout>
+
+<style>
+  .hero-extra {
+    margin-top: var(--space-4);
+  }
+
+  .fit-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: var(--space-7);
+  }
+
+  .fit-heading h2 {
+    margin-top: var(--space-3);
+    max-width: 18ch;
+  }
+
+  .fit-heading .lede {
+    margin-top: var(--space-4);
+  }
+
+  .fit-body {
+    max-width: 56ch;
+  }
+
+  .list-intro {
+    font-weight: 600;
+    margin-bottom: var(--space-4);
+  }
+
+  .check-list,
+  .dash-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .check-list li {
+    position: relative;
+    padding-left: 1.2rem;
+    color: var(--color-ink-2);
+    line-height: var(--leading-relaxed);
+  }
+
+  .check-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+    background: var(--color-petrol);
+  }
+
+  .dash-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    color: var(--color-on-panel-muted);
+    line-height: var(--leading-relaxed);
+  }
+
+  .scope-dash {
+    flex-shrink: 0;
+    width: 0.85rem;
+    height: 1.5px;
+    background: var(--color-on-panel-muted);
+    margin-top: 0.75rem;
+  }
+
+  .fit-outro {
+    margin-top: var(--space-5);
+  }
+
+  .section-heading {
+    max-width: 42rem;
+    margin-bottom: var(--space-7);
+  }
+
+  .section-heading h2 {
+    margin-top: var(--space-3);
+  }
+
+  .sector-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+
+  .sector-card {
+    padding: var(--space-6);
+    background: var(--color-paper-raised);
+    border: 1px solid var(--color-line);
+  }
+
+  :global(.sector-icon) {
+    width: 2rem;
+    height: 2rem;
+    color: var(--color-petrol);
+    margin-bottom: var(--space-4);
+  }
+
+  .sector-card h3 {
+    margin-bottom: var(--space-3);
+  }
+
+  .sector-card p {
+    color: var(--color-ink-2);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+  }
+
+  .sector-note {
+    margin-top: var(--space-7);
+    max-width: 62ch;
+  }
+
+  @media (max-width: 63.9375rem) {
+    .fit-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .sector-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .sector-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

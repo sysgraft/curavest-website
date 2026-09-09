@@ -1,0 +1,40 @@
+---
+// Small, consistent line-icon set drawn to match the brand mark's angular,
+// engineered character (square joins, no decorative rounding).
+const ICONS: Record<string, string> = {
+  diagnose: `<path d="M14 3a9 9 0 1 0 6.32 15.44L26 24" /><path d="M9.5 14h9M14 9.5v9" />`,
+  engineer: `<path d="M16 3v5M16 24v5M3 16h5M24 16h5M6.5 6.5l3.5 3.5M22 22l3.5 3.5M25.5 6.5 22 10M10 22l-3.5 3.5" /><circle cx="16" cy="16" r="6" />`,
+  prove: `<path d="M6 17l6 6L27 8" />`,
+  manufacturing: `<path d="M4 26V13l7 4v-4l7 4V9l7 4v13H4Z" /><path d="M4 26h24" />`,
+  construction: `<path d="M6 27V13l10-8 10 8v14" /><path d="M12 27V17h8v10" /><path d="M4 13h24" />`,
+  'fire-safety': `<path d="M16 4c-1 6-7 7-7 13a7 7 0 0 0 14 0c0-3-2-4-2-7-2 2-2 4-2 4-1-3 1-6-3-10Z" />`,
+  'tools-fixings': `<path d="M22.5 9.5a5 5 0 0 1-6.7 6.7L8 24l-3-3 7.8-7.8a5 5 0 0 1 6.7-6.7l-3.6 3.6 2 2 3.6-3.6Z" />`,
+  'product-dev': `<path d="M5 27 24 8" /><path d="M5 27h6l16-16-6-6L5 21v6Z" /><path d="M16.5 12.5l3 3" />`,
+  arrow: `<path d="M4 16h22" /><path d="M18 8l8 8-8 8" />`,
+  target: `<circle cx="16" cy="16" r="11" /><circle cx="16" cy="16" r="5.5" /><circle cx="16" cy="16" r="0.6" fill="currentColor" stroke="none" />`,
+  layers: `<path d="M16 4 4 11l12 7 12-7Z" /><path d="M4 17l12 7 12-7" /><path d="M4 23l12 7 12-7" />`,
+  route: `<circle cx="7" cy="8" r="3" /><circle cx="25" cy="24" r="3" /><path d="M7 11v6a4 4 0 0 0 4 4h10a4 4 0 0 1 4 4" />`,
+  check: `<path d="M6 17l6 6L27 8" />`,
+};
+
+interface Props {
+  name: keyof typeof ICONS | string;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+const path = ICONS[name] ?? '';
+---
+
+<svg
+  class={className}
+  viewBox="0 0 32 32"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  stroke-linecap="square"
+  stroke-linejoin="miter"
+  aria-hidden="true"
+  focusable="false"
+  set:html={path}
+/>

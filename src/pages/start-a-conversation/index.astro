@@ -1,0 +1,207 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import { breadcrumbSchema, faqSchema, contactPageSchema } from '../../lib/schema';
+import { FAQ_ITEMS } from '../../lib/faq';
+import { SITE } from '../../lib/site';
+
+const title = 'Contact Curavest | Start a Conversation';
+const description =
+  'Talk to Curavest about a bottleneck, growth constraint or technology decision affecting your UK operational business.';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Start a Conversation', path: '/start-a-conversation/' },
+];
+
+const situations = [
+  'A process is too slow.',
+  'Output is not increasing with demand.',
+  'A team is overloaded.',
+  'A customer or supplier relationship is under pressure.',
+  'Information is spread across too many places.',
+  'A technology decision is being delayed.',
+  'An opportunity is being missed because nobody has time to pursue it.',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/start-a-conversation/"
+  jsonLd={[breadcrumbSchema(crumbs), contactPageSchema(), faqSchema(FAQ_ITEMS.map((f) => ({ question: f.question, answer: f.answer })))]}
+>
+  <PageHero
+    eyebrow="Start a conversation"
+    title="Start with the problem, not a specification"
+    lede="You do not need to know whether you need a fractional CTO, a new system or an automation project."
+    breadcrumbs={crumbs}
+    size="compact"
+  >
+    <p class="list-intro">Tell us what is happening inside the business:</p>
+    <ul class="situation-list">
+      {situations.map((item) => <li>{item}</li>)}
+    </ul>
+    <p class="lede hero-extra">
+      The first conversation is about understanding the situation and deciding which Curavest service, if any,
+      can help.
+    </p>
+  </PageHero>
+
+  <section class="section">
+    <div class="container contact-grid">
+      <aside class="contact-side">
+        <h2>Contact Curavest</h2>
+        <ul class="contact-details">
+          <li>
+            <span class="contact-label">Email</span>
+            <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          </li>
+          <li>
+            <span class="contact-label">Landline</span>
+            <a href={`tel:${SITE.phoneLandline}`}>{SITE.phoneLandlineDisplay}</a>
+          </li>
+          <li>
+            <span class="contact-label">Mobile</span>
+            <a href={`tel:${SITE.phoneMobile}`}>{SITE.phoneMobileDisplay}</a>
+          </li>
+        </ul>
+
+        <hr class="hr contact-divider" />
+
+        <h3>A useful conversation can begin with an unfinished thought</h3>
+        <p class="lede">
+          You do not need to present the problem perfectly. A clear description of what is not working is
+          enough to begin.
+        </p>
+      </aside>
+
+      <div class="contact-form-wrap">
+        <h2>Tell us what is getting in the way</h2>
+        <ContactForm />
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-panel">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Common questions</p>
+        <h2>Frequently asked questions</h2>
+      </div>
+      <FaqAccordion items={FAQ_ITEMS} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .list-intro {
+    margin-top: var(--space-5);
+    font-weight: 600;
+  }
+
+  .situation-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: var(--space-4);
+    max-width: 48ch;
+  }
+
+  .situation-list li {
+    position: relative;
+    padding-left: 1.2rem;
+    color: var(--color-on-panel-muted);
+  }
+
+  .situation-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+    background: var(--color-petrol-bright);
+  }
+
+  .hero-extra {
+    margin-top: var(--space-5);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: var(--space-8);
+    align-items: start;
+  }
+
+  .contact-side h2 {
+    margin-bottom: var(--space-4);
+  }
+
+  .contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .contact-details li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .contact-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wider);
+    text-transform: uppercase;
+    color: var(--color-ink-3);
+  }
+
+  .contact-details a {
+    font-size: var(--text-md);
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--color-ink);
+  }
+
+  .contact-details a:hover {
+    color: var(--color-petrol);
+  }
+
+  .contact-divider {
+    margin-block: var(--space-6);
+  }
+
+  .contact-side h3 {
+    margin-bottom: var(--space-3);
+  }
+
+  .contact-form-wrap {
+    padding: var(--space-6);
+    background: var(--color-paper-raised);
+    border: 1px solid var(--color-line);
+  }
+
+  .contact-form-wrap h2 {
+    margin-bottom: var(--space-5);
+  }
+
+  .section-heading {
+    max-width: 42rem;
+    margin-bottom: var(--space-7);
+  }
+
+  .section-heading h2 {
+    margin-top: var(--space-3);
+  }
+
+  @media (max-width: 63.9375rem) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

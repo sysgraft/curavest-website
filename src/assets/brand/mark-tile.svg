@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-labelledby="curavestTileTitle">
+  <title id="curavestTileTitle">Curavest</title>
+  <rect width="100" height="100" fill="#12161A" />
+  <path d="M24 24 H60 L76 40 V76 H24 Z" fill="#F6F5F1" />
+  <path d="M60 24 L76 40" stroke="#14A89C" stroke-width="4.5" stroke-linecap="square" />
+</svg>

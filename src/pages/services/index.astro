@@ -1,0 +1,168 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import { breadcrumbSchema } from '../../lib/schema';
+
+const title = 'Our Services | Curavest';
+const description =
+  'Explore Curavest services for UK operational businesses, including fractional CTO support and related offerings focused on process improvement and practical technology use.';
+
+const starterQuestions = [
+  'Our quoting process is too slow.',
+  'Production cannot keep up with demand.',
+  'We know we should be using technology better, but we are not sure where to start.',
+  'We have grown, but the way we work has not kept pace.',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/services/"
+  jsonLd={[breadcrumbSchema([{ name: 'Home', path: '/' }, { name: 'Services', path: '/services/' }])]}
+>
+  <PageHero
+    eyebrow="Curavest services"
+    title="Complementary support for operational businesses"
+    lede="Curavest offers several services designed to help UK businesses improve processes, output and technology decisions."
+    breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Services', path: '/services/' }]}
+  >
+    <p class="lede hero-extra">
+      Each service starts with the actual work: how it moves through people, systems and equipment, and where
+      the real constraint sits.
+    </p>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <div class="service-grid">
+        <ServiceCard
+          index="01"
+          title="Curavest – Fractional CTO Services"
+          description="Part-time, embedded technology and process leadership for owners, MDs and boards."
+          points={[
+            'Diagnose operational and technology constraints.',
+            'Redesign processes and decide where technology belongs.',
+            'Oversee delivery until the improvement becomes normal practice.',
+          ]}
+          meta="Best suited to businesses with approximately £5m–£10m turnover in sectors such as manufacturing, construction supply, fire safety, tool and fixings supply, and outsourced product development."
+          ctaLabel="Learn more about Fractional CTO Services"
+          ctaHref="/services/fractional-cto/"
+        />
+        <ServiceCard
+          index="02"
+          title="Other Curavest services"
+          description="Curavest is developing additional services that complement the fractional CTO offer, focused on operational improvement and practical use of technology and AI."
+          meta="More detail will appear here as these services are finalised. If you are interested in discussing a specific problem now, we can use an initial conversation to identify which Curavest service is the best fit."
+          ctaLabel="Start a conversation"
+          ctaHref="/start-a-conversation/"
+        />
+        <ServiceCard
+          index="03"
+          title="Sysgraft (Curavest product)"
+          description="Sysgraft is an AI-integration product for wholesale and distribution businesses, built by Curavest."
+          meta="It helps these businesses use AI to review customer interactions, surface unmet needs and align their services more closely with what customers actually want."
+          ctaLabel="Visit Sysgraft"
+          ctaHref="https://sysgraft.com"
+          external
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">How to choose</p>
+        <h2>Not sure which service you need?</h2>
+        <p class="lede">Most conversations begin with the problem, not the service name.</p>
+      </div>
+
+      <p class="starter-intro">Typical starting points include:</p>
+      <div class="starter-grid">
+        {
+          starterQuestions.map((question) => (
+            <blockquote class="starter-quote">&ldquo;{question}&rdquo;</blockquote>
+          ))
+        }
+      </div>
+
+      <p class="lede starter-outro">
+        From there, we can identify whether the fractional CTO service, another Curavest offering or a
+        combination is most appropriate.
+      </p>
+
+      <a href="/start-a-conversation/" class="btn btn-primary starter-cta">Talk through your situation</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero-extra {
+    margin-top: var(--space-4);
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+    align-items: stretch;
+  }
+
+  .section-heading {
+    max-width: 42rem;
+    margin-bottom: var(--space-6);
+  }
+
+  .section-heading h2 {
+    margin-top: var(--space-3);
+  }
+
+  .section-heading .lede {
+    margin-top: var(--space-4);
+  }
+
+  .starter-intro {
+    font-weight: 600;
+    margin-bottom: var(--space-4);
+  }
+
+  .starter-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-4);
+  }
+
+  .starter-quote {
+    margin: 0;
+    padding: var(--space-5);
+    background: var(--color-paper-raised);
+    border-left: 3px solid var(--color-copper);
+    font-size: var(--text-md);
+    font-style: italic;
+    color: var(--color-ink);
+    line-height: var(--leading-relaxed);
+  }
+
+  .starter-outro {
+    margin-top: var(--space-6);
+    max-width: 56ch;
+  }
+
+  .starter-cta {
+    margin-top: var(--space-6);
+  }
+
+  @media (max-width: 63.9375rem) {
+    .service-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .starter-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

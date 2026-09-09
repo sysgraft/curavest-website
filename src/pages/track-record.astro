@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import CaseStudy from '../components/CaseStudy.astro';
+import ComparisonBar from '../components/ComparisonBar.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { breadcrumbSchema } from '../lib/schema';
+
+const title = 'Operational Improvement Case Studies | Curavest';
+const description =
+  'Examples of improving production, reducing delays, finding new revenue and solving operational bottlenecks in complex businesses.';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Track Record', path: '/track-record/' },
+];
+---
+
+<BaseLayout title={title} description={description} path="/track-record/" jsonLd={[breadcrumbSchema(crumbs)]}>
+  <PageHero
+    eyebrow="Track record"
+    title="The result has to appear in the work"
+    lede="The following examples are anonymised. They show the kind of problems solved inside operational businesses — from production constraints to missed growth opportunities."
+    breadcrumbs={crumbs}
+  >
+    <p class="lede hero-extra">
+      These results were achieved before the current fractional CTO service was formalised, but they
+      illustrate the underlying approach Curavest applies across its services.
+    </p>
+  </PageHero>
+
+  <section class="section case-studies">
+    <div class="container">
+      <CaseStudy index="01" title="Doubling output without additional investment" demonstrates="The ability to move from a visible operational problem to a practical fix that improves performance without automatically adding cost.">
+        <p>
+          An assembly department had become a bottleneck. The issue was putting pressure on the wider
+          business, but adding resources was not the immediate answer.
+        </p>
+        <p>
+          The department was diagnosed at the level of the actual work. The constraint was identified, the
+          process was changed and responsibility was taken for making the improvement work.
+        </p>
+        <p>Within six months, output had doubled with no additional investment.</p>
+        <ComparisonBar
+          label="Assembly department output"
+          fromLabel="Before"
+          fromValue={100}
+          toLabel="Within 6 months"
+          toValue={200}
+          unit="%"
+        />
+      </CaseStudy>
+
+      <CaseStudy index="02" title="From three customers to twenty-eight" demonstrates="Growth depends on the process behind the sale. Without a reliable path from customer need to delivery, additional demand can create more problems than value.">
+        <p>
+          A business needed more than a sales push. It needed a way to move consistently from winning work to
+          delivering it.
+        </p>
+        <p>
+          The sales-to-delivery process, product design, customer relationship management and reporting
+          mechanism were built from scratch.
+        </p>
+        <p>The business grew from three regular paying customers to twenty-eight in eighteen months.</p>
+        <ComparisonBar
+          label="Regular paying customers"
+          fromLabel="Start"
+          fromValue={3}
+          toLabel="18 months later"
+          toValue={28}
+        />
+      </CaseStudy>
+
+      <CaseStudy index="03" title="More than 50% above the documented machine maximum" demonstrates="Operational improvement often begins by testing an accepted limit rather than treating it as a fact.">
+        <p>
+          A production machine was operating within an accepted ceiling. The assumption was that the ceiling
+          represented a technical limit.
+        </p>
+        <p>
+          The machine was examined directly. The point of resistance was diagnosed by taking the equipment
+          apart, filming the operation in slow motion and working through the movement manually.
+        </p>
+        <p>
+          The result was output more than 50% above the documented machine maximum, while maintaining
+          higher-than-expected quality. A three-year production programme was delivered in eighteen months.
+        </p>
+        <ComparisonBar
+          label="Output vs. documented machine maximum"
+          fromLabel="Documented max"
+          fromValue={100}
+          toLabel="Achieved"
+          toValue={150}
+          unit="%"
+        />
+      </CaseStudy>
+
+      <CaseStudy index="04" title="Turning an overlooked safety problem into a new service" demonstrates="Close attention to how customers actually work can reveal a commercial opportunity they have not yet articulated.">
+        <p>
+          Site engineers were cutting and assembling support frames by hand at height. This created safety
+          risk and took time away from more valuable work.
+        </p>
+        <p>
+          Prefabricating the frames was proposed, despite initial pushback. Design software investment was
+          recommended before demand had fully materialised.
+        </p>
+        <p>
+          The resulting service grew to roughly a quarter of the company&rsquo;s turnover. Competitors later
+          followed the same direction.
+        </p>
+        <p class="stat-callout"><span class="stat-figure">~25%</span> of company turnover</p>
+      </CaseStudy>
+
+      <CaseStudy index="05" title="Reducing quote turnaround from hours to minutes" demonstrates="Automation is most effective after the process has been clarified and ownership has been established.">
+        <p>A construction supply business was taking between two and three hours to return some quotes.</p>
+        <p>
+          The delay was not caused by a lack of effort. Requests were sitting unmanaged in a shared inbox,
+          while responsibility was split between five or six people.
+        </p>
+        <p>
+          A new process gave one person ownership from beginning to end. A tool then generated most of the
+          quote automatically.
+        </p>
+        <p>Average turnaround fell to approximately fifteen minutes.</p>
+        <ComparisonBar
+          label="Average quote turnaround"
+          fromLabel="Before"
+          fromValue={150}
+          toLabel="After"
+          toValue={15}
+          unit=" min"
+        />
+      </CaseStudy>
+    </div>
+  </section>
+
+  <CtaBand
+    eyebrow="Every business is different"
+    title="Your problem will have its own shape"
+    lede="No case study is a substitute for understanding your business. If the examples above resemble the pressure you are facing, start a conversation about the specific constraint."
+    ctaLabel="Talk through your problem"
+    ctaHref="/start-a-conversation/"
+    tone="ink"
+  />
+</BaseLayout>
+
+<style>
+  .hero-extra {
+    margin-top: var(--space-4);
+  }
+
+  .case-studies :global(p) {
+    color: var(--color-ink-2);
+  }
+
+  .stat-callout {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    font-size: var(--text-sm);
+    color: var(--color-ink-3) !important;
+  }
+
+  .stat-callout .stat-figure {
+    font-size: var(--text-2xl);
+  }
+</style>

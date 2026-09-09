@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { breadcrumbSchema } from '../../lib/schema';
+import { SITE } from '../../lib/site';
+
+const title = 'Privacy Policy | Curavest';
+const description =
+  'How Curavest Ltd collects, uses and protects personal data submitted through curavest.co.uk, including the Start a Conversation contact form.';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Privacy Policy', path: '/privacy/' },
+];
+
+const lastUpdated = 'September 2026';
+---
+
+<BaseLayout title={title} description={description} path="/privacy/" noindex={false} jsonLd={[breadcrumbSchema(crumbs)]}>
+  <PageHero
+    eyebrow="Legal"
+    title="Privacy Policy"
+    lede={`Last updated: ${lastUpdated}`}
+    breadcrumbs={crumbs}
+    size="compact"
+  />
+
+  <section class="section">
+    <div class="container-narrow policy">
+      <p>
+        This policy explains how {SITE.legalName} ("Curavest", "we", "us") collects and uses personal data
+        when you visit curavest.co.uk or contact us through it. Curavest is the data controller for this
+        information.
+      </p>
+
+      <h2>Who we are</h2>
+      <p>
+        {SITE.legalName} is a United Kingdom business providing fractional CTO and related services to
+        operational businesses. You can contact us about this policy or any data protection query at
+        {' '}<a href={`mailto:${SITE.email}`} class="text-link">{SITE.email}</a>.
+      </p>
+
+      <h2>What we collect</h2>
+      <p>We collect personal data in the following ways:</p>
+      <ul>
+        <li>
+          <strong>When you use the "Start a Conversation" form:</strong> your name, business name, email
+          address, phone number (if provided), the content of your message, which service you are interested
+          in and how you would prefer to be contacted.
+        </li>
+        <li>
+          <strong>When you email or call us directly:</strong> whatever information you choose to share, such
+          as your name, contact details and the content of your enquiry.
+        </li>
+        <li>
+          <strong>Basic technical logs:</strong> our hosting and content delivery provider (Cloudflare)
+          automatically processes standard web server information, such as IP address and browser type, for
+          security and reliability purposes as part of delivering the site.
+        </li>
+      </ul>
+      <p>
+        This website does not use advertising or analytics cookies, and does not run any third-party tracking
+        scripts. No non-essential cookies are set.
+      </p>
+
+      <h2>How we use your data</h2>
+      <p>We use the personal data described above to:</p>
+      <ul>
+        <li>Respond to enquiries submitted through the contact form, by email or by phone.</li>
+        <li>Understand your business situation well enough to advise whether a Curavest service is a fit.</li>
+        <li>Maintain reasonable business records of enquiries and, where a working relationship begins,
+          correspondence relating to that engagement.</li>
+        <li>Meet our own legal, accounting and regulatory obligations.</li>
+      </ul>
+      <p>
+        We do not use your data for automated decision-making or profiling, and we do not sell or rent
+        personal data to third parties.
+      </p>
+
+      <h2>Our legal basis</h2>
+      <p>
+        We process contact form and enquiry data on the basis of our legitimate interest in responding to
+        enquiries about our services, and, where an engagement proceeds, to take steps towards entering into
+        or performing a contract with you or your business.
+      </p>
+
+      <h2>Who we share it with</h2>
+      <p>
+        We do not share your personal data with third parties for their own marketing purposes. Contact form
+        submissions are delivered to us using a transactional email provider acting solely as our data
+        processor to transmit the message; the site itself is hosted and delivered via Cloudflare. Both are
+        bound to process data only on our instructions and only for the purpose of operating this website.
+      </p>
+
+      <h2>How long we keep it</h2>
+      <p>
+        We keep enquiry data for as long as reasonably necessary to respond to it and to maintain a sensible
+        record of business contact, and delete or anonymise it when it is no longer needed for that purpose or
+        for any legal obligation we are subject to.
+      </p>
+
+      <h2>Your rights</h2>
+      <p>Under UK data protection law, you have the right to:</p>
+      <ul>
+        <li>Ask us for a copy of the personal data we hold about you.</li>
+        <li>Ask us to correct inaccurate or incomplete data.</li>
+        <li>Ask us to delete your data, or restrict or object to how we use it, in certain circumstances.</li>
+        <li>Ask for your data to be provided to you in a portable format, where relevant.</li>
+        <li>Withdraw consent at any time, where we are relying on consent.</li>
+      </ul>
+      <p>
+        To exercise any of these rights, email {' '}<a href={`mailto:${SITE.email}`} class="text-link">{SITE.email}</a>.
+        If you are unhappy with how we have handled your data, you also have the right to complain to the UK
+        Information Commissioner&rsquo;s Office (ICO) at
+        {' '}<a href="https://ico.org.uk" class="text-link" target="_blank" rel="noopener noreferrer">ico.org.uk</a>.
+      </p>
+
+      <h2>Changes to this policy</h2>
+      <p>
+        We may update this policy from time to time to reflect changes to the website or our data practices.
+        The date at the top of this page shows when it was last revised.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .policy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  .policy h2 {
+    margin-top: var(--space-4);
+  }
+
+  .policy p,
+  .policy li {
+    color: var(--color-ink-2);
+    line-height: var(--leading-relaxed);
+  }
+
+  .policy ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding-left: 1.3rem;
+  }
+
+  .policy li {
+    list-style: disc;
+  }
+</style>

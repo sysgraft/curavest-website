@@ -1,0 +1,214 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { breadcrumbSchema, organizationSchema, personSchema } from '../../lib/schema';
+
+const title = 'About Curavest | Fractional CTO and Related Services';
+const description =
+  'Curavest offers several complementary services for UK operational businesses, including fractional CTO support and AI-integration products such as Sysgraft.';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'About', path: '/about/' },
+];
+
+const approach = [
+  'Understand how work actually moves through the business.',
+  'Identify where time, money or opportunity is being lost.',
+  'Redesign the process and decide where technology belongs.',
+  'Prove the change in real conditions, not just in theory.',
+];
+
+const ctoWork = [
+  'Diagnosing operational and technology constraints.',
+  'Redesigning processes.',
+  'Deciding where technology and AI should be used.',
+  'Overseeing delivery until the improvement becomes normal practice.',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/about/"
+  jsonLd={[breadcrumbSchema(crumbs), organizationSchema(), personSchema()]}
+>
+  <PageHero
+    eyebrow="About Curavest"
+    title="Practical support for growing operational businesses"
+    lede="Curavest offers several complementary services to help UK operational businesses improve performance, make better technology decisions and use AI where it genuinely earns its place."
+    breadcrumbs={crumbs}
+  >
+    <p class="lede hero-extra">
+      Our best-known service is <strong>Curavest – Fractional CTO Services</strong>, but the company&rsquo;s
+      capabilities extend beyond this single offer.
+    </p>
+  </PageHero>
+
+  <section class="section">
+    <div class="container approach-grid">
+      <div class="approach-heading">
+        <p class="eyebrow">Our approach</p>
+        <h2>Start with the work, not the org chart</h2>
+      </div>
+      <div class="approach-body">
+        <p class="lede">Across all Curavest services, the approach is similar:</p>
+        <ul class="check-list">
+          {approach.map((item) => <li>{item}</li>)}
+        </ul>
+        <p class="lede approach-outro">
+          This discipline comes from experience inside operational businesses: on factory floors, in
+          customer-facing roles, running departments under pressure and building products and services from
+          scratch.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-panel">
+    <div class="container approach-grid">
+      <div class="approach-heading">
+        <p class="eyebrow">The fractional CTO service</p>
+        <h2>Part-time, embedded technology and process leadership</h2>
+      </div>
+      <div class="approach-body">
+        <p class="lede">
+          Curavest – Fractional CTO Services provide owners, MDs and boards with senior technology and process
+          judgement without requiring a full-time CTO appointment.
+        </p>
+        <p class="list-intro">The work includes:</p>
+        <ul class="check-list check-list-panel">
+          {ctoWork.map((item) => <li>{item}</li>)}
+        </ul>
+        <a href="/services/fractional-cto/" class="btn btn-outline approach-cta">Learn more about Fractional CTO Services</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Other Curavest capabilities</p>
+        <h2>Complementary capabilities</h2>
+      </div>
+      <div class="service-grid">
+        <ServiceCard
+          index="01"
+          title="Other Curavest services"
+          description="Curavest is developing additional services that complement the fractional CTO offer, focused on operational improvement and practical use of technology and AI."
+          meta="More detail on these services will appear here as they are finalised. If you are interested in discussing a specific problem now, we can use an initial conversation to identify which Curavest service is the best fit."
+          ctaLabel="Start a conversation"
+          ctaHref="/start-a-conversation/"
+        />
+        <ServiceCard
+          index="02"
+          title="Sysgraft"
+          description="AI integration for wholesale and distribution. Sysgraft is an AI-integration product for wholesale and distribution businesses, built by Curavest."
+          meta="It helps these businesses use AI to review customer interactions, surface unmet needs and align their services more closely with what customers actually want."
+          ctaLabel="Visit Sysgraft"
+          ctaHref="https://sysgraft.com"
+          external
+        />
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Talk about your situation, not just a service name"
+    lede="If you are unsure which Curavest service fits your needs, start with the problem you are trying to solve."
+    ctaLabel="Start a conversation"
+    ctaHref="/start-a-conversation/"
+    tone="petrol"
+  />
+</BaseLayout>
+
+<style>
+  .hero-extra {
+    margin-top: var(--space-4);
+  }
+
+  .approach-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: var(--space-7);
+  }
+
+  .approach-heading h2 {
+    margin-top: var(--space-3);
+    max-width: 18ch;
+  }
+
+  .approach-body {
+    max-width: 56ch;
+  }
+
+  .list-intro {
+    font-weight: 600;
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .check-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-top: var(--space-4);
+  }
+
+  .check-list li {
+    position: relative;
+    padding-left: 1.2rem;
+    color: var(--color-ink-2);
+    line-height: var(--leading-relaxed);
+  }
+
+  .check-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+    background: var(--color-petrol);
+  }
+
+  .check-list-panel li {
+    color: var(--color-on-panel-muted);
+  }
+
+  .approach-outro {
+    margin-top: var(--space-5);
+  }
+
+  .approach-cta {
+    margin-top: var(--space-6);
+  }
+
+  .section-heading {
+    max-width: 42rem;
+    margin-bottom: var(--space-7);
+  }
+
+  .section-heading h2 {
+    margin-top: var(--space-3);
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+    align-items: stretch;
+  }
+
+  @media (max-width: 63.9375rem) {
+    .approach-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .service-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

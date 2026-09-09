@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Page Not Found | Curavest';
+const description = 'The page you are looking for could not be found.';
+---
+
+<BaseLayout title={title} description={description} path="/404/" noindex>
+  <section class="section not-found">
+    <div class="container-narrow text-center">
+      <p class="eyebrow not-found-eyebrow">404</p>
+      <h1>That page has moved or doesn&rsquo;t exist</h1>
+      <p class="lede">
+        The page you were looking for isn&rsquo;t here. It may have moved, or the link may be out of date.
+      </p>
+      <div class="not-found-actions">
+        <a href="/" class="btn btn-primary">Back to home</a>
+        <a href="/start-a-conversation/" class="btn btn-outline">Start a conversation</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    padding-block: var(--space-9);
+  }
+
+  .not-found-eyebrow {
+    justify-content: center;
+    margin-bottom: var(--space-5);
+  }
+
+  .not-found h1 {
+    margin-bottom: var(--space-4);
+  }
+
+  .not-found .lede {
+    margin-inline: auto;
+    max-width: 44ch;
+  }
+
+  .not-found-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-top: var(--space-6);
+  }
+</style>

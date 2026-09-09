@@ -1,0 +1,386 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import Icon from '../../../components/Icon.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import { breadcrumbSchema, professionalServiceSchema } from '../../../lib/schema';
+
+const title = 'Fractional CTO Services | Curavest';
+const description =
+  'Curavest – Fractional CTO Services provide part-time, embedded technology and process leadership for UK operational businesses.';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Services', path: '/services/' },
+  { name: 'Fractional CTO Services', path: '/services/fractional-cto/' },
+];
+
+const included = [
+  'Operational and technology diagnosis.',
+  'Process mapping and redesign.',
+  'Technology strategy for growing businesses.',
+  'Prioritisation of technology investment.',
+  'Automation planning and implementation.',
+  'AI use-case assessment and practical integration.',
+  'Systems selection and integration.',
+  'Management information and reporting.',
+  'Oversight of external technology suppliers.',
+  'Delivery planning and change management.',
+  'Training and handover to internal teams.',
+  'Board-level advice on technology and operational risk.',
+];
+
+const notStartingPoints = [
+  'A preselected platform.',
+  'A generic transformation framework.',
+  'A requirement to introduce AI.',
+  'A recommendation to replace systems that are working.',
+  'A report that leaves implementation to an already overstretched team.',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/services/fractional-cto/"
+  jsonLd={[breadcrumbSchema(crumbs), professionalServiceSchema()]}
+>
+  <PageHero
+    eyebrow="Curavest – Fractional CTO Services"
+    title="A CTO for the operational problems behind the technology"
+    lede="A fractional CTO gives an owner or board access to senior technology and process judgement without committing to a full-time technology leadership hire."
+    breadcrumbs={crumbs}
+  >
+    <p class="lede hero-extra">
+      Within Curavest, this is one of several complementary services focused on helping operational businesses
+      improve performance and make better technology decisions.
+    </p>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <ol class="overview-list">
+        <li class="overview-item">
+          <p class="overview-index">01</p>
+          <div class="overview-copy">
+            <h2>Diagnose where the business is losing performance</h2>
+            <p class="lede">
+              The starting point may be a slow quoting process, inconsistent production, poor visibility,
+              duplicated administration or a team that has reached its limit.
+            </p>
+            <p>We trace the process from beginning to end to find:</p>
+            <ul class="check-list">
+              <li>Where work waits.</li>
+              <li>Where information is lost.</li>
+              <li>Where responsibility becomes unclear.</li>
+              <li>Where people compensate for a poor process manually.</li>
+              <li>Where a system is creating friction.</li>
+              <li>Where the stated problem is only a symptom.</li>
+            </ul>
+            <p>The outcome is a clear view of the constraint and the options for dealing with it.</p>
+          </div>
+        </li>
+
+        <li class="overview-item">
+          <p class="overview-index">02</p>
+          <div class="overview-copy">
+            <h2>Redesign the process</h2>
+            <p class="lede">The right fix may be operational rather than technical.</p>
+            <p>
+              A quote turnaround once taking two to three hours was reduced to an average of fifteen minutes by
+              addressing two issues: requests were unmanaged in a shared inbox, and ownership was divided
+              between several people.
+            </p>
+            <p>
+              A tool then automated most of the quote. But the tool alone was not the solution. Assigning one
+              person responsibility for the process from beginning to end was just as important.
+            </p>
+          </div>
+        </li>
+
+        <li class="overview-item">
+          <p class="overview-index">03</p>
+          <div class="overview-copy">
+            <h2>Decide whether technology belongs in the answer</h2>
+            <p class="lede">Technology is considered in the context of the process it is meant to improve.</p>
+            <p>That can include:</p>
+            <ul class="check-list">
+              <li>Automating repetitive work.</li>
+              <li>Improving the flow of information.</li>
+              <li>Connecting systems that currently operate separately.</li>
+              <li>Creating more reliable management reporting.</li>
+              <li>Using AI to review, classify or surface useful information.</li>
+              <li>Building a practical solution from several existing systems.</li>
+              <li>Selecting and implementing software where a new system is genuinely justified.</li>
+            </ul>
+            <p>
+              It can also mean deciding not to automate something because the cost, risk or complexity is
+              greater than the likely benefit.
+            </p>
+          </div>
+        </li>
+
+        <li class="overview-item">
+          <p class="overview-index">04</p>
+          <div class="overview-copy">
+            <h2>Oversee delivery instead of handing over a report</h2>
+            <p class="lede">Recommendations do not improve a business. Changes that people can use do.</p>
+            <p>
+              We stay involved while the fix is tested, adjusted and introduced into everyday work. The aim is
+              to make the change understandable, measurable and owned by the people who will continue running
+              it.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section on-panel">
+    <div class="container">
+      <div class="scope-grid">
+        <div class="scope-col">
+          <p class="eyebrow">What is included</p>
+          <h2>Fractional CTO support can include</h2>
+          <ul class="scope-list scope-list-yes">
+            {
+              included.map((item) => (
+                <li>
+                  <Icon name="prove" class="scope-icon" />
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="lede scope-note">
+            The precise work depends on the constraint. The service is shaped around the business rather than
+            a fixed package.
+          </p>
+        </div>
+
+        <div class="scope-col">
+          <p class="eyebrow">What is not included</p>
+          <h2>This is not technology for its own sake</h2>
+          <p class="lede">Curavest does not sell software as the solution to every problem.</p>
+          <p class="scope-lead-in">The work does not begin with:</p>
+          <ul class="scope-list scope-list-no">
+            {
+              notStartingPoints.map((item) => (
+                <li>
+                  <span class="scope-dash" aria-hidden="true"></span>
+                  <span>{item}</span>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="lede scope-note">
+            If the real issue is ownership, communication, layout, workflow or decision-making, that is where
+            the work should begin.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container relationship-grid">
+      <div>
+        <p class="eyebrow">Part of a broader set of capabilities</p>
+        <h2>Relationship to other Curavest services</h2>
+      </div>
+      <div class="relationship-copy">
+        <p class="lede">
+          The fractional CTO service sits alongside other Curavest offerings focused on operational
+          improvement and practical technology use.
+        </p>
+        <p>Depending on your situation, we may recommend:</p>
+        <ul class="check-list">
+          <li>The fractional CTO service as the primary engagement.</li>
+          <li>A more targeted project under another Curavest service.</li>
+          <li>A combination of both.</li>
+        </ul>
+        <p>We can explore this in an initial conversation.</p>
+        <a href="/services/" class="text-link relationship-cta">Explore all Curavest services →</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    eyebrow="Talk before you buy"
+    title="Talk through the problem before deciding what to buy"
+    lede="If a process is holding back growth, start with the process — not a software shortlist."
+    ctaLabel="Start a conversation about Fractional CTO Services"
+    ctaHref="/start-a-conversation/"
+    tone="petrol"
+  />
+</BaseLayout>
+
+<style>
+  .hero-extra {
+    margin-top: var(--space-4);
+  }
+
+  .overview-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .overview-item {
+    display: grid;
+    grid-template-columns: 6rem 1fr;
+    gap: var(--space-6);
+    padding-block: var(--space-8);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .overview-item:first-child {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .overview-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-lg);
+    color: var(--color-copper);
+  }
+
+  .overview-copy {
+    max-width: 62ch;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .overview-copy .lede {
+    font-size: var(--text-md);
+  }
+
+  .overview-copy p {
+    color: var(--color-ink-2);
+    line-height: var(--leading-relaxed);
+  }
+
+  .check-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .check-list li {
+    position: relative;
+    padding-left: 1.2rem;
+    color: var(--color-ink-2);
+    line-height: var(--leading-relaxed);
+  }
+
+  .check-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 6px;
+    height: 6px;
+    background: var(--color-petrol);
+  }
+
+  .scope-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+
+  .scope-col h2 {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .scope-lead-in {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-3);
+    color: var(--color-on-panel-muted);
+  }
+
+  .scope-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: var(--space-4);
+  }
+
+  .scope-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+  }
+
+  .scope-list-yes li {
+    color: var(--color-on-panel);
+  }
+
+  :global(.scope-icon) {
+    width: 1.1rem;
+    height: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+    color: var(--color-petrol-bright);
+  }
+
+  .scope-dash {
+    flex-shrink: 0;
+    width: 0.85rem;
+    height: 1.5px;
+    background: var(--color-on-panel-muted);
+    margin-top: 0.75rem;
+  }
+
+  .scope-list-no li {
+    color: var(--color-on-panel-muted);
+  }
+
+  .scope-note {
+    margin-top: var(--space-5);
+    font-size: var(--text-sm);
+  }
+
+  .relationship-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: var(--space-7);
+  }
+
+  .relationship-grid h2 {
+    margin-top: var(--space-3);
+    max-width: 18ch;
+  }
+
+  .relationship-copy {
+    max-width: 56ch;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .relationship-copy p {
+    color: var(--color-ink-2);
+    line-height: var(--leading-relaxed);
+  }
+
+  .relationship-cta {
+    font-weight: 600;
+    margin-top: var(--space-2);
+  }
+
+  @media (max-width: 63.9375rem) {
+    .overview-item {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+
+    .scope-grid,
+    .relationship-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

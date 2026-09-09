@@ -1,0 +1,304 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SchematicGraphic from '../components/SchematicGraphic.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import StatRow from '../components/StatRow.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { organizationSchema, websiteSchema, professionalServiceSchema } from '../lib/schema';
+
+const title = 'Curavest | Fractional CTO and Related Services for UK Businesses';
+const description =
+  'Curavest offers several complementary services for UK operational businesses. Explore our fractional CTO service and related offerings to improve processes and technology decisions.';
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/"
+  jsonLd={[organizationSchema(), websiteSchema(), professionalServiceSchema()]}
+>
+  <section class="home-hero on-panel">
+    <div class="grid-device" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+    <div class="container home-hero-inner">
+      <div class="home-hero-copy">
+        <p class="eyebrow">Curavest</p>
+        <h1>Practical support for growing operational businesses</h1>
+        <p class="lede">
+          Curavest offers several complementary services to help UK businesses fix broken processes, improve
+          output and make better technology decisions.
+        </p>
+        <p class="lede">
+          Our best-known service is <strong>Curavest – Fractional CTO Services</strong>: part-time, embedded
+          technology and process leadership for businesses that have outgrown the way they currently work.
+        </p>
+        <div class="home-hero-actions">
+          <a href="/services/fractional-cto/" class="btn btn-primary">Explore Fractional CTO Services</a>
+          <a href="/services/" class="btn btn-outline">View other Curavest services</a>
+        </div>
+      </div>
+      <div class="home-hero-graphic" aria-hidden="true">
+        <SchematicGraphic />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container intro-grid">
+      <div class="intro-heading">
+        <p class="eyebrow">Where Curavest fits</p>
+        <h2>The point where growth outpaces the way you work</h2>
+      </div>
+      <div class="intro-body">
+        <p class="lede">Many operational businesses reach a point where:</p>
+        <ul class="intro-list">
+          <li>Growth is being limited by internal constraints.</li>
+          <li>Processes no longer match the size of the business.</li>
+          <li>Technology decisions feel risky or unclear.</li>
+          <li>There is too much work for the current team, but not enough to justify a full-time senior hire.</li>
+        </ul>
+        <p class="lede">
+          Curavest provides experienced, practical support at that point — through fractional leadership,
+          targeted projects and focused products.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Our services</p>
+        <h2>Complementary support, built around one problem at a time</h2>
+      </div>
+      <div class="service-grid">
+        <ServiceCard
+          index="01"
+          title="Curavest – Fractional CTO Services"
+          description="Part-time, embedded technology and process leadership for owners, MDs and boards."
+          points={[
+            'Diagnose where the business is losing time, money or opportunity.',
+            'Redesign processes and decide where technology belongs.',
+            'Oversee delivery until the improvement becomes normal practice.',
+          ]}
+          ctaLabel="Learn more about Fractional CTO Services"
+          ctaHref="/services/fractional-cto/"
+        />
+        <ServiceCard
+          index="02"
+          title="Other Curavest services"
+          description="Curavest is developing additional services that complement the fractional CTO offer, focused on operational improvement and practical use of technology and AI."
+          meta="More detail on these services will appear here soon. In the meantime, you can learn more about the fractional CTO service or explore Sysgraft."
+          ctaLabel="View Sysgraft"
+          ctaHref="https://sysgraft.com"
+          external
+        />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container why-grid">
+      <div class="why-heading">
+        <p class="eyebrow">Why Curavest</p>
+        <h2>Built for businesses where the detail matters</h2>
+      </div>
+      <div class="why-body">
+        <p class="lede">Curavest works with companies where:</p>
+        <ul class="intro-list">
+          <li>Work moves through people, processes, equipment and systems.</li>
+          <li>A constraint in one area affects the whole business.</li>
+          <li>Practical judgement is more valuable than a generic framework.</li>
+        </ul>
+        <p class="lede">
+          Our approach starts with the actual work, not the org chart. That applies across all Curavest
+          services.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section on-panel proof-section">
+    <div class="container">
+      <div class="section-heading">
+        <p class="eyebrow">Proof snapshot</p>
+        <h2>From bottleneck to double the output</h2>
+      </div>
+      <div class="proof-body">
+        <p class="lede">
+          In one business, an assembly department had become a constraint. By diagnosing the real bottleneck
+          and changing the process, output was doubled within six months without additional investment.
+        </p>
+        <p class="lede">
+          In another, production output was increased to more than 50% above the documented machine maximum,
+          delivering a three-year programme in eighteen months at higher quality than expected.
+        </p>
+        <p class="lede">
+          These results came from process change first, with technology used only where it made the new
+          process work better.
+        </p>
+      </div>
+      <div class="proof-stats">
+        <StatRow
+          stats={[
+            { value: '2×', label: 'output within six months, no additional investment' },
+            { value: '50%+', label: 'above the documented machine maximum' },
+            { value: '18 mo', label: 'to deliver a three-year production programme' },
+          ]}
+        />
+      </div>
+      <p class="proof-link"><a href="/track-record/" class="text-link">See the full track record →</a></p>
+    </div>
+  </section>
+
+  <CtaBand
+    eyebrow="Start here"
+    title="Not sure which service fits your situation?"
+    lede="Start with a conversation about the problem you are trying to solve. We can then identify whether the fractional CTO service, another Curavest offering or a combination is most appropriate."
+    ctaLabel="Start a conversation"
+    ctaHref="/start-a-conversation/"
+    tone="petrol"
+  />
+</BaseLayout>
+
+<style>
+  .home-hero {
+    position: relative;
+    overflow: hidden;
+    padding-block: var(--space-8) var(--space-9);
+  }
+
+  .home-hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: var(--space-7);
+    align-items: center;
+  }
+
+  .home-hero-copy .eyebrow {
+    margin-bottom: var(--space-4);
+  }
+
+  .home-hero-copy h1 {
+    font-size: var(--text-5xl);
+    max-width: 16ch;
+  }
+
+  .home-hero-copy .lede {
+    margin-top: var(--space-5);
+    max-width: 46ch;
+    font-size: var(--text-md);
+  }
+
+  .home-hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .home-hero-graphic {
+    aspect-ratio: 1 / 1;
+  }
+
+  .intro-grid,
+  .why-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: var(--space-7);
+  }
+
+  .intro-heading h2,
+  .why-heading h2 {
+    margin-top: var(--space-3);
+    max-width: 16ch;
+  }
+
+  .intro-list,
+  .why-body .intro-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-block: var(--space-5);
+  }
+
+  .intro-list li {
+    position: relative;
+    padding-left: 1.3rem;
+    color: var(--color-ink-2);
+    line-height: var(--leading-relaxed);
+  }
+
+  .intro-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.6em;
+    width: 7px;
+    height: 7px;
+    background: var(--color-petrol);
+  }
+
+  .section-alt {
+    background: var(--color-paper-raised);
+    border-block: 1px solid var(--color-line);
+  }
+
+  .section-heading {
+    max-width: 44rem;
+    margin-bottom: var(--space-7);
+  }
+
+  .section-heading h2 {
+    margin-top: var(--space-3);
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-5);
+    align-items: stretch;
+  }
+
+  .proof-body {
+    max-width: 62rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .proof-stats {
+    margin-top: var(--space-7);
+  }
+
+  .proof-link {
+    margin-top: var(--space-6);
+  }
+
+  .proof-link a {
+    color: var(--color-petrol-bright);
+  }
+
+  @media (max-width: 63.9375rem) {
+    .home-hero-inner {
+      grid-template-columns: 1fr;
+    }
+
+    .home-hero-graphic {
+      display: none;
+    }
+
+    .intro-grid,
+    .why-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .service-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

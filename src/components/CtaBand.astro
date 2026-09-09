@@ -1,0 +1,107 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  lede?: string;
+  ctaLabel: string;
+  ctaHref: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  tone?: 'ink' | 'petrol';
+}
+
+const {
+  eyebrow,
+  title,
+  lede,
+  ctaLabel,
+  ctaHref,
+  secondaryLabel,
+  secondaryHref,
+  tone = 'ink',
+} = Astro.props;
+---
+
+<section class={`cta-band cta-${tone} on-panel`}>
+  <div class="container cta-inner">
+    <div class="cta-copy">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h2>{title}</h2>
+      {lede && <p class="lede">{lede}</p>}
+    </div>
+    <div class="cta-actions">
+      <a href={ctaHref} class="btn btn-primary">{ctaLabel}</a>
+      {secondaryLabel && secondaryHref && (
+        <a href={secondaryHref} class="btn btn-outline">{secondaryLabel}</a>
+      )}
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    padding-block: var(--space-8);
+  }
+
+  .cta-ink {
+    background: var(--color-panel);
+  }
+
+  .cta-petrol {
+    background: linear-gradient(155deg, var(--color-petrol-strong), var(--color-petrol) 70%);
+  }
+
+  /* On a petrol band, a petrol-filled primary button would disappear —
+     swap to a paper-filled button so it still reads as the primary action. */
+  .cta-petrol .btn-primary {
+    background: var(--color-paper);
+    border-color: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  .cta-petrol .btn-primary:hover {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .cta-petrol .btn-outline {
+    border-color: rgba(246, 245, 241, 0.55);
+  }
+
+  .cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .cta-copy {
+    max-width: 42rem;
+  }
+
+  .cta-copy h2 {
+    margin-top: var(--space-3);
+  }
+
+  .cta-copy .lede {
+    margin-top: var(--space-3);
+  }
+
+  .cta-actions {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    /* No flex-shrink: 0 here — these CTA labels are full sentences, and
+       this item must be free to shrink (then wrap its buttons) on narrow
+       viewports rather than overflowing the row. */
+    min-width: 0;
+  }
+
+  @media (max-width: 40rem) {
+    .cta-actions .btn {
+      flex: 1 1 auto;
+    }
+  }
+</style>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-labelledby="curavestMarkTitle">
+  <title id="curavestMarkTitle">Curavest</title>
+  <path d="M12 12 H62 L88 38 V88 H12 Z" fill="#12161A" />
+  <path d="M62 12 L88 38" stroke="#14A89C" stroke-width="5" stroke-linecap="square" />
+</svg>

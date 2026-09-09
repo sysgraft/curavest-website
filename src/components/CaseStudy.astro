@@ -1,0 +1,85 @@
+---
+interface Props {
+  index: string;
+  title: string;
+  demonstrates: string;
+}
+const { index, title, demonstrates } = Astro.props;
+---
+
+<article class="case-study">
+  <div class="case-study-header">
+    <p class="case-index">{index}</p>
+    <h2>{title}</h2>
+  </div>
+  <div class="case-study-body">
+    <div class="case-study-copy">
+      <slot />
+    </div>
+    <aside class="case-study-demonstrates">
+      <p class="eyebrow">What this demonstrates</p>
+      <p>{demonstrates}</p>
+    </aside>
+  </div>
+</article>
+
+<style>
+  .case-study {
+    padding-block: var(--space-8);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .case-study:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .case-study-header {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+  }
+
+  .case-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    color: var(--color-copper);
+    flex-shrink: 0;
+  }
+
+  .case-study-body {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: var(--space-7);
+    align-items: start;
+  }
+
+  .case-study-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    color: var(--color-ink-2);
+    line-height: var(--leading-relaxed);
+    max-width: 62ch;
+  }
+
+  .case-study-demonstrates {
+    padding: var(--space-5);
+    background: var(--color-paper-raised);
+    border-left: 3px solid var(--color-petrol);
+  }
+
+  .case-study-demonstrates p:not(.eyebrow) {
+    margin-top: var(--space-3);
+    font-size: var(--text-sm);
+    line-height: var(--leading-relaxed);
+    color: var(--color-ink);
+  }
+
+  @media (max-width: 56.25rem) {
+    .case-study-body {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
