@@ -1,13 +1,14 @@
-@import '@fontsource/ibm-plex-sans/latin-400.css';
-@import '@fontsource/ibm-plex-sans/latin-500.css';
-@import '@fontsource/ibm-plex-sans/latin-600.css';
-@import '@fontsource/ibm-plex-sans/latin-700.css';
-@import '@fontsource/ibm-plex-sans/latin-ext-400.css';
-@import '@fontsource/ibm-plex-sans/latin-ext-500.css';
-@import '@fontsource/ibm-plex-sans/latin-ext-600.css';
-@import '@fontsource/ibm-plex-sans/latin-ext-700.css';
-@import '@fontsource/ibm-plex-mono/latin-500.css';
-@import '@fontsource/ibm-plex-mono/latin-600.css';
+/* Inter — per brand guidelines (Section 2, Typography). Self-hosted via
+   fontsource rather than the Google Fonts runtime the guidelines name, so
+   there's no third-party request at runtime; the visual result is identical. */
+@import '@fontsource/inter/latin-400.css';
+@import '@fontsource/inter/latin-500.css';
+@import '@fontsource/inter/latin-600.css';
+@import '@fontsource/inter/latin-700.css';
+@import '@fontsource/inter/latin-ext-400.css';
+@import '@fontsource/inter/latin-ext-500.css';
+@import '@fontsource/inter/latin-ext-600.css';
+@import '@fontsource/inter/latin-ext-700.css';
 @import './tokens.css';
 
 /* ---------------------------------------------------------------- */
@@ -136,6 +137,7 @@ p {
   font-size: var(--text-md);
   line-height: var(--leading-relaxed);
   color: var(--color-ink-2);
+  max-width: 62ch;
 }
 
 .on-panel .lede {
@@ -348,12 +350,14 @@ a.text-link:hover {
 .btn-primary {
   background: var(--color-petrol);
   border-color: var(--color-petrol);
-  color: var(--color-paper);
+  color: #ffffff;
 }
 
 .btn-primary:hover {
   background: var(--color-petrol-strong);
   border-color: var(--color-petrol-strong);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px -6px rgba(0, 86, 179, 0.45);
 }
 
 .btn-ink {
@@ -367,24 +371,25 @@ a.text-link:hover {
   border-color: #000;
 }
 
+/* Secondary Action per guidelines: transparent + Blue border, hover fills Blue. */
 .btn-outline {
   background: transparent;
-  border-color: var(--color-ink);
-  color: var(--color-ink);
+  border-color: var(--color-petrol);
+  color: var(--color-petrol);
 }
 
 .btn-outline:hover {
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--color-petrol);
+  color: #ffffff;
 }
 
 .on-panel .btn-outline {
-  border-color: var(--color-on-panel);
-  color: var(--color-on-panel);
+  border-color: var(--color-petrol-bright);
+  color: var(--color-petrol-bright);
 }
 
 .on-panel .btn-outline:hover {
-  background: var(--color-on-panel);
+  background: var(--color-petrol-bright);
   color: var(--color-ink);
 }
 

@@ -24,11 +24,14 @@ const { title, description, path, image, noindex, jsonLd = [], bodyClass } = Ast
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <Seo title={title} description={description} path={path} image={image} noindex={noindex} jsonLd={jsonLd} />
 
-    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
     <link rel="icon" type="image/svg+xml" href="/icons/mark.svg" />
-    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
+    <link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#007DFE" />
     <link rel="manifest" href="/site.webmanifest" />
-    <meta name="theme-color" content="#12161a" />
+    <meta name="theme-color" content="#1E2228" />
     <meta name="generator" content={Astro.generator} />
   </head>
   <body class={bodyClass}>

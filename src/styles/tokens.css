@@ -1,34 +1,46 @@
 /*
-  Curavest design tokens.
-  Direction: industrial / engineering credibility over "SaaS" polish.
-  Grid-based structure, high-contrast ink-on-paper, a single cool accent
-  (petrol) for interaction and a single warm accent (copper) reserved
-  strictly for proof-point numerals and small signal marks.
+  Curavest design tokens — implements Curavest Ltd. Brand Guidelines &
+  Digital Playbook v1.0 (Siemens Digital Industries inspiration) directly.
+
+  Palette (guidelines §2, Color Palette):
+    Primary Blue #0056b3 · Secondary Dark #2c2c2c · Light BG #f8f9fa ·
+    Accent BG #eef4fb.
+  The logo file itself keeps its own traced brand blue (#007DFE) — that's
+  a fact about the artwork, not a site colour — everything else uses the
+  guidelines' Primary Blue, which the guidelines rank above brand assets
+  in the source-of-truth order.
+
+  --color-petrol* below is Primary Blue. --color-copper* is intentionally
+  mapped to neutral ink rather than a second hue — the guidelines specify
+  exactly two brand colours; proof-point numerals and eyebrows get
+  emphasis from weight/uppercase treatment, not an invented accent.
 */
 
 :root {
   /* ---- Colour: neutrals ---- */
-  --color-paper: #f6f5f1;       /* primary page background — warm off-white */
-  --color-paper-raised: #ffffff; /* card / raised surface on paper */
-  --color-ink: #12161a;          /* primary text, headings, dark sections */
-  --color-ink-2: #383f45;        /* secondary text on light */
-  --color-ink-3: #676f76;        /* tertiary / muted text, captions */
-  --color-line: #dcd8cd;         /* hairline border on paper */
-  --color-line-strong: #c3beb0;  /* stronger hairline / input borders */
+  --color-paper: #ffffff;        /* primary page background */
+  --color-paper-raised: #f8f9fa; /* "Light BG" — alternating section backgrounds */
+  --color-accent-bg: #eef4fb;    /* "Accent BG" — subtle highlight / info panels */
+  --color-ink: #2c2c2c;          /* "Secondary Dark" — headings, heavy text */
+  --color-ink-2: #4a4a4a;        /* secondary text on light */
+  --color-ink-3: #5c5c5c;        /* tertiary / muted text, captions — kept AA-safe (4.5:1+) on paper-raised */
+  --color-line: #e3e3e3;         /* hairline border on paper */
+  --color-line-strong: #cacaca;  /* stronger hairline / input borders */
 
   /* ---- Colour: dark surfaces ---- */
-  --color-panel: #12161a;        /* dark section background */
-  --color-panel-raised: #1b2126; /* raised surface on dark */
-  --color-on-panel: #f6f5f1;     /* text on dark */
-  --color-on-panel-muted: #a9afb4;
-  --color-line-on-panel: rgba(246, 245, 241, 0.14);
+  --color-panel: #2c2c2c;        /* "Secondary Dark" — also used for hero/footer backgrounds */
+  --color-panel-raised: #3a3a3a; /* raised surface on dark */
+  --color-on-panel: #ffffff;     /* text on dark */
+  --color-on-panel-muted: #b3b3b3;
+  --color-line-on-panel: rgba(255, 255, 255, 0.14);
 
   /* ---- Colour: accents ---- */
-  --color-petrol: #0b5e59;       /* primary accent — links, CTA, focus */
-  --color-petrol-strong: #08423f;
-  --color-petrol-bright: #14a89c; /* accent on dark surfaces */
-  --color-copper: #a8501e;       /* signal accent — stats & eyebrows only */
-  --color-copper-bright: #d97a3f;
+  --color-petrol: #0056b3;       /* "Primary Blue" — buttons, links, accents, active states */
+  --color-petrol-strong: #00408a; /* hover / darker, per guidelines button spec */
+  --color-petrol-bright: #5b9bd9; /* Primary Blue, lightened for AA contrast on Secondary Dark */
+  --color-brand-blue: #007dfe;    /* exact logo-file blue — the mark only, nothing else */
+  --color-copper: var(--color-ink);        /* stat/eyebrow accent: neutral, not a second hue */
+  --color-copper-bright: var(--color-on-panel);
 
   /* ---- Colour: feedback ---- */
   --color-success: #276b3f;
@@ -37,29 +49,33 @@
   --color-error-bg: #fbeceb;
 
   /* ---- Typography ---- */
-  --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  /* Inter, per guidelines §2 — self-hosted (see global.css) rather than
+     loaded from Google Fonts at runtime, same visual result. */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  --font-mono: var(--font-sans); /* guidelines specify one family, Inter, throughout */
 
   --text-xs: 0.8125rem;    /* 13px */
   --text-sm: 0.9375rem;    /* 15px */
   --text-base: 1.0625rem;  /* 17px */
   --text-md: 1.1875rem;    /* 19px */
-  --text-lg: clamp(1.3rem, 1.2rem + 0.5vw, 1.5rem);
-  --text-xl: clamp(1.5rem, 1.3rem + 1vw, 1.875rem);
-  --text-2xl: clamp(1.8rem, 1.5rem + 1.6vw, 2.375rem);
-  --text-3xl: clamp(2.1rem, 1.7rem + 2.2vw, 2.9rem);
-  --text-4xl: clamp(2.5rem, 1.9rem + 3.2vw, 4rem);
-  --text-5xl: clamp(3rem, 2.1rem + 4.8vw, 5.25rem);
+  --text-lg: clamp(1.25rem, 1.17rem + 0.4vw, 1.4rem);
+  --text-xl: clamp(1.4rem, 1.25rem + 0.75vw, 1.7rem);
+  --text-2xl: clamp(1.6rem, 1.4rem + 1vw, 2rem);
+  /* Dialled back from an earlier, oversized scale — restrained, Siemens-style
+     headline sizing where weight and grid do the work, not raw type size. */
+  --text-3xl: clamp(1.9rem, 1.6rem + 1.6vw, 2.5rem);
+  --text-4xl: clamp(2.1rem, 1.75rem + 2vw, 2.9rem);
+  --text-5xl: clamp(2.35rem, 1.9rem + 2.6vw, 3.5rem);
 
   --leading-tight: 1.12;
   --leading-snug: 1.3;
   --leading-normal: 1.55;
   --leading-relaxed: 1.7;
 
-  --tracking-tight: -0.01em;
+  --tracking-tight: -0.02em;   /* headings — guidelines: "Tight tracking (-0.02em)" */
   --tracking-normal: 0;
-  --tracking-wide: 0.04em;
-  --tracking-wider: 0.09em;
+  --tracking-wide: 0.5px;      /* buttons / uppercase labels — guidelines: "letter-spacing (0.5px)" */
+  --tracking-wider: 0.5px;
 
   /* ---- Spacing (8px base grid) ---- */
   --space-1: 0.25rem;   /* 4  */
@@ -81,13 +97,13 @@
   --container-pad: clamp(1.25rem, 1rem + 2vw, 2.5rem);
   --grid-gap: clamp(1.25rem, 1rem + 1vw, 2rem);
 
-  /* ---- Radius: sharp, engineered — not a "rounded SaaS card" system ---- */
-  --radius-sm: 2px;
-  --radius-md: 3px;
+  /* ---- Radius: 0px per guidelines §"Buttons" — "Sharp corners for an industrial feel" ---- */
+  --radius-sm: 0px;
+  --radius-md: 0px;
 
   /* ---- Elevation: hairlines preferred; shadow used sparingly ---- */
-  --shadow-card: 0 1px 2px rgba(18, 22, 26, 0.06), 0 12px 28px -18px rgba(18, 22, 26, 0.22);
-  --shadow-pop: 0 20px 45px -20px rgba(18, 22, 26, 0.35);
+  --shadow-card: 0 1px 2px rgba(44, 44, 44, 0.06), 0 12px 28px -18px rgba(44, 44, 44, 0.22);
+  --shadow-pop: 0 20px 45px -20px rgba(44, 44, 44, 0.35);
 
   /* ---- Motion ---- */
   --ease-standard: cubic-bezier(0.2, 0.6, 0.2, 1);

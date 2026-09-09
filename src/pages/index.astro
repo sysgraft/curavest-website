@@ -201,6 +201,21 @@ const description =
     margin-top: var(--space-6);
   }
 
+  /* Hero Banner component per guidelines: "CTA: White button with dark
+     text (high contrast reverse)" — overrides the default blue primary
+     button specifically within this dark, full-bleed hero context. */
+  :global(.home-hero .btn-primary) {
+    background: #ffffff;
+    border-color: #ffffff;
+    color: var(--color-ink);
+  }
+
+  :global(.home-hero .btn-primary:hover) {
+    background: var(--color-paper-raised);
+    border-color: var(--color-paper-raised);
+    box-shadow: 0 6px 14px -6px rgba(0, 0, 0, 0.35);
+  }
+
   .home-hero-graphic {
     aspect-ratio: 1 / 1;
   }

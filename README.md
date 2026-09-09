@@ -97,17 +97,39 @@ function needs the variables above, and only once you want it to actually send e
 
 ## Design system
 
+Implements **Curavest Ltd. Brand Guidelines & Digital Playbook v1.0** directly — this is not an inferred
+or invented system.
+
 - **Colour, type and spacing tokens:** `src/styles/tokens.css`.
-- **Palette:** near-black ink (`--color-ink`) and warm paper (`--color-paper`) for high contrast, a single
-  cool accent (`--color-petrol`) for interaction (links, primary CTAs, focus), and a warm accent
-  (`--color-copper`) reserved for proof-point numerals and small eyebrow labels — kept deliberately narrow
-  so the accent stays meaningful rather than decorative.
-- **Type:** IBM Plex Sans for headings/body, IBM Plex Mono for eyebrows, stat figures and index numbers —
-  a nod to the technical/engineering positioning without resorting to a "generic SaaS" look.
-- No stock photography is used. The site's visual system is built from original SVG diagrams (the
-  schematic/circuit-style hero graphic, the Diagnose·Engineer·Prove stage diagram, sector icons) drawn to
-  match the brand mark's angular, engineered character. This was a deliberate choice, not a placeholder —
-  see "Notes for future maintainers" below.
+- **Palette:** Primary Blue `#0056b3`, Secondary Dark `#2c2c2c`, Light BG `#f8f9fa`, Accent BG `#eef4fb`,
+  per the guidelines' colour table. The logo file itself keeps its own traced brand blue (`#007DFE`, from
+  `Curavest-Logo-Pack`) — that's a fact about the artwork, not a site colour — every other blue on the site
+  is the guidelines' Primary Blue. `--color-petrol-strong`/`--color-petrol-bright` are AA-contrast-safe
+  variants of Primary Blue for hover states and use on the dark Secondary Dark background respectively.
+- **Type:** Inter throughout (guidelines §2), self-hosted via `@fontsource/inter` rather than loaded from
+  Google Fonts at runtime — same visual result, no third-party font request. Headings are bold with tight
+  tracking (-0.02em); buttons/uppercase labels are semi-bold with 0.5px letter-spacing — both exact values
+  from the guidelines.
+- **Shape:** 0px border-radius everywhere (`--radius-sm`/`--radius-md`) — guidelines: "Sharp corners for an
+  industrial feel."
+- **Buttons:** Primary = solid Primary Blue with white text, hover darkens + lifts. Secondary = transparent
+  with a Primary Blue border, hover fills Primary Blue. The homepage hero specifically reverses this
+  (`.home-hero .btn-primary`) to a white button with dark text, per the guidelines' Hero Banner component
+  spec ("CTA: White button with dark text (high contrast reverse)").
+- **Logo:** the real `Curavest-Logo-Pack` SVGs, referenced from `public/brand/` via `src/components/Logo.astro`
+  (colour wordmark on light backgrounds, white wordmark on the dark header/footer/hero). Favicons, the
+  webmanifest, and the Safari pinned-tab mask icon all come from the same pack (`public/icons/`,
+  `public/favicon.ico`, `public/site.webmanifest`). The full original pack is archived at
+  `src/assets/brand/logo-pack/` for reference.
+- **Imagery:** the guidelines call for high-contrast, unfiltered industrial photography (factories,
+  warehouses, blueprints — explicitly not stock "handshake" photos). This build's sandbox has no network
+  access to stock-photo CDNs, so real photography could not be sourced or verified as appropriately licensed
+  here regardless — and generic stock wouldn't match the guidelines' intent even if it were reachable. The
+  site currently uses an original SVG diagram system in its place (the schematic hero graphic, the
+  Diagnose·Engineer·Prove stage diagram, sector icons). Swapping in real photography of the business, its
+  work, or its sectors — once available — is the one guideline requirement not yet implemented; the
+  guidelines' "Industry Grid" card component (`docs` §3) is specified with a top-half image slot ready for
+  it.
 
 ## Accessibility & SEO
 
@@ -132,22 +154,14 @@ function needs the variables above, and only once you want it to actually send e
 
 ## Notes for future maintainers
 
-- **No stock photography:** the sandbox this site was built in had no network access to stock-photo CDNs,
-  so the site leans entirely on an original SVG/diagram visual language instead of photography. This reads
-  as intentional and fits the "industrial/engineering" brand direction well, but if real photography of the
-  business, its founder, or client work becomes available later, there's room to introduce it — particularly
-  a genuine photo for the About page and Open Graph image — without changing the underlying design system.
-- **Supplied brand guidelines file was unusable:** the "Brand Guidelines and Playbook.html" project document
-  turned out to be an incomplete browser-saved export of a chat session (an `<iframe>` pointing at a sibling
-  `_files/` folder that was never included), not the guidelines document itself. What survived in the visible
-  transcript was a clear late-stage direction to model the visual language on **Siemens.com** — industrial,
-  grid-based, high-contrast. The colour palette, typography and component system here were built from that
-  direction plus general brand-design judgement, not copied from a spec. If a real brand guidelines document
-  surfaces later, the design tokens in `src/styles/tokens.css` are the single place to reconcile it against.
-- **No logo files were usable** for the same reason (only filenames of a logo pack were visible in the
-  transcript, no actual image data). The current mark (a chamfered square with a petrol accent cut, in
-  `src/assets/brand/mark.svg`) is original and was designed to be simple enough to read at favicon size. If
-  a real logo arrives, replace `src/components/Logo.astro` and the icon set in `scripts/gen-icons.mjs`.
+- **Real photography is the one open item.** See "Imagery" above — this sandbox cannot reach stock-photo
+  CDNs, and generic stock wouldn't match the guidelines' brief anyway ("unfiltered images of industrial
+  environments... avoid stock 'handshake' photos"). Drop real photos into `src/assets/` and wire them into
+  the guidelines' "Industry Grid" card component and the homepage/hero when available.
+- **The guidelines' component patterns not yet fully built out:** the Digital Playbook (§3) specifies an
+  "Industry Grid" card (3-column, top-half image, 4px Primary Blue accent bar, uppercase title, "Read More"
+  link with arrow) for sector/service listings. The accent-bar/uppercase/typography parts of this are
+  implementable now; the image half is blocked on real photography per above.
 - **Legal name / structured data:** `Curavest Ltd` and `Euan Pallister` are used in `Organization`/`Person`
   schema and the footer/legal copy, based on the supplied contact details and SEO implementation notes. No
   company registration details were supplied, so none are shown.
