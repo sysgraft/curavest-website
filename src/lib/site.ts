@@ -18,6 +18,24 @@ export const SITE = {
   sysgraftUrl: 'https://sysgraft.com',
 } as const;
 
+// Contact form backend — a Supabase Edge Function (supabase/functions/
+// curavest-contact-form/), called directly from the browser since this site
+// is fully static. See that function's file header and README.md "Contact
+// form setup" for what still needs configuring before it can send mail.
+//
+// SUPABASE_ANON_KEY is the project's public "anon" key — safe to ship in
+// client-side code by design (this is what every browser-based Supabase
+// app does; it is not the secret service-role key, which stays inside the
+// Edge Function itself). It authenticates the request as coming from a
+// Supabase client, not an individual visitor; the function does its own
+// field validation and honeypot check regardless.
+export const CONTACT_FORM = {
+  supabaseUrl: 'https://aoadptvrfuietytyfccp.supabase.co',
+  functionUrl: 'https://aoadptvrfuietytyfccp.supabase.co/functions/v1/curavest-contact-form',
+  anonKey:
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFvYWRwdHZyZnVpZXR5dHlmY2NwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA1NTI3MzUsImV4cCI6MjA5NjEyODczNX0.OoZEukewzkazw9KQrOR9sUTD8TrS90VgCCwlVOscxNw',
+} as const;
+
 export type NavChild = {
   label: string;
   href: string;

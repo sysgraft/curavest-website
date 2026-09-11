@@ -3,7 +3,7 @@ main = "worker/index.ts"
 compatibility_date = "2026-01-01"
 
 # Static site output — see astro.config.mjs. Served directly by the ASSETS
-# binding for every request the Worker doesn't handle itself.
+# binding for every request the Worker handles (see worker/index.ts).
 [assets]
 directory = "./dist"
 binding = "ASSETS"
@@ -14,9 +14,7 @@ binding = "ASSETS"
 # path, which for this single-level site is always the one at the root.
 not_found_handling = "404-page"
 
-# Runtime environment variables / secrets for the /api/contact handler
-# (worker/index.ts) are configured in the Cloudflare dashboard — Workers &
-# Pages → curavest-website → Settings → Variables and Secrets, under
-# "Runtime" (not "Build") — not in this file:
-#   RESEND_API_KEY, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL
-# See README.md for full setup instructions.
+# No runtime environment variables or secrets are needed here — the Worker
+# is a pure static-asset server. The contact form's backend is a Supabase
+# Edge Function (supabase/functions/curavest-contact-form/), configured
+# separately in the Supabase dashboard. See README.md "Contact form setup".

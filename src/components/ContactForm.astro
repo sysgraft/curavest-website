@@ -1,4 +1,6 @@
 ---
+import { CONTACT_FORM } from '../lib/site';
+
 const SERVICE_OPTIONS = [
   { value: 'fractional-cto', label: 'Fractional CTO Services' },
   { value: 'ai-integration', label: 'AI Integration Services' },
@@ -14,7 +16,14 @@ const CONTACT_PREFERENCE_OPTIONS = [
 ];
 ---
 
-<form class="contact-form" data-contact-form action="/api/contact" method="post" novalidate>
+<form
+  class="contact-form"
+  data-contact-form
+  action={CONTACT_FORM.functionUrl}
+  data-anon-key={CONTACT_FORM.anonKey}
+  method="post"
+  novalidate
+>
   <div class="form-grid">
     <div class="field">
       <label for="name">Name</label>
@@ -246,9 +255,15 @@ const CONTACT_PREFERENCE_OPTIONS = [
       hideStatus();
 
       try {
+        const anonKey = form.dataset.anonKey || '';
         const response = await fetch(form.action, {
           method: 'POST',
-          headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            apikey: anonKey,
+            Authorization: `Bearer ${anonKey}`,
+          },
           body: JSON.stringify(Object.fromEntries(new FormData(form).entries())),
         });
 

@@ -8,14 +8,16 @@ fractional CTO and related services.
 - **[Astro](https://astro.build)** (static output) — content-first, ships zero client JS by default,
   first-class support for the multi-page, mostly-static structure this site needs.
 - Hand-written CSS with design tokens (`src/styles/tokens.css`) — no CSS framework. Fonts are
-  [IBM Plex Sans / IBM Plex Mono](https://fontsource.org), self-hosted via `@fontsource/*` (no third-party
-  font requests at runtime).
+  [Inter](https://fontsource.org/fonts/inter), self-hosted via `@fontsource/inter` (no third-party font
+  requests at runtime), per the brand guidelines.
 - A small amount of vanilla TypeScript for the header's mobile menu / dropdown and the contact form's
   progressive enhancement (client-side validation + fetch submission). Both degrade gracefully without JS.
 - **Cloudflare Workers (with static assets)** for hosting — a single Worker (`worker/index.ts`) serves the
-  prebuilt `dist/` output for every route and handles one API route itself, `/api/contact`, for the contact
-  form's server-side send. Everything else is prebuilt static HTML/CSS/assets, so this is effectively a
-  static site with one small serverless endpoint, not a server-rendered app.
+  prebuilt `dist/` output for every route. It has no API routes of its own; this is a fully static site.
+- **[Supabase](https://supabase.com) Edge Function** (`supabase/functions/curavest-contact-form/`) as the
+  contact form's backend — called directly from the browser, independent of the Worker/hosting above. It
+  records every submission in Postgres and emails a notification via [Resend](https://resend.com). See
+  "Contact form setup" below.
 
 ## Project structure
 
@@ -30,8 +32,10 @@ src/
 public/
   icons/, favicon.ico, site.webmanifest   Generated favicon/app-icon set
   images/og/default.png                   Default social share image
+  brand/email/curavest-logo.png           Logo used in the contact-form email templates (absolute URL)
   _headers                                Security headers, applied to the Worker's static-asset responses
-worker/index.ts   Cloudflare Worker entry point — serves dist/ via the ASSETS binding, plus /api/contact
+worker/index.ts   Cloudflare Worker entry point — pure static-asset server (see [assets] in wrangler.toml)
+supabase/functions/curavest-contact-form/   Contact form backend (Edge Function) — see "Contact form setup"
 scripts/          Build-time tooling (icon/OG generation, link + a11y QA) — not shipped
 ```
 
@@ -63,28 +67,55 @@ Node 20+ is recommended.
 
 ## Contact form setup (required before the form can send mail)
 
-The "Start a Conversation" form posts to `/api/contact`, handled directly by the Worker
-(`worker/index.ts`) — everything else in that file just proxies to the static assets. It validates input
-server-side and sends the message via [Resend](https://resend.com). **This repository intentionally
-contains no credentials** — until it's configured, the endpoint responds with a clear, honest 503 and the
-form's UI tells the visitor to email directly instead. It never silently pretends to succeed.
+The "Start a Conversation" form (`src/components/ContactForm.astro`) posts directly from the browser to a
+**Supabase Edge Function**, `curavest-contact-form` — independent of the Cloudflare Worker/hosting above.
+Project: `aoadptvrfuietytyfccp` ("euan.pallister@sysgraft.com's Project" in the SYSGRAFT Supabase
+organisation — an existing multi-app project; this site's table and function are namespaced
+`curavest_*`/`curavest-contact-form` to keep them clearly separate from that project's other, unrelated
+applications). The function's source lives in this repo at
+`supabase/functions/curavest-contact-form/index.ts` and is deployed to Supabase directly (there is no
+Supabase CLI link/build step in this repo's own `npm run build`).
 
-To wire it up for real delivery:
+On every valid submission the function:
+
+1. Writes the enquiry to the `curavest_contact_submissions` table (Postgres). Row Level Security is
+   enabled with **no policies**, so no anon/authenticated client can read or write that table directly —
+   only the function itself (using the service-role key, provided automatically to every Supabase Edge
+   Function) can. This means every enquiry is safely recorded even on the rare occasion the email below
+   fails to send.
+2. Emails a full notification, with a polished on-brand HTML template, to Curavest via
+   [Resend](https://resend.com).
+3. Emails a short on-brand confirmation back to the visitor.
+
+**This repository intentionally contains no credentials.** Until Resend is configured, the function still
+records every submission (step 1 always happens), but honestly responds with a 503 and the form's UI tells
+the visitor to email directly instead — it never silently pretends to send an email it hasn't.
+
+To wire up real delivery:
 
 1. Create a free [Resend](https://resend.com) account and verify a sending domain (e.g. `curavest.co.uk`,
    or a subdomain like `mail.curavest.co.uk`).
 2. Generate an API key with sending access.
-3. In the Cloudflare dashboard → Workers & Pages → curavest-website → **Settings → Variables and Secrets**
-   — make sure you're adding these as **Runtime** variables (the ones the deployed Worker reads), not
-   **Build** ones (those only exist while `npm run build` / the deploy command are running):
-   - `RESEND_API_KEY` — the key from step 2 (mark as a secret).
+3. In the [Supabase dashboard](https://supabase.com/dashboard/project/aoadptvrfuietytyfccp) → **Edge
+   Functions → curavest-contact-form → Secrets** (or `supabase secrets set` via the CLI, scoped to this
+   project), set:
+   - `RESEND_API_KEY` — the key from step 2.
    - `CONTACT_TO_EMAIL` — optional, defaults to `euan.pallister@curavest.co.uk`.
-   - `CONTACT_FROM_EMAIL` — optional, e.g. `"Curavest Website <noreply@curavest.co.uk>"`. Must be on the
-     verified domain from step 1, otherwise Resend will reject the send.
-4. Redeploy. See `.env.example` for the same reference locally.
+   - `CONTACT_FROM_EMAIL` — optional, e.g. `"Curavest <noreply@curavest.co.uk>"`. Must be on the verified
+     domain from step 1, otherwise Resend will reject the send.
 
-Until configured, nothing needs to change in code — the isolation is deliberate (see the comment block at
-the top of `worker/index.ts`).
+No redeploy of the website itself is needed — secrets take effect on the next function invocation. See
+`.env.example` for the same reference. Until configured, nothing needs to change in code — the isolation is
+deliberate (see the comment block at the top of `supabase/functions/curavest-contact-form/index.ts`).
+
+To review or export submitted enquiries directly (e.g. if you ever need to cross-check against emails
+received), query the `curavest_contact_submissions` table via the Supabase dashboard's Table Editor or SQL
+Editor for that project — it includes a `notification_sent` flag per row so a failed send is easy to spot.
+
+The site's origin (`https://curavest.co.uk`, plus its `*.workers.dev` preview domain and `localhost` for
+local development) is allow-listed inside the function for CORS; update
+`ALLOWED_ORIGIN_PATTERNS` in `supabase/functions/curavest-contact-form/index.ts` (and redeploy the
+function) if the production domain ever changes.
 
 ## Deploying to Cloudflare
 
@@ -109,9 +140,8 @@ Connect the GitHub repository in the Cloudflare dashboard (Workers & Pages → C
 for automatic deploys on push to `main` — set the Build command and Deploy command exactly as above in that
 project's Settings → Builds.
 
-No **Build**-time environment variables are required for the site itself to build and deploy; only the
-contact form needs the **Runtime** variables above, and only once you want it to actually send email — see
-"Contact form setup".
+No environment variables or secrets are required in Cloudflare at all — the Worker is a pure static-asset
+server. The contact form's configuration lives entirely in Supabase; see "Contact form setup".
 
 ## Design system
 
