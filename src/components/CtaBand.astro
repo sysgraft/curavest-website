@@ -1,6 +1,5 @@
 ---
 interface Props {
-  eyebrow?: string;
   title: string;
   lede?: string;
   ctaLabel: string;
@@ -11,7 +10,6 @@ interface Props {
 }
 
 const {
-  eyebrow,
   title,
   lede,
   ctaLabel,
@@ -24,11 +22,8 @@ const {
 
 <section class={`cta-band cta-${tone} on-panel`}>
   <div class="container cta-inner">
-    <div class="cta-copy">
-      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-      <h2>{title}</h2>
-      {lede && <p class="lede">{lede}</p>}
-    </div>
+    <h2>{title}</h2>
+    {lede && <p class="lede cta-lede">{lede}</p>}
     <div class="cta-actions">
       <a href={ctaHref} class="btn btn-primary">{ctaLabel}</a>
       {secondaryLabel && secondaryHref && (
@@ -70,33 +65,23 @@ const {
   }
 
   .cta-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-6);
-    flex-wrap: wrap;
+    max-width: 40rem;
   }
 
-  .cta-copy {
-    max-width: 42rem;
+  .cta-inner h2 {
+    font-size: var(--text-3xl);
+    max-width: 20ch;
   }
 
-  .cta-copy h2 {
-    margin-top: var(--space-3);
-  }
-
-  .cta-copy .lede {
-    margin-top: var(--space-3);
+  .cta-lede {
+    margin-top: var(--space-4);
   }
 
   .cta-actions {
     display: flex;
     gap: var(--space-3);
     flex-wrap: wrap;
-    /* No flex-shrink: 0 here — these CTA labels are full sentences, and
-       this item must be free to shrink (then wrap its buttons) on narrow
-       viewports rather than overflowing the row. */
-    min-width: 0;
+    margin-top: var(--space-6);
   }
 
   @media (max-width: 40rem) {

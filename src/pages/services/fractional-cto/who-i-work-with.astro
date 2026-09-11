@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
-import Icon from '../../../components/Icon.astro';
+import SectorIllustration from '../../../components/SectorIllustration.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import { breadcrumbSchema } from '../../../lib/schema';
 
@@ -93,33 +93,27 @@ const sectors = [
   </PageHero>
 
   <section class="section">
-    <div class="container fit-grid">
-      <div class="fit-heading">
-        <p class="eyebrow">The right fit</p>
-        <h2>A strong fit usually looks like this</h2>
-      </div>
-      <div class="fit-body">
-        <ul class="check-list">
-          {rightFit.map((item) => <li>{item}</li>)}
-        </ul>
-        <p class="lede fit-outro">This service suits businesses that want improvement to show up in the work itself.</p>
-      </div>
+    <div class="container fit-section">
+      <h2 class="statement statement-wide">A strong fit usually looks like this</h2>
+      <ul class="check-list check-list-columns fit-list">
+        {rightFit.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="lede fit-outro">This service suits businesses that want improvement to show up in the work itself.</p>
     </div>
   </section>
 
   <section class="section section-alt">
     <div class="container">
-      <div class="section-heading">
-        <p class="eyebrow">Sectors</p>
-        <h2>Experience closest to operational businesses</h2>
-      </div>
-      <div class="sector-grid">
+      <h2 class="section-head">Experience closest to operational businesses</h2>
+      <div class="sector-list">
         {
           sectors.map((sector) => (
-            <div class="sector-card">
-              <Icon name={sector.icon} class="sector-icon" />
-              <h3>{sector.title}</h3>
-              <p>{sector.body}</p>
+            <div class="sector-row">
+              <SectorIllustration name={sector.icon} class="sector-illustration" />
+              <div>
+                <h3>{sector.title}</h3>
+                <p>{sector.body}</p>
+              </div>
             </div>
           ))
         }
@@ -133,45 +127,33 @@ const sectors = [
   </section>
 
   <section class="section on-panel">
-    <div class="container fit-grid">
-      <div class="fit-heading">
-        <p class="eyebrow">The wrong fit</p>
-        <h2>Not every business needs this service</h2>
-        <p class="lede">
-          Curavest – Fractional CTO Services are unlikely to be the right fit for a business that:
-        </p>
-      </div>
-      <div class="fit-body">
-        <ul class="dash-list">
-          {wrongFit.map((item) => <li><span class="scope-dash" aria-hidden="true"></span><span>{item}</span></li>)}
-        </ul>
-        <p class="lede fit-outro">Being clear about fit protects everyone&rsquo;s time.</p>
-      </div>
+    <div class="container">
+      <h2 class="section-head">Not every business needs this service</h2>
+      <p class="lede wrong-fit-lead">
+        Curavest – Fractional CTO Services are unlikely to be the right fit for a business that:
+      </p>
+      <ul class="check-list check-list-columns check-list-neg wrong-fit-list">
+        {wrongFit.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="lede fit-outro">Being clear about fit protects everyone&rsquo;s time.</p>
     </div>
   </section>
 
   <section class="section">
-    <div class="container fit-grid">
-      <div class="fit-heading">
-        <p class="eyebrow">The role of the owner</p>
-        <h2>The work needs access and decisiveness</h2>
-        <p class="lede">The owner or board does not need to understand every technical detail.</p>
-      </div>
-      <div class="fit-body">
-        <p class="list-intro">They do need to:</p>
-        <ul class="check-list">
-          {ownerRole.map((item) => <li>{item}</li>)}
-        </ul>
-        <p class="lede fit-outro">
-          The best results come when leadership is available, direct and willing to let the facts change the
-          plan.
-        </p>
-      </div>
+    <div class="container fit-section">
+      <h2 class="statement statement-wide">The work needs access and decisiveness</h2>
+      <p class="lede owner-lead">The owner or board does not need to understand every technical detail. They do need to:</p>
+      <ul class="check-list owner-list">
+        {ownerRole.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="lede fit-outro">
+        The best results come when leadership is available, direct and willing to let the facts change the
+        plan.
+      </p>
     </div>
   </section>
 
   <CtaBand
-    eyebrow="A quick gut check"
     title="Does this sound like your business?"
     lede="If your business is growing but the way it operates is becoming a constraint, start a conversation."
     ctaLabel="See if Fractional CTO Services are a fit"
@@ -185,110 +167,95 @@ const sectors = [
     margin-top: var(--space-4);
   }
 
-  .fit-grid {
-    display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: var(--space-7);
+  .fit-section {
+    max-width: 50rem;
   }
 
-  .fit-heading h2 {
-    margin-top: var(--space-3);
-    max-width: 18ch;
+  .fit-list,
+  .owner-list {
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-6);
   }
 
-  .fit-heading .lede {
+  .owner-lead {
     margin-top: var(--space-4);
-  }
-
-  .fit-body {
-    max-width: 56ch;
-  }
-
-  .list-intro {
     font-weight: 600;
-    margin-bottom: var(--space-4);
-  }
-
-  .check-list,
-  .dash-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-  }
-
-  .check-list li {
-    position: relative;
-    padding-left: 1.2rem;
-    color: var(--color-ink-2);
-    line-height: var(--leading-relaxed);
-  }
-
-  .check-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.6em;
-    width: 6px;
-    height: 6px;
-    background: var(--color-petrol);
-  }
-
-  .dash-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.65rem;
-    color: var(--color-on-panel-muted);
-    line-height: var(--leading-relaxed);
-  }
-
-  .scope-dash {
-    flex-shrink: 0;
-    width: 0.85rem;
-    height: 1.5px;
-    background: var(--color-on-panel-muted);
-    margin-top: 0.75rem;
+    color: var(--color-ink);
   }
 
   .fit-outro {
-    margin-top: var(--space-5);
+    max-width: 56ch;
   }
 
-  .section-heading {
-    max-width: 42rem;
+  .section-head {
     margin-bottom: var(--space-7);
+    max-width: 36ch;
   }
 
-  .section-heading h2 {
-    margin-top: var(--space-3);
+  .wrong-fit-lead {
+    max-width: 56ch;
+    color: var(--color-on-panel-muted);
   }
 
-  .sector-grid {
+  .wrong-fit-list {
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  /* "Wrong fit" list on a dark panel: a plain dash marker rather than
+     the accent dot, so it reads distinctly from an affirmative list. */
+  .check-list-neg li::before {
+    content: '';
+    width: 0.85rem;
+    height: 1.5px;
+    top: 0.75em;
+    background: var(--color-on-panel-muted);
+  }
+
+  .sector-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--color-line);
+  }
+
+  .sector-row {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-5);
+    grid-template-columns: 4.5rem 1fr;
+    gap: var(--space-6);
+    align-items: center;
+    padding-block: var(--space-6);
+    border-bottom: 1px solid var(--color-line);
   }
 
-  .sector-card {
-    padding: var(--space-6);
-    background: var(--color-paper-raised);
-    border: 1px solid var(--color-line);
+  :global(.sector-illustration) {
+    width: 4rem;
+    height: 4rem;
+    color: var(--color-ink-3);
+    flex-shrink: 0;
   }
 
-  :global(.sector-icon) {
-    width: 2rem;
-    height: 2rem;
-    color: var(--color-petrol);
-    margin-bottom: var(--space-4);
+  .sector-row h3 {
+    margin-bottom: var(--space-2);
   }
 
-  .sector-card h3 {
-    margin-bottom: var(--space-3);
-  }
-
-  .sector-card p {
+  .sector-row p {
     color: var(--color-ink-2);
-    font-size: var(--text-sm);
     line-height: var(--leading-relaxed);
+    max-width: 58ch;
+  }
+
+  @media (max-width: 30rem) {
+    .sector-row {
+      grid-template-columns: 3.25rem 1fr;
+      gap: var(--space-4);
+      align-items: start;
+    }
+
+    :global(.sector-illustration) {
+      width: 2.75rem;
+      height: 2.75rem;
+      margin-top: 0.15rem;
+    }
   }
 
   .sector-note {
@@ -296,19 +263,4 @@ const sectors = [
     max-width: 62ch;
   }
 
-  @media (max-width: 63.9375rem) {
-    .fit-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .sector-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (max-width: 40rem) {
-    .sector-grid {
-      grid-template-columns: 1fr;
-    }
-  }
 </style>

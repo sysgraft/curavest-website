@@ -150,37 +150,24 @@ const workingTogether = [
   </section>
 
   <section class="section on-panel">
-    <div class="container together-grid">
-      <div>
-        <p class="eyebrow">What working together looks like</p>
-        <h2>Embedded enough to make the change stick</h2>
-        <p class="lede">
-          Fractional CTO engagements are part-time and contracted, giving the business access to senior
-          judgement without requiring a full-time CTO appointment.
-        </p>
-      </div>
-      <div>
-        <p class="together-lead-in">The work may include:</p>
-        <ul class="together-list">
-          {
-            workingTogether.map((item) => (
-              <li>
-                <Icon name="prove" class="scope-icon" />
-                <span>{item}</span>
-              </li>
-            ))
-          }
-        </ul>
-        <p class="lede together-outro">
-          The exact rhythm depends on the problem. The principle remains the same: stay close enough to the
-          work to understand it, and focused enough to move it forward.
-        </p>
-      </div>
+    <div class="container together-section">
+      <h2 class="statement statement-wide">Embedded enough to make the change stick</h2>
+      <p class="lede together-lead">
+        Fractional CTO engagements are part-time and contracted, giving the business access to senior
+        judgement without requiring a full-time CTO appointment.
+      </p>
+      <p class="together-lead-in">The work may include:</p>
+      <ul class="check-list check-list-columns together-list">
+        {workingTogether.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="lede together-outro">
+        The exact rhythm depends on the problem. The principle remains the same: stay close enough to the
+        work to understand it, and focused enough to move it forward.
+      </p>
     </div>
   </section>
 
   <CtaBand
-    eyebrow="Get in touch"
     title="If you know something is not working, find out why"
     lede="A useful first conversation does not require a specification. It requires an honest description of what is getting in the way."
     ctaLabel="Talk through your bottleneck"
@@ -275,83 +262,38 @@ const workingTogether = [
     color: var(--color-ink) !important;
   }
 
-  .check-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-
-  .check-list li {
-    position: relative;
-    padding-left: 1.2rem;
-    color: var(--color-ink-2);
-    line-height: var(--leading-relaxed);
-  }
-
-  .check-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.6em;
-    width: 6px;
-    height: 6px;
-    background: var(--color-petrol);
-  }
-
   .stage-outro {
     font-style: italic;
     color: var(--color-ink-3) !important;
   }
 
-  .together-grid {
-    display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: var(--space-7);
+  .together-section {
+    max-width: 50rem;
   }
 
-  .together-grid h2 {
-    margin-top: var(--space-3);
-    margin-bottom: var(--space-4);
-    max-width: 18ch;
+  .together-lead {
+    margin-top: var(--space-4);
+    max-width: 56ch;
   }
 
   .together-lead-in {
     font-weight: 600;
+    margin-top: var(--space-5);
     margin-bottom: var(--space-4);
   }
 
   .together-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-  }
-
-  .together-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.65rem;
-    font-size: var(--text-sm);
-  }
-
-  :global(.scope-icon) {
-    width: 1.1rem;
-    height: 1.1rem;
-    flex-shrink: 0;
-    margin-top: 0.15rem;
-    color: var(--color-petrol-bright);
+    margin-bottom: var(--space-6);
   }
 
   .together-outro {
-    margin-top: var(--space-5);
+    margin-top: var(--space-6);
+    max-width: 56ch;
   }
 
   @media (max-width: 63.9375rem) {
     .stage-item {
       grid-template-columns: 3.25rem 1fr;
-    }
-
-    .together-grid {
-      grid-template-columns: 1fr;
     }
   }
 </style>

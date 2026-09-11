@@ -9,6 +9,19 @@ import { organizationSchema, websiteSchema, professionalServiceSchema } from '..
 const title = 'Curavest | Fractional CTO and Related Services for UK Businesses';
 const description =
   'Curavest offers several complementary services for UK operational businesses. Explore our fractional CTO service and related offerings to improve processes and technology decisions.';
+
+const fitPoints = [
+  'Growth is being limited by internal constraints.',
+  'Processes no longer match the size of the business.',
+  'Technology decisions feel risky or unclear.',
+  'There is too much work for the current team, but not enough to justify a full-time senior hire.',
+];
+
+const whyPoints = [
+  'Work moves through people, processes, equipment and systems.',
+  'A constraint in one area affects the whole business.',
+  'Practical judgement is more valuable than a generic framework.',
+];
 ---
 
 <BaseLayout
@@ -18,22 +31,20 @@ const description =
   jsonLd={[organizationSchema(), websiteSchema(), professionalServiceSchema()]}
 >
   <section class="home-hero on-panel">
-    <div class="grid-device" aria-hidden="true">
-      <span></span><span></span><span></span><span></span><span></span><span></span>
-      <span></span><span></span><span></span><span></span><span></span><span></span>
-    </div>
     <div class="container home-hero-inner">
       <div class="home-hero-copy">
-        <p class="eyebrow">Curavest</p>
+        <p class="eyebrow">Fractional CTO &amp; operational advisory</p>
         <h1>Practical support for growing operational businesses</h1>
         <p class="lede">
           Curavest offers several complementary services to help UK businesses fix broken processes, improve
           output and make better technology decisions.
         </p>
-        <p class="lede">
-          Our best-known service is <strong>Curavest – Fractional CTO Services</strong>: part-time, embedded
-          technology and process leadership for businesses that have outgrown the way they currently work.
-        </p>
+        <div class="brief-panel home-hero-brief">
+          <p class="lede">
+            Our best-known service is <strong>Curavest – Fractional CTO Services</strong>: part-time, embedded
+            technology and process leadership for businesses that have outgrown the way they currently work.
+          </p>
+        </div>
         <div class="home-hero-actions">
           <a href="/services/fractional-cto/" class="btn btn-primary">Explore Fractional CTO Services</a>
           <a href="/services/" class="btn btn-outline">View other Curavest services</a>
@@ -46,35 +57,25 @@ const description =
   </section>
 
   <section class="section">
-    <div class="container intro-grid">
-      <div class="intro-heading">
-        <p class="eyebrow">Where Curavest fits</p>
-        <h2>The point where growth outpaces the way you work</h2>
-      </div>
-      <div class="intro-body">
-        <p class="lede">Many operational businesses reach a point where:</p>
-        <ul class="intro-list">
-          <li>Growth is being limited by internal constraints.</li>
-          <li>Processes no longer match the size of the business.</li>
-          <li>Technology decisions feel risky or unclear.</li>
-          <li>There is too much work for the current team, but not enough to justify a full-time senior hire.</li>
-        </ul>
-        <p class="lede">
-          Curavest provides experienced, practical support at that point — through fractional leadership,
-          targeted projects and focused products.
-        </p>
-      </div>
+    <div class="container fit-section">
+      <h2 class="statement statement-wide">The point where growth outpaces the way you work</h2>
+      <p class="lede fit-lead">Many operational businesses reach a point where:</p>
+      <ul class="check-list fit-list">
+        {fitPoints.map((point) => <li>{point}</li>)}
+      </ul>
+      <p class="lede fit-outro">
+        Curavest provides experienced, practical support at that point — through fractional leadership,
+        targeted projects and focused products.
+      </p>
     </div>
   </section>
 
   <section class="section section-alt">
     <div class="container">
-      <div class="section-heading">
-        <p class="eyebrow">Our services</p>
-        <h2>Complementary support, built around one problem at a time</h2>
-      </div>
-      <div class="service-grid">
+      <h2 class="section-head">Complementary support, built around one problem at a time</h2>
+      <div class="service-list">
         <ServiceCard
+          featured
           index="01"
           title="Curavest – Fractional CTO Services"
           description="Part-time, embedded technology and process leadership for owners, MDs and boards."
@@ -100,61 +101,52 @@ const description =
   </section>
 
   <section class="section">
-    <div class="container why-grid">
-      <div class="why-heading">
-        <p class="eyebrow">Why Curavest</p>
-        <h2>Built for businesses where the detail matters</h2>
-      </div>
-      <div class="why-body">
-        <p class="lede">Curavest works with companies where:</p>
-        <ul class="intro-list">
-          <li>Work moves through people, processes, equipment and systems.</li>
-          <li>A constraint in one area affects the whole business.</li>
-          <li>Practical judgement is more valuable than a generic framework.</li>
-        </ul>
-        <p class="lede">
-          Our approach starts with the actual work, not the org chart. That applies across all Curavest
-          services.
-        </p>
-      </div>
+    <div class="container why-section">
+      <h2 class="statement statement-wide">Built for businesses where the detail matters</h2>
+      <p class="lede why-lead">Curavest works with companies where:</p>
+      <ul class="check-list why-list">
+        {whyPoints.map((point) => <li>{point}</li>)}
+      </ul>
+      <p class="lede why-outro">
+        Our approach starts with the actual work, not the org chart. That applies across all Curavest
+        services.
+      </p>
     </div>
   </section>
 
-  <section class="section on-panel proof-section">
+  <section class="section proof-section">
     <div class="container">
-      <div class="section-heading">
-        <p class="eyebrow">Proof snapshot</p>
-        <h2>From bottleneck to double the output</h2>
-      </div>
-      <div class="proof-body">
-        <p class="lede">
-          In one business, an assembly department had become a constraint. By diagnosing the real bottleneck
-          and changing the process, output was doubled within six months without additional investment.
-        </p>
-        <p class="lede">
-          In another, production output was increased to more than 50% above the documented machine maximum,
-          delivering a three-year programme in eighteen months at higher quality than expected.
-        </p>
-        <p class="lede">
-          These results came from process change first, with technology used only where it made the new
-          process work better.
-        </p>
-      </div>
-      <div class="proof-stats">
-        <StatRow
-          stats={[
-            { value: '2×', label: 'output within six months, no additional investment' },
-            { value: '50%+', label: 'above the documented machine maximum' },
-            { value: '18 mo', label: 'to deliver a three-year production programme' },
-          ]}
-        />
+      <h2 class="section-head">From bottleneck to double the output</h2>
+      <div class="proof-panel">
+        <div class="proof-body">
+          <p class="lede">
+            In one business, an assembly department had become a constraint. By diagnosing the real bottleneck
+            and changing the process, output was doubled within six months without additional investment.
+          </p>
+          <p class="lede">
+            In another, production output was increased to more than 50% above the documented machine maximum,
+            delivering a three-year programme in eighteen months at higher quality than expected.
+          </p>
+          <p class="lede">
+            These results came from process change first, with technology used only where it made the new
+            process work better.
+          </p>
+        </div>
+        <div class="proof-stats">
+          <StatRow
+            stats={[
+              { value: '2×', label: 'output within six months, no additional investment' },
+              { value: '50%+', label: 'above the documented machine maximum' },
+              { value: '18 mo', label: 'to deliver a three-year production programme' },
+            ]}
+          />
+        </div>
       </div>
       <p class="proof-link"><a href="/track-record/" class="text-link">See the full track record →</a></p>
     </div>
   </section>
 
   <CtaBand
-    eyebrow="Start here"
     title="Not sure which service fits your situation?"
     lede="Start with a conversation about the problem you are trying to solve. We can then identify whether the fractional CTO service, another Curavest offering or a combination is most appropriate."
     ctaLabel="Start a conversation"
@@ -174,9 +166,9 @@ const description =
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1.35fr 0.65fr;
     gap: var(--space-7);
-    align-items: center;
+    align-items: start;
   }
 
   .home-hero-copy .eyebrow {
@@ -192,6 +184,15 @@ const description =
     margin-top: var(--space-5);
     max-width: 46ch;
     font-size: var(--text-md);
+  }
+
+  .home-hero-brief {
+    margin-top: var(--space-5);
+    max-width: 46ch;
+  }
+
+  .home-hero-brief .lede {
+    margin-top: 0;
   }
 
   .home-hero-actions {
@@ -218,84 +219,70 @@ const description =
 
   .home-hero-graphic {
     aspect-ratio: 1 / 1;
+    width: 90%;
+    margin-inline: auto;
+    margin-top: var(--space-7);
   }
 
-  .intro-grid,
-  .why-grid {
-    display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: var(--space-7);
+  /* ---- Where Curavest fits / Why Curavest ---- */
+  .fit-section,
+  .why-section {
+    max-width: 48rem;
   }
 
-  .intro-heading h2,
-  .why-heading h2 {
-    margin-top: var(--space-3);
-    max-width: 16ch;
+  .fit-lead,
+  .why-lead {
+    margin-top: var(--space-5);
+    font-weight: 600;
+    color: var(--color-ink);
   }
 
-  .intro-list,
-  .why-body .intro-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    margin-block: var(--space-5);
+  .fit-list,
+  .why-list {
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-6);
   }
 
-  .intro-list li {
-    position: relative;
-    padding-left: 1.3rem;
-    color: var(--color-ink-2);
-    line-height: var(--leading-relaxed);
+  .fit-outro,
+  .why-outro {
+    max-width: 52ch;
   }
 
-  .intro-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.6em;
-    width: 7px;
-    height: 7px;
-    background: var(--color-petrol);
-  }
-
-  .section-alt {
-    background: var(--color-paper-raised);
-    border-block: 1px solid var(--color-line);
-  }
-
-  .section-heading {
-    max-width: 44rem;
+  /* ---- Services / Proof: plain section heading ---- */
+  .section-head {
     margin-bottom: var(--space-7);
+    max-width: 32ch;
   }
 
-  .section-heading h2 {
-    margin-top: var(--space-3);
+  .service-list {
+    border-top: 1px solid var(--color-line);
   }
 
-  .service-grid {
+  /* ---- Proof snapshot: bordered plate instead of a dark full-bleed band ---- */
+  .proof-panel {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-5);
-    align-items: stretch;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-8);
+    padding: var(--space-7);
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-top: 3px solid var(--color-ink);
   }
 
   .proof-body {
-    max-width: 62rem;
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
-  }
-
-  .proof-stats {
-    margin-top: var(--space-7);
+    max-width: 42rem;
   }
 
   .proof-link {
     margin-top: var(--space-6);
   }
 
-  .proof-link a {
-    color: var(--color-petrol-bright);
+  .proof-stats :global(.stat-row) {
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
   }
 
   @media (max-width: 63.9375rem) {
@@ -307,13 +294,9 @@ const description =
       display: none;
     }
 
-    .intro-grid,
-    .why-grid {
+    .proof-panel {
       grid-template-columns: 1fr;
-    }
-
-    .service-grid {
-      grid-template-columns: 1fr;
+      padding: var(--space-6);
     }
   }
 </style>

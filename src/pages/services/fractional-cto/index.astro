@@ -140,8 +140,10 @@ const notStartingPoints = [
     <div class="container">
       <div class="scope-grid">
         <div class="scope-col">
-          <p class="eyebrow">What is included</p>
-          <h2>Fractional CTO support can include</h2>
+          <div class="head-inline">
+            <span class="tag">Included</span>
+            <h2>Fractional CTO support can include</h2>
+          </div>
           <ul class="scope-list scope-list-yes">
             {
               included.map((item) => (
@@ -158,9 +160,11 @@ const notStartingPoints = [
           </p>
         </div>
 
-        <div class="scope-col">
-          <p class="eyebrow">What is not included</p>
-          <h2>This is not technology for its own sake</h2>
+        <div class="scope-col scope-col-no">
+          <div class="head-inline">
+            <span class="tag">Excluded</span>
+            <h2>This is not technology for its own sake</h2>
+          </div>
           <p class="lede">Curavest does not sell software as the solution to every problem.</p>
           <p class="scope-lead-in">The work does not begin with:</p>
           <ul class="scope-list scope-list-no">
@@ -183,30 +187,25 @@ const notStartingPoints = [
   </section>
 
   <section class="section">
-    <div class="container relationship-grid">
-      <div>
-        <p class="eyebrow">Part of a broader set of capabilities</p>
-        <h2>Relationship to other Curavest services</h2>
-      </div>
-      <div class="relationship-copy">
-        <p class="lede">
-          The fractional CTO service sits alongside other Curavest offerings focused on operational
-          improvement and practical technology use.
-        </p>
-        <p>Depending on your situation, we may recommend:</p>
-        <ul class="check-list">
-          <li>The fractional CTO service as the primary engagement.</li>
-          <li>A more targeted project under another Curavest service.</li>
-          <li>A combination of both.</li>
-        </ul>
-        <p>We can explore this in an initial conversation.</p>
-        <a href="/services/" class="text-link relationship-cta">Explore all Curavest services →</a>
-      </div>
+    <div class="container relationship-section">
+      <h2 class="statement statement-wide">Relationship to other Curavest services</h2>
+      <p class="lede relationship-lead">
+        The fractional CTO service sits alongside other Curavest offerings focused on operational
+        improvement and practical technology use. Depending on your situation, we may recommend:
+      </p>
+      <ul class="check-list relationship-list">
+        <li>The fractional CTO service as the primary engagement.</li>
+        <li>A more targeted project under another Curavest service.</li>
+        <li>A combination of both.</li>
+      </ul>
+      <p class="relationship-outro">
+        We can explore this in an initial conversation.
+        <a href="/services/" class="text-link">Explore all Curavest services →</a>
+      </p>
     </div>
   </section>
 
   <CtaBand
-    eyebrow="Talk before you buy"
     title="Talk through the problem before deciding what to buy"
     lede="If a process is holding back growth, start with the process — not a software shortlist."
     ctaLabel="Start a conversation about Fractional CTO Services"
@@ -289,9 +288,17 @@ const notStartingPoints = [
     gap: var(--space-8);
   }
 
-  .scope-col h2 {
-    margin-top: var(--space-3);
+  .scope-col-no {
+    padding-left: var(--space-8);
+    border-left: 1px solid var(--color-line-on-panel);
+  }
+
+  .scope-col .head-inline {
     margin-bottom: var(--space-4);
+  }
+
+  .scope-col .tag {
+    text-transform: uppercase;
   }
 
   .scope-lead-in {
@@ -344,32 +351,27 @@ const notStartingPoints = [
     font-size: var(--text-sm);
   }
 
-  .relationship-grid {
-    display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: var(--space-7);
+  .relationship-section {
+    max-width: 50rem;
   }
 
-  .relationship-grid h2 {
-    margin-top: var(--space-3);
-    max-width: 18ch;
-  }
-
-  .relationship-copy {
+  .relationship-lead {
+    margin-top: var(--space-4);
     max-width: 56ch;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
   }
 
-  .relationship-copy p {
+  .relationship-list {
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .relationship-outro {
+    max-width: 56ch;
     color: var(--color-ink-2);
-    line-height: var(--leading-relaxed);
   }
 
-  .relationship-cta {
-    font-weight: 600;
-    margin-top: var(--space-2);
+  .relationship-outro a {
+    margin-left: 0.4em;
   }
 
   @media (max-width: 63.9375rem) {
@@ -378,9 +380,16 @@ const notStartingPoints = [
       gap: var(--space-3);
     }
 
-    .scope-grid,
-    .relationship-grid {
+    .scope-grid {
       grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .scope-col-no {
+      padding-left: 0;
+      border-left: none;
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--color-line-on-panel);
     }
   }
 </style>

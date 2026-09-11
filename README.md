@@ -126,10 +126,12 @@ or invented system.
   access to stock-photo CDNs, so real photography could not be sourced or verified as appropriately licensed
   here regardless — and generic stock wouldn't match the guidelines' intent even if it were reachable. The
   site currently uses an original SVG diagram system in its place (the schematic hero graphic, the
-  Diagnose·Engineer·Prove stage diagram, sector icons). Swapping in real photography of the business, its
-  work, or its sectors — once available — is the one guideline requirement not yet implemented; the
-  guidelines' "Industry Grid" card component (`docs` §3) is specified with a top-half image slot ready for
-  it.
+  Diagnose·Engineer·Prove stage diagram, and — on "Who I Work With" — a larger, sector-specific schematic
+  illustration per industry: `src/components/SectorIllustration.astro`, one distinct motif per sector rather
+  than a repeated icon, each closing on the same accent-filled node used by the hero's CONSTRAINT/RESULT
+  markers). Swapping in real photography of the business, its work, or its sectors — once available — is the
+  one guideline requirement not yet implemented; the guidelines' "Industry Grid" card component (`docs` §3)
+  is specified with a top-half image slot ready for it.
 
 ## Accessibility & SEO
 
@@ -143,9 +145,13 @@ or invented system.
 - `scripts/qa.mjs` runs an automated pass (Playwright + axe-core) across every route at five viewport
   widths, checking for horizontal overflow, console errors and WCAG 2.1/2.2 AA violations.
   `scripts/check-site.mjs` checks the built HTML for broken internal links, missing image alt text, and
-  placeholder content. Neither is part of the production build; run them manually when changing markup:
+  placeholder content. Neither is part of the production build, and **Playwright/axe-core are deliberately
+  not in `package.json`** — they're heavy native-browser dependencies with their own install-time download
+  step, which has no reason to run on every `npm install` (including in CI/Cloudflare, where it can fail a
+  build that doesn't even need it). Install them once, locally, when you need to run these scripts:
 
   ```bash
+  npm install --no-save playwright @axe-core/playwright
   npm run build
   npx astro preview --port 4321 &
   node scripts/check-site.mjs

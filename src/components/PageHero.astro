@@ -18,10 +18,6 @@ const { eyebrow, title, lede, breadcrumbs, size = 'default' } = Astro.props;
 ---
 
 <section class={`page-hero on-panel ${size === 'compact' ? 'page-hero-compact' : ''}`}>
-  <div class="grid-device" aria-hidden="true">
-    <span></span><span></span><span></span><span></span><span></span><span></span>
-    <span></span><span></span><span></span><span></span><span></span><span></span>
-  </div>
   <div class="container hero-content">
     {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}

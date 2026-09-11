@@ -48,38 +48,30 @@ const ctoWork = [
   </PageHero>
 
   <section class="section">
-    <div class="container approach-grid">
-      <div class="approach-heading">
-        <p class="eyebrow">Our approach</p>
-        <h2>Start with the work, not the org chart</h2>
-      </div>
-      <div class="approach-body">
-        <p class="lede">Across all Curavest services, the approach is similar:</p>
-        <ul class="check-list">
-          {approach.map((item) => <li>{item}</li>)}
-        </ul>
-        <p class="lede approach-outro">
-          This discipline comes from experience inside operational businesses: on factory floors, in
-          customer-facing roles, running departments under pressure and building products and services from
-          scratch.
-        </p>
-      </div>
+    <div class="container approach-section">
+      <h2 class="statement statement-wide">Start with the work, not the org chart</h2>
+      <p class="lede approach-lead">Across all Curavest services, the approach is similar:</p>
+      <ul class="check-list approach-list">
+        {approach.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="lede approach-outro">
+        This discipline comes from experience inside operational businesses: on factory floors, in
+        customer-facing roles, running departments under pressure and building products and services from
+        scratch.
+      </p>
     </div>
   </section>
 
   <section class="section on-panel">
-    <div class="container approach-grid">
-      <div class="approach-heading">
-        <p class="eyebrow">The fractional CTO service</p>
-        <h2>Part-time, embedded technology and process leadership</h2>
-      </div>
-      <div class="approach-body">
+    <div class="container">
+      <h2 class="section-head">Part-time, embedded technology and process leadership</h2>
+      <div class="cto-work-body">
         <p class="lede">
           Curavest – Fractional CTO Services provide owners, MDs and boards with senior technology and process
           judgement without requiring a full-time CTO appointment.
         </p>
         <p class="list-intro">The work includes:</p>
-        <ul class="check-list check-list-panel">
+        <ul class="check-list cto-work-list">
           {ctoWork.map((item) => <li>{item}</li>)}
         </ul>
         <a href="/services/fractional-cto/" class="btn btn-outline approach-cta">Learn more about Fractional CTO Services</a>
@@ -89,11 +81,8 @@ const ctoWork = [
 
   <section class="section section-alt">
     <div class="container">
-      <div class="section-heading">
-        <p class="eyebrow">Other Curavest capabilities</p>
-        <h2>Complementary capabilities</h2>
-      </div>
-      <div class="service-grid">
+      <h2 class="section-head">Complementary capabilities</h2>
+      <div class="service-list">
         <ServiceCard
           index="01"
           title="Other Curavest services"
@@ -129,18 +118,31 @@ const ctoWork = [
     margin-top: var(--space-4);
   }
 
-  .approach-grid {
-    display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: var(--space-7);
+  .approach-section {
+    max-width: 50rem;
   }
 
-  .approach-heading h2 {
-    margin-top: var(--space-3);
-    max-width: 18ch;
+  .approach-lead {
+    margin-top: var(--space-5);
+    font-weight: 600;
+    color: var(--color-ink);
   }
 
-  .approach-body {
+  .approach-list {
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+
+  .approach-outro {
+    max-width: 56ch;
+  }
+
+  .section-head {
+    margin-bottom: var(--space-7);
+    max-width: 36ch;
+  }
+
+  .cto-work-body {
     max-width: 56ch;
   }
 
@@ -148,67 +150,18 @@ const ctoWork = [
     font-weight: 600;
     margin-top: var(--space-4);
     margin-bottom: var(--space-4);
+    color: var(--color-on-panel) !important;
   }
 
-  .check-list {
-    display: flex;
-    flex-direction: column;
-    gap: 0.7rem;
-    margin-top: var(--space-4);
-  }
-
-  .check-list li {
-    position: relative;
-    padding-left: 1.2rem;
-    color: var(--color-ink-2);
-    line-height: var(--leading-relaxed);
-  }
-
-  .check-list li::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0.6em;
-    width: 6px;
-    height: 6px;
-    background: var(--color-petrol);
-  }
-
-  .check-list-panel li {
-    color: var(--color-on-panel-muted);
-  }
-
-  .approach-outro {
-    margin-top: var(--space-5);
+  .cto-work-list {
+    margin-bottom: var(--space-6);
   }
 
   .approach-cta {
     margin-top: var(--space-6);
   }
 
-  .section-heading {
-    max-width: 42rem;
-    margin-bottom: var(--space-7);
-  }
-
-  .section-heading h2 {
-    margin-top: var(--space-3);
-  }
-
-  .service-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-5);
-    align-items: stretch;
-  }
-
-  @media (max-width: 63.9375rem) {
-    .approach-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .service-grid {
-      grid-template-columns: 1fr;
-    }
+  .service-list {
+    border-top: 1px solid var(--color-line);
   }
 </style>

@@ -1,4 +1,8 @@
 ---
+// Rendered as a full-width dossier row (large index, hairline rule)
+// rather than a boxed card, so a list of services reads as a register
+// of offerings rather than a stamped-out pricing-card grid. Meant to
+// sit inside a parent with class="service-list".
 interface Props {
   index: string;
   title: string;
@@ -8,71 +12,96 @@ interface Props {
   ctaHref?: string;
   external?: boolean;
   meta?: string;
+  featured?: boolean;
 }
 
-const { index, title, description, points, ctaLabel, ctaHref, external = false, meta } = Astro.props;
+const {
+  index,
+  title,
+  description,
+  points,
+  ctaLabel,
+  ctaHref,
+  external = false,
+  meta,
+  featured = false,
+} = Astro.props;
 ---
 
-<article class="service-card">
+<article class={`service-row ${featured ? 'service-row-featured' : ''}`}>
   <p class="service-index">{index}</p>
-  <h3>{title}</h3>
-  <p class="service-desc">{description}</p>
-  {
-    points && points.length > 0 && (
-      <ul class="service-points">
-        {points.map((point) => (
-          <li>{point}</li>
-        ))}
-      </ul>
-    )
-  }
-  {meta && <p class="service-meta">{meta}</p>}
-  {
-    ctaLabel && ctaHref && (
-      <a
-        href={ctaHref}
-        class="service-cta text-link"
-        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-      >
-        {ctaLabel} {external ? '↗' : '→'}
-      </a>
-    )
-  }
+  <div class="service-body">
+    <h3>{title}</h3>
+    <p class="service-desc">{description}</p>
+    {
+      points && points.length > 0 && (
+        <ul class="service-points">
+          {points.map((point) => (
+            <li>{point}</li>
+          ))}
+        </ul>
+      )
+    }
+    {meta && <p class="service-meta">{meta}</p>}
+    {
+      ctaLabel && ctaHref && (
+        <a
+          href={ctaHref}
+          class="service-cta text-link"
+          {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        >
+          {ctaLabel} {external ? '↗' : '→'}
+        </a>
+      )
+    }
+  </div>
 </article>
 
 <style>
-  .service-card {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    padding: var(--space-6);
-    background: var(--color-paper-raised);
-    border: 1px solid var(--color-line);
-    border-top: 3px solid var(--color-ink);
+  .service-row {
+    display: grid;
+    grid-template-columns: 4rem 1fr;
+    gap: var(--space-5);
+    padding-block: var(--space-7);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .on-panel .service-row {
+    border-color: var(--color-line-on-panel);
   }
 
   .service-index {
     font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    letter-spacing: var(--tracking-wider);
+    font-size: var(--text-lg);
     color: var(--color-copper);
-    margin-bottom: var(--space-4);
   }
 
-  .service-card h3 {
-    margin-bottom: var(--space-3);
+  .service-row-featured .service-index {
+    color: var(--color-petrol);
+  }
+
+  .service-body {
+    max-width: 54rem;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .service-row-featured h3 {
+    font-size: var(--text-xl);
   }
 
   .service-desc {
     color: var(--color-ink-2);
     line-height: var(--leading-relaxed);
+    max-width: 58ch;
   }
 
   .service-points {
     display: flex;
     flex-direction: column;
     gap: 0.55rem;
-    margin-top: var(--space-4);
+    margin-top: var(--space-2);
   }
 
   .service-points li {
@@ -93,16 +122,27 @@ const { index, title, description, points, ctaLabel, ctaHref, external = false, 
   }
 
   .service-meta {
-    margin-top: var(--space-4);
+    margin-top: var(--space-1);
     font-size: var(--text-xs);
     color: var(--color-ink-3);
     line-height: var(--leading-normal);
+    max-width: 58ch;
   }
 
   .service-cta {
-    margin-top: auto;
-    padding-top: var(--space-5);
+    margin-top: var(--space-2);
     font-weight: 600;
     font-size: var(--text-sm);
+  }
+
+  @media (max-width: 34.375rem) {
+    .service-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
+    }
+
+    .service-index {
+      font-size: var(--text-sm);
+    }
   }
 </style>

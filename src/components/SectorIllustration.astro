@@ -1,0 +1,84 @@
+---
+// Sector illustrations: small schematic diagrams standing in for photography
+// (see README "Imagery" — this build's sandbox cannot reach stock-photo
+// CDNs, and generic stock wouldn't match the brand guidelines' brief
+// anyway). Drawn in the same orthogonal, engineered visual language as
+// SchematicGraphic.astro and Icon.astro — square joins, no decorative
+// rounding — but larger and more considered than a line icon, one per
+// sector, each built from a motif specific to that sector's work rather
+// than a generic factory/building glyph repeated five times.
+//
+// Every illustration ends at exactly one filled node in Primary Blue,
+// echoing the site's constraint → result visual grammar (see the
+// CONSTRAINT/RESULT markers in SchematicGraphic.astro) so the set reads
+// as one family rather than five unrelated icons.
+const ILLUSTRATIONS: Record<string, string> = {
+  // Input line steps up through two process stages, then hands off to a
+  // rising output run — production flow becoming measurable output.
+  manufacturing: `
+    <rect x="3" y="41" width="4" height="4" />
+    <path d="M7 43h5M18 43v-7h8v7M32 43h6" />
+    <path d="M42 43h20" />
+    <rect x="44" y="32" width="6" height="11" />
+    <rect x="56" y="19" width="6" height="24" fill="var(--color-petrol)" stroke="none" />
+  `,
+  // A gable frame with a doorway opening, handing off along a supply line
+  // to a single delivered unit.
+  construction: `
+    <path d="M9 52V22l13-9 13 9v30" />
+    <path d="M9 52h26" />
+    <path d="M16 52V34h6v18" />
+    <path d="M35 40h16" />
+    <rect x="51" y="37" width="6" height="6" fill="var(--color-petrol)" stroke="none" />
+  `,
+  // A detector broadcasting two signal arcs, wired down and across to a
+  // panel with a single indicator lit.
+  'fire-safety': `
+    <circle cx="15" cy="17" r="3" />
+    <path d="M21 11a8.5 8.5 0 0 1 0 12" />
+    <path d="M19.2 13.3a5.7 5.7 0 0 1 0 7.4" />
+    <path d="M15 20v18h22" />
+    <rect x="37" y="30" width="16" height="11" />
+    <rect x="47" y="33.5" width="3" height="3" fill="var(--color-petrol)" stroke="none" />
+  `,
+  // A hex bolt head threading down a shaft into a single stocked fixing —
+  // fastener supply reduced to its essentials.
+  'tools-fixings': `
+    <path d="M16 8.5 23 13v9l-7 4.5-7-4.5v-9z" />
+    <path d="M16 26.5v17" />
+    <path d="M12 30.5h8M12 34.5h8M12 38.5h8" />
+    <path d="M16 43.5h19" />
+    <rect x="38" y="39.5" width="8" height="8" fill="var(--color-petrol)" stroke="none" />
+  `,
+  // Three exploded layers — customer, product and delivery team — closing
+  // the gap into one delivered, coordinated outcome.
+  'product-dev': `
+    <path d="M8 20 20 14l12 6-12 6z" />
+    <path d="M8 30 20 24l12 6-12 6z" />
+    <path d="M8 40 20 34l12 6-12 6z" />
+    <path d="M32 34h16" />
+    <rect x="50" y="30" width="8" height="8" fill="var(--color-petrol)" stroke="none" />
+  `,
+};
+
+interface Props {
+  name: keyof typeof ILLUSTRATIONS | string;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+const markup = ILLUSTRATIONS[name] ?? '';
+---
+
+<svg
+  class={className}
+  viewBox="0 0 64 64"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="1.6"
+  stroke-linecap="square"
+  stroke-linejoin="miter"
+  aria-hidden="true"
+  focusable="false"
+  set:html={markup}
+/>
