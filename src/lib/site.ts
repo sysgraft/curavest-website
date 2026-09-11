@@ -52,6 +52,11 @@ export const NAV: NavItem[] = [
         description: 'The businesses and sectors we are the right fit for.',
       },
       {
+        label: 'AI Integration Services',
+        href: '/services/ai-integration/',
+        description: 'Understand, create and implement — AI applied where it earns its place.',
+      },
+      {
         label: 'Sysgraft (Curavest product)',
         href: 'https://sysgraft.com',
         description: 'AI integration for wholesale and distribution businesses.',
@@ -68,6 +73,7 @@ export const FOOTER_LINKS: NavChild[] = [
   { label: 'Home', href: '/' },
   { label: 'Services', href: '/services/' },
   { label: 'Fractional CTO Services', href: '/services/fractional-cto/' },
+  { label: 'AI Integration Services', href: '/services/ai-integration/' },
   { label: 'How It Works', href: '/services/fractional-cto/how-it-works/' },
   { label: 'Who I Work With', href: '/services/fractional-cto/who-i-work-with/' },
   { label: 'Track Record', href: '/track-record/' },

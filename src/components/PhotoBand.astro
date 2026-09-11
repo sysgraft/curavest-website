@@ -1,0 +1,77 @@
+---
+// A single full-bleed photograph used as a deliberate visual rest-point
+// between prose sections — the site's one photographic component,
+// used sparingly (see README "Imagery"). Not a card, not a grid: one
+// considered image per use, in keeping with the site's editorial,
+// anti-template visual language (see ServiceCard.astro's guiding
+// comment). Built on astro:assets so the source image is optimised,
+// resized and served responsively at build time — no runtime
+// dependency on a third-party image CDN.
+//
+// Usage once a source image exists under src/assets/photography/:
+//   import quarryFloor from '../assets/photography/home-hero-band.jpg';
+//   <PhotoBand image={quarryFloor} alt="…" />
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  image: ImageMetadata;
+  alt: string;
+  caption?: string;
+  /** Use only for a band that sits immediately below the fold on load
+   *  (e.g. directly under a hero) — everywhere else, leave lazy. */
+  priority?: boolean;
+}
+
+const { image, alt, caption, priority = false } = Astro.props;
+---
+
+<figure class="photo-band">
+  <Image
+    src={image}
+    alt={alt}
+    class="photo-band-img"
+    widths={[640, 960, 1440, 2000]}
+    sizes="100vw"
+    loading={priority ? 'eager' : 'lazy'}
+    fetchpriority={priority ? 'high' : 'auto'}
+    decoding={priority ? 'sync' : 'async'}
+  />
+  {caption && <figcaption class="photo-band-caption">{caption}</figcaption>}
+</figure>
+
+<style>
+  .photo-band {
+    position: relative;
+    margin: 0;
+    border-top: 1px solid var(--color-line);
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .photo-band-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 21 / 9;
+    object-fit: cover;
+  }
+
+  .photo-band-caption {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+    padding: 0.55rem var(--container-pad, 1.25rem);
+    background: rgba(44, 44, 44, 0.72);
+    color: var(--color-on-panel);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+  }
+
+  @media (max-width: 40rem) {
+    .photo-band-img {
+      aspect-ratio: 4 / 5;
+    }
+  }
+</style>

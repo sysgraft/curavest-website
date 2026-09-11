@@ -5,8 +5,8 @@ import { SITE, FOOTER_LINKS } from '../lib/site';
 const year = new Date().getFullYear();
 
 const explore = FOOTER_LINKS.slice(0, 3);
-const service = FOOTER_LINKS.slice(3, 6);
-const more = FOOTER_LINKS.slice(6);
+const service = FOOTER_LINKS.slice(3, 7);
+const more = FOOTER_LINKS.slice(7);
 ---
 
 <footer class="site-footer on-panel">
@@ -15,7 +15,7 @@ const more = FOOTER_LINKS.slice(6);
       <Logo variant="paper" />
       <p class="footer-statement">
         Curavest offers several complementary services for UK operational businesses, including fractional CTO
-        support and AI-integration products such as
+        support, AI Integration Services, and AI-integration products such as
         {' '}<a href={SITE.sysgraftUrl} class="text-link" target="_blank" rel="noopener noreferrer">Sysgraft</a>.
       </p>
     </div>
@@ -29,8 +29,8 @@ const more = FOOTER_LINKS.slice(6);
       </ul>
     </nav>
 
-    <nav class="footer-nav" aria-label="Fractional CTO Services">
-      <h2 class="footer-heading">Fractional CTO</h2>
+    <nav class="footer-nav" aria-label="Services">
+      <h2 class="footer-heading">Services</h2>
       <ul>
         {service.map((link) => (
           <li><a href={link.href}>{link.label}</a></li>

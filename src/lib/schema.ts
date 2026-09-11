@@ -45,7 +45,7 @@ export function professionalServiceSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'ProfessionalService',
-    '@id': `${SITE.url}/#service`,
+    '@id': `${SITE.url}/#service-fractional-cto`,
     name: 'Curavest – Fractional CTO Services',
     description:
       'Part-time, embedded technology and process leadership for owners, MDs and boards of UK operational businesses.',
@@ -62,6 +62,30 @@ export function professionalServiceSchema() {
       audienceType: 'UK operational businesses, approximately £5m–£10m turnover',
     },
     url: `${SITE.url}/services/fractional-cto/`,
+  };
+}
+
+export function aiIntegrationServiceSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    '@id': `${SITE.url}/#service-ai-integration`,
+    name: 'Curavest – AI Integration Services',
+    description:
+      'Identifying where AI can genuinely improve an operational business, then designing and implementing it — understand, create, implement.',
+    provider: {
+      '@type': 'Organization',
+      name: SITE.legalName,
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'United Kingdom',
+    },
+    audience: {
+      '@type': 'BusinessAudience',
+      audienceType: 'UK operational businesses, approximately £5m–£10m turnover',
+    },
+    url: `${SITE.url}/services/ai-integration/`,
   };
 }
 

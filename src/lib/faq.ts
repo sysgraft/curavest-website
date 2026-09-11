@@ -4,7 +4,7 @@ export const FAQ_ITEMS = [
   {
     question: 'What services does Curavest offer?',
     answer:
-      'Curavest offers several complementary services for UK operational businesses. Our best-known service is Curavest – Fractional CTO Services, which provides part-time, embedded technology and process leadership for owners, MDs and boards. Curavest is also developing additional services focused on operational improvement and practical use of technology and AI, and builds Sysgraft, an AI-integration product for wholesale and distribution businesses.',
+      'Curavest offers several complementary services for UK operational businesses. Our best-known service is Curavest – Fractional CTO Services, which provides part-time, embedded technology and process leadership for owners, MDs and boards. Curavest also offers AI Integration Services, which identify where AI can genuinely improve a business process and then implement it, and builds Sysgraft, an AI-integration product for wholesale and distribution businesses.',
   },
   {
     question: 'What is a fractional CTO?',
@@ -24,7 +24,12 @@ export const FAQ_ITEMS = [
   {
     question: 'Is Curavest an AI consultancy?',
     answer:
-      'No. Curavest is a provider of several complementary services for operational businesses, including fractional CTO support and AI-integration products such as Sysgraft. AI is one tool that may be used to improve a process, review information, automate suitable work or identify a customer need. It is not automatically recommended, and it is not the identity of the company.',
+      'No. Curavest is a provider of several complementary services for operational businesses, including fractional CTO support, AI Integration Services and AI-integration products such as Sysgraft. AI is one tool that may be used to improve a process, review information, automate suitable work or identify a customer need. Even within AI Integration Services, AI is not automatically recommended for every process — it is applied only where it earns its place, and it is not the identity of the company.',
+  },
+  {
+    question: 'What are Curavest – AI Integration Services?',
+    answer:
+      'AI Integration Services help a UK operational business identify where AI can genuinely improve a specific process, then design and implement it. The approach follows three stages: understand how the process actually works and where AI would make a measurable difference; create a practical, prioritised plan for what to build and how success will be measured; and implement it, staying involved until it is genuinely part of normal practice rather than a pilot that quietly stops being used. It follows the same process-first discipline as the fractional CTO service, and is designed for the same businesses — approximately £5m–£10m turnover, in sectors such as manufacturing, construction supply, fire safety, tool and fixings supply, and outsourced product development.',
   },
   {
     question: 'Do you sell software?',
@@ -59,6 +64,6 @@ export const FAQ_ITEMS = [
   {
     question: 'How do Curavest services relate to Sysgraft?',
     answer:
-      'Sysgraft is an AI-integration product for wholesale and distribution businesses, built by Curavest. It is one of several Curavest offerings focused on operational improvement and practical technology use. Depending on your situation, we may recommend Sysgraft, the fractional CTO service, another Curavest service or a combination.',
+      'Sysgraft is an AI-integration product for wholesale and distribution businesses, built by Curavest. It is a specific product for one sector and one use — reviewing customer interactions. AI Integration Services is broader: it applies the same AI-implementation discipline to any process, in any of the sectors Curavest works with. Depending on your situation, we may recommend Sysgraft, AI Integration Services, the fractional CTO service or a combination.',
   },
 ] as const;

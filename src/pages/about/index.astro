@@ -3,7 +3,13 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
 import CtaBand from '../../components/CtaBand.astro';
-import { breadcrumbSchema, organizationSchema, personSchema } from '../../lib/schema';
+import {
+  breadcrumbSchema,
+  organizationSchema,
+  personSchema,
+  professionalServiceSchema,
+  aiIntegrationServiceSchema,
+} from '../../lib/schema';
 
 const title = 'About Curavest | Fractional CTO and Related Services';
 const description =
@@ -33,7 +39,13 @@ const ctoWork = [
   title={title}
   description={description}
   path="/about/"
-  jsonLd={[breadcrumbSchema(crumbs), organizationSchema(), personSchema()]}
+  jsonLd={[
+    breadcrumbSchema(crumbs),
+    organizationSchema(),
+    personSchema(),
+    professionalServiceSchema(),
+    aiIntegrationServiceSchema(),
+  ]}
 >
   <PageHero
     eyebrow="About Curavest"
@@ -85,11 +97,11 @@ const ctoWork = [
       <div class="service-list">
         <ServiceCard
           index="01"
-          title="Other Curavest services"
-          description="Curavest is developing additional services that complement the fractional CTO offer, focused on operational improvement and practical use of technology and AI."
-          meta="More detail on these services will appear here as they are finalised. If you are interested in discussing a specific problem now, we can use an initial conversation to identify which Curavest service is the best fit."
-          ctaLabel="Start a conversation"
-          ctaHref="/start-a-conversation/"
+          title="Curavest – AI Integration Services"
+          description="Understand where AI can genuinely improve an operational business, create a practical plan, then implement it — the same process-first approach as Fractional CTO Services."
+          meta="Best suited to the same sectors and turnover band as Fractional CTO Services."
+          ctaLabel="Learn more about AI Integration Services"
+          ctaHref="/services/ai-integration/"
         />
         <ServiceCard
           index="02"

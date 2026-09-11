@@ -1,0 +1,406 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import Icon from '../../../components/Icon.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import { breadcrumbSchema, aiIntegrationServiceSchema } from '../../../lib/schema';
+
+const title = 'AI Integration Services for UK Operational Businesses | Curavest';
+const description =
+  'Curavest – AI Integration Services identify where AI can genuinely improve an operational business, then design and implement it — the same practical, process-first approach as our fractional CTO service.';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Services', path: '/services/' },
+  { name: 'AI Integration Services', path: '/services/ai-integration/' },
+];
+
+const stages = [
+  {
+    index: '01',
+    icon: 'target',
+    title: 'Understand',
+    intro:
+      'AI can be pointed at almost any process in a business. That is exactly the problem — a business rarely needs to be told that AI could technically help somewhere. It needs to know where it would actually make a measurable difference.',
+    body: [
+      'That starts the same way a fractional CTO engagement does: by tracing how the work actually happens, not how it is supposed to happen on paper.',
+    ],
+    listIntro: 'That means understanding:',
+    list: [
+      'Which process is actually creating the delay, cost or risk.',
+      'How the work really happens — including the workarounds nobody wrote down.',
+      'What information exists, where it lives, and how reliable it is.',
+      'Who would be affected by a change, and who would need to trust it.',
+    ],
+    outro: 'The output is a specific target, not a general AI ambition.',
+  },
+  {
+    index: '02',
+    icon: 'engineer',
+    title: 'Create',
+    intro: 'Once the target process is clear, a plan can be built around it.',
+    body: [
+      'The plan sets out what should change, in what order, and what it depends on — including the cases where AI is not the right answer for that process.',
+    ],
+    listIntro: 'A practical plan sets out:',
+    list: [
+      'Which process to start with, and why.',
+      'What the AI needs to do — and what it should not be trusted to do.',
+      'What data or systems it depends on, and whether they are ready.',
+      'Who inside the business will own the result once it is live.',
+      'How success will be measured, against where the business started.',
+    ],
+    outro: 'A plan without an owner or a measure is not a plan. It is a hope.',
+  },
+  {
+    index: '03',
+    icon: 'check',
+    title: 'Implement',
+    intro: 'Recommendations do not improve a business. Changes that people actually use do.',
+    body: [
+      'We stay involved while the change is built, tested and introduced into everyday work — not handed over as a report and left to be adopted by magic.',
+    ],
+    listIntro: 'That includes:',
+    list: [
+      'Building or configuring the specific solution.',
+      'Testing it against real work, not a demonstration.',
+      'Explaining what it does, and when a person should override it.',
+      'Handing over ownership once it is genuinely part of normal practice.',
+    ],
+    outro: 'The aim is AI that is still being used in six months, not a pilot that quietly stops.',
+  },
+];
+
+const failurePatterns = [
+  'The starting point is a general ambition to "use AI", not a specific process.',
+  'The solution is designed around the official process, not the exceptions that actually keep the work running.',
+  'A tool gets chosen before the problem is fully understood.',
+  'Adoption is treated as automatic once something has been built.',
+  'No one inside the business is clearly responsible for the outcome once the vendor leaves.',
+  'Success was never defined clearly enough to know whether it actually worked.',
+];
+
+const applicationAreas = [
+  'Quoting, estimating and pricing.',
+  'Production scheduling, quality data and reporting.',
+  'Customer communication and enquiry handling.',
+  'Inventory, demand and purchasing decisions.',
+  'Management information and board-level reporting.',
+  'Reviewing, classifying or surfacing information buried in existing systems.',
+];
+
+const relationshipOptions = [
+  'AI Integration Services as the primary engagement.',
+  'A part of a wider fractional CTO engagement.',
+  'Sysgraft, where the need matches its specific product for wholesale and distribution.',
+];
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path="/services/ai-integration/"
+  jsonLd={[breadcrumbSchema(crumbs), aiIntegrationServiceSchema()]}
+>
+  <PageHero
+    eyebrow="Curavest – AI Integration Services"
+    title="AI implementation built around how the business actually works"
+    lede="The same practical, process-first approach as Curavest's fractional CTO service, applied specifically to identifying and implementing AI."
+    breadcrumbs={crumbs}
+  >
+    <p class="lede hero-extra">
+      This is not AI for its own sake. Every recommendation starts with a specific process, not a general
+      ambition to &ldquo;use more AI&rdquo;.
+    </p>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <ol class="stage-list">
+        {
+          stages.map((stage) => (
+            <li class="stage-item">
+              <div class="stage-marker">
+                <span class="stage-icon-ring">
+                  <Icon name={stage.icon} class="stage-icon" />
+                </span>
+                <span class="stage-connector" aria-hidden="true" />
+              </div>
+              <div class="stage-copy">
+                <p class="stage-index">{stage.index}</p>
+                <h2>{stage.title}</h2>
+                <p class="lede">{stage.intro}</p>
+                {stage.body.map((para) => (
+                  <p>{para}</p>
+                ))}
+                <p class="list-intro">{stage.listIntro}</p>
+                <ul class="check-list">
+                  {stage.list.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+                <p class="stage-outro">{stage.outro}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section on-panel">
+    <div class="container fail-section">
+      <h2 class="statement statement-wide">Why AI implementation so often doesn&rsquo;t stick</h2>
+      <p class="lede fail-lead">Across many businesses, the same patterns show up when AI is introduced by a third party:</p>
+      <ul class="check-list check-list-columns check-list-neg fail-list">
+        {failurePatterns.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="lede fail-outro">
+        AI Integration Services is built specifically to avoid these patterns — starting with the process,
+        naming an owner, and staying involved until the change is normal practice.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container apply-section">
+      <h2 class="statement statement-wide">AI can apply to almost any process — these are common starting points</h2>
+      <p class="lede apply-lead">
+        Because the approach starts with the process rather than the technology, AI Integration Services is
+        not limited to one function. In an operational business, common starting points include:
+      </p>
+      <ul class="check-list check-list-columns apply-list">
+        {applicationAreas.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="lede apply-outro">
+        The right starting point depends on where the process is actually losing time, money or opportunity —
+        not on which of these is easiest to demonstrate.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container who-section">
+      <h2 class="statement statement-wide">Built for the same businesses as Fractional CTO Services</h2>
+      <p class="lede who-body">
+        AI Integration Services is designed for the same UK operational businesses as Curavest&rsquo;s
+        fractional CTO service — typically £5m&ndash;£10m turnover, in sectors such as manufacturing,
+        construction supply, fire safety, tool and fixings supply, and outsourced product development. It can
+        run as a standalone engagement, or alongside a fractional CTO engagement where AI is one part of a
+        wider set of changes.
+      </p>
+      <p class="who-link">
+        <a href="/services/fractional-cto/who-i-work-with/" class="text-link">See who Curavest works with →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container relationship-section">
+      <h2 class="statement statement-wide">Relationship to other Curavest services</h2>
+      <p class="lede relationship-lead">
+        AI Integration Services is distinct from Sysgraft, Curavest&rsquo;s AI-integration product for
+        wholesale and distribution businesses. Sysgraft is a specific product built for one sector and one
+        use — reviewing customer interactions. AI Integration Services is broader: it applies to any process,
+        in any of the sectors Curavest works with. Depending on your situation, we may recommend:
+      </p>
+      <ul class="check-list relationship-list">
+        {relationshipOptions.map((item) => <li>{item}</li>)}
+      </ul>
+      <p class="relationship-outro">
+        We can identify the right combination in an initial conversation.
+        <a href="/services/" class="text-link">Explore all Curavest services →</a>
+      </p>
+    </div>
+  </section>
+
+  <CtaBand
+    title="Not sure where AI would actually help?"
+    lede="Start with the process, not the technology. We can identify whether AI Integration Services, the fractional CTO service or a combination is the right fit."
+    ctaLabel="Start a conversation about AI Integration Services"
+    ctaHref="/start-a-conversation/"
+    tone="petrol"
+  />
+</BaseLayout>
+
+<style>
+  .hero-extra {
+    margin-top: var(--space-4);
+  }
+
+  /* ---- Understand / Create / Implement stage list (mirrors the
+     Fractional CTO "How It Works" method treatment) ---- */
+  .stage-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stage-item {
+    display: grid;
+    grid-template-columns: 4.5rem 1fr;
+    gap: var(--space-6);
+  }
+
+  .stage-marker {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stage-icon-ring {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    flex-shrink: 0;
+    border: 1.5px solid var(--color-ink);
+    background: var(--color-paper-raised);
+  }
+
+  :global(.stage-icon) {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-ink);
+  }
+
+  .stage-connector {
+    flex: 1;
+    width: 1.5px;
+    background: var(--color-line);
+    margin-block: var(--space-3);
+  }
+
+  .stage-item:last-child .stage-connector {
+    display: none;
+  }
+
+  .stage-copy {
+    max-width: 62ch;
+    padding-bottom: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .stage-index {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wider);
+    color: var(--color-copper);
+  }
+
+  .stage-copy h2 {
+    margin-top: -0.5rem;
+  }
+
+  .stage-copy .lede {
+    font-size: var(--text-md);
+  }
+
+  .stage-copy p {
+    color: var(--color-ink-2);
+    line-height: var(--leading-relaxed);
+  }
+
+  .list-intro {
+    font-weight: 600;
+    color: var(--color-ink) !important;
+  }
+
+  .stage-outro {
+    font-style: italic;
+    color: var(--color-ink-3) !important;
+  }
+
+  /* ---- Why implementation fails (on dark panel) ---- */
+  .fail-section {
+    max-width: 50rem;
+  }
+
+  .fail-lead {
+    margin-top: var(--space-4);
+    max-width: 56ch;
+    color: var(--color-on-panel-muted);
+  }
+
+  .fail-list {
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .check-list-neg li::before {
+    content: '';
+    width: 0.85rem;
+    height: 1.5px;
+    top: 0.75em;
+    background: var(--color-on-panel-muted);
+  }
+
+  .fail-outro {
+    max-width: 58ch;
+  }
+
+  /* ---- Where it applies ---- */
+  .apply-section {
+    max-width: 50rem;
+  }
+
+  .apply-lead {
+    margin-top: var(--space-4);
+    max-width: 58ch;
+  }
+
+  .apply-list {
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .apply-outro {
+    max-width: 58ch;
+  }
+
+  /* ---- Who this is for ---- */
+  .who-section {
+    max-width: 48rem;
+  }
+
+  .who-body {
+    margin-top: var(--space-4);
+    max-width: 62ch;
+  }
+
+  .who-link {
+    margin-top: var(--space-5);
+  }
+
+  /* ---- Relationship to other services ---- */
+  .relationship-section {
+    max-width: 50rem;
+  }
+
+  .relationship-lead {
+    margin-top: var(--space-4);
+    max-width: 62ch;
+  }
+
+  .relationship-list {
+    margin-top: var(--space-5);
+    margin-bottom: var(--space-6);
+  }
+
+  .relationship-outro {
+    max-width: 56ch;
+    color: var(--color-ink-2);
+  }
+
+  .relationship-outro a {
+    margin-left: 0.4em;
+  }
+
+  @media (max-width: 63.9375rem) {
+    .stage-item {
+      grid-template-columns: 3.25rem 1fr;
+    }
+  }
+</style>

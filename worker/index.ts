@@ -52,6 +52,7 @@ interface ContactPayload {
 
 const SERVICE_LABELS: Record<string, string> = {
   'fractional-cto': 'Fractional CTO Services',
+  'ai-integration': 'AI Integration Services',
   'other-services': 'Other Curavest services',
   sysgraft: 'Sysgraft',
   'not-sure': 'Not sure yet',

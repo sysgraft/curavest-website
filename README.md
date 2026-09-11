@@ -44,6 +44,7 @@ scripts/          Build-time tooling (icon/OG generation, link + a11y QA) — no
 | `/services/fractional-cto/` | Fractional CTO Services |
 | `/services/fractional-cto/how-it-works/` | How It Works (Diagnose · Engineer · Prove) |
 | `/services/fractional-cto/who-i-work-with/` | Who I Work With |
+| `/services/ai-integration/` | AI Integration Services |
 | `/track-record/` | Track Record (case studies) |
 | `/about/` | About Curavest |
 | `/start-a-conversation/` | Contact + FAQ |
@@ -140,15 +141,24 @@ or invented system.
   `src/assets/brand/logo-pack/` for reference.
 - **Imagery:** the guidelines call for high-contrast, unfiltered industrial photography (factories,
   warehouses, blueprints — explicitly not stock "handshake" photos). This build's sandbox has no network
-  access to stock-photo CDNs, so real photography could not be sourced or verified as appropriately licensed
-  here regardless — and generic stock wouldn't match the guidelines' intent even if it were reachable. The
-  site currently uses an original SVG diagram system in its place (the schematic hero graphic, the
-  Diagnose·Engineer·Prove stage diagram, and — on "Who I Work With" — a larger, sector-specific schematic
+  access to any external image host (confirmed: `images.unsplash.com`, `raw.githubusercontent.com` and
+  `upload.wikimedia.org` all refuse the connection under the sandbox's egress policy — it's a general
+  restriction, not specific to one CDN), so real photography could not be downloaded here regardless of
+  source. The site currently uses an original SVG diagram system in its place (the schematic hero graphic,
+  the Diagnose·Engineer·Prove stage diagram, and — on "Who I Work With" — a larger, sector-specific schematic
   illustration per industry: `src/components/SectorIllustration.astro`, one distinct motif per sector rather
   than a repeated icon, each closing on the same accent-filled node used by the hero's CONSTRAINT/RESULT
   markers). Swapping in real photography of the business, its work, or its sectors — once available — is the
-  one guideline requirement not yet implemented; the guidelines' "Industry Grid" card component (`docs` §3)
-  is specified with a top-half image slot ready for it.
+  one guideline requirement not yet implemented.
+
+  **The integration point is ready:** `src/components/PhotoBand.astro` is a single full-bleed photograph
+  component built on `astro:assets` (responsive, optimised, self-hosted at build time — no runtime CDN
+  dependency), used sparingly as a visual rest-point between prose sections rather than a repeated card grid.
+  Drop licensed source images into `src/assets/photography/`, import them, and pass to `<PhotoBand image={…}
+  alt="…" />`. A specific five-image placement plan (one photograph each for the homepage, the Services hub,
+  Fractional CTO Services, Who I Work With and About, with a curated Unsplash shortlist — direct links and
+  photographer credit for each) is recorded in the project notes rather than here, since it names external
+  URLs that may need re-checking before use.
 
 ## Accessibility & SEO
 
@@ -177,14 +187,19 @@ or invented system.
 
 ## Notes for future maintainers
 
-- **Real photography is the one open item.** See "Imagery" above — this sandbox cannot reach stock-photo
-  CDNs, and generic stock wouldn't match the guidelines' brief anyway ("unfiltered images of industrial
-  environments... avoid stock 'handshake' photos"). Drop real photos into `src/assets/` and wire them into
-  the guidelines' "Industry Grid" card component and the homepage/hero when available.
-- **The guidelines' component patterns not yet fully built out:** the Digital Playbook (§3) specifies an
-  "Industry Grid" card (3-column, top-half image, 4px Primary Blue accent bar, uppercase title, "Read More"
-  link with arrow) for sector/service listings. The accent-bar/uppercase/typography parts of this are
-  implementable now; the image half is blocked on real photography per above.
+- **Real photography is the one open item.** See "Imagery" above — this sandbox cannot reach any external
+  image host to download source files, regardless of provider. `PhotoBand.astro` and
+  `src/assets/photography/` are ready; drop licensed images in, import them, and wire them into the
+  homepage, Services hub, Fractional CTO Services, Who I Work With and About per the placement plan in the
+  project notes.
+- **Deliberate deviation from the guidelines' literal "Industry Grid" card spec.** The Digital Playbook (§3)
+  specifies a 3-column card (top-half image, 4px Primary Blue accent bar, uppercase title, "Read More" link)
+  for sector/service listings. This site instead uses full-width dossier rows for service and sector lists
+  (`ServiceCard.astro`, the sector list on "Who I Work With") and, for photography, single full-bleed bands
+  between sections (`PhotoBand.astro`) rather than one image per card. This is a considered choice, not an
+  oversight: source-of-truth priority 6 (established UX/accessibility/SEO best practice) and this project's
+  explicit instruction to avoid "stock-template layouts" and "cookie-cutter" card grids outrank the literal
+  component spec here, and a repeated 3-up image-card grid across five sectors risked exactly that.
 - **Legal name / structured data:** `Curavest Ltd` and `Euan Pallister` are used in `Organization`/`Person`
   schema and the footer/legal copy, based on the supplied contact details and SEO implementation notes. No
   company registration details were supplied, so none are shown.

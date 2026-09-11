@@ -1,6 +1,7 @@
 ---
 const SERVICE_OPTIONS = [
   { value: 'fractional-cto', label: 'Fractional CTO Services' },
+  { value: 'ai-integration', label: 'AI Integration Services' },
   { value: 'other-services', label: 'Other Curavest services' },
   { value: 'sysgraft', label: 'Sysgraft' },
   { value: 'not-sure', label: 'Not sure yet' },
@@ -58,7 +59,7 @@ const CONTACT_PREFERENCE_OPTIONS = [
       {
         SERVICE_OPTIONS.map((option, index) => (
           <label class="field-radio">
-            <input type="radio" name="service" value={option.value} checked={index === 3} />
+            <input type="radio" name="service" value={option.value} checked={index === 4} />
             {option.label}
           </label>
         ))

@@ -4,7 +4,12 @@ import SchematicGraphic from '../components/SchematicGraphic.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import StatRow from '../components/StatRow.astro';
 import CtaBand from '../components/CtaBand.astro';
-import { organizationSchema, websiteSchema, professionalServiceSchema } from '../lib/schema';
+import {
+  organizationSchema,
+  websiteSchema,
+  professionalServiceSchema,
+  aiIntegrationServiceSchema,
+} from '../lib/schema';
 
 const title = 'Curavest | Fractional CTO and Related Services for UK Businesses';
 const description =
@@ -28,7 +33,7 @@ const whyPoints = [
   title={title}
   description={description}
   path="/"
-  jsonLd={[organizationSchema(), websiteSchema(), professionalServiceSchema()]}
+  jsonLd={[organizationSchema(), websiteSchema(), professionalServiceSchema(), aiIntegrationServiceSchema()]}
 >
   <section class="home-hero on-panel">
     <div class="container home-hero-inner">
@@ -89,9 +94,21 @@ const whyPoints = [
         />
         <ServiceCard
           index="02"
+          title="Curavest – AI Integration Services"
+          description="Understand where AI can genuinely improve an operational business, create a practical plan, then implement it."
+          points={[
+            'Understand which process AI would actually improve.',
+            'Create a prioritised, practical implementation plan.',
+            'Implement it and stay involved until it is normal practice.',
+          ]}
+          ctaLabel="Learn more about AI Integration Services"
+          ctaHref="/services/ai-integration/"
+        />
+        <ServiceCard
+          index="03"
           title="Other Curavest services"
-          description="Curavest is developing additional services that complement the fractional CTO offer, focused on operational improvement and practical use of technology and AI."
-          meta="More detail on these services will appear here soon. In the meantime, you can learn more about the fractional CTO service or explore Sysgraft."
+          description="Curavest is developing further services that complement Fractional CTO and AI Integration Services, focused on operational improvement."
+          meta="More detail on these services will appear here soon. In the meantime, you can explore Sysgraft, Curavest's AI-integration product for wholesale and distribution businesses."
           ctaLabel="View Sysgraft"
           ctaHref="https://sysgraft.com"
           external
