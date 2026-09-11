@@ -263,11 +263,14 @@ function isActive(href: string) {
   /* JS-enhanced state: collapse to a toggleable mobile panel.
      Without JS (.js-enhanced absent), everything stays visible/stacked —
      the site remains fully navigable. */
-  :global(html.js-enhanced) .menu-toggle {
-    display: inline-flex;
-  }
-
   @media (max-width: 63.9375rem) {
+    /* Scoped to the mobile breakpoint: without this, the toggle button
+       showed at every width once JS ran, sitting uselessly next to the
+       full desktop nav (which this button doesn't control there). */
+    :global(html.js-enhanced) .menu-toggle {
+      display: inline-flex;
+    }
+
     /* Fixed + inset:0 keeps the panel's box exactly at the viewport edges.
        Deliberately no transform here: a translateX used to slide this
        off-canvas also expanded the document's scrollable area on some

@@ -13,7 +13,11 @@ interface Props {
 const { title, description, path, image, noindex = false, jsonLd = [] } = Astro.props;
 const canonical = new URL(path, SITE.url).toString();
 const ogImage = new URL(image ?? '/images/og/default.png', SITE.url).toString();
-const fullTitle = path === '/' ? title : `${title} | ${SITE.name}`;
+// Every page's `title` prop is already a complete, final title (each one
+// includes "Curavest" itself — as a prefix on the homepage/About, as a
+// " | Curavest" suffix everywhere else). Do not append the site name again
+// here, or every non-home page ends up with a doubled "| Curavest | Curavest".
+const fullTitle = title;
 ---
 
 <title>{fullTitle}</title>
