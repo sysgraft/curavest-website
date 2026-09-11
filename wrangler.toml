@@ -1,9 +1,16 @@
 name = "curavest-website"
+main = "worker/index.ts"
 compatibility_date = "2026-01-01"
-pages_build_output_dir = "dist"
 
-# Environment variables / secrets for the /api/contact Pages Function are
-# configured in the Cloudflare dashboard (Pages project → Settings →
-# Environment variables), not in this file:
+# Static site output — see astro.config.mjs. Served directly by the ASSETS
+# binding for every request the Worker doesn't handle itself.
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+
+# Runtime environment variables / secrets for the /api/contact handler
+# (worker/index.ts) are configured in the Cloudflare dashboard — Workers &
+# Pages → curavest-website → Settings → Variables and Secrets, under
+# "Runtime" (not "Build") — not in this file:
 #   RESEND_API_KEY, CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL
 # See README.md for full setup instructions.

@@ -12,8 +12,10 @@ fractional CTO and related services.
   font requests at runtime).
 - A small amount of vanilla TypeScript for the header's mobile menu / dropdown and the contact form's
   progressive enhancement (client-side validation + fetch submission). Both degrade gracefully without JS.
-- **Cloudflare Pages** for hosting, with one Pages Function (`functions/api/contact.ts`) handling the
-  contact form's server-side send. Everything else is prebuilt static HTML/CSS/assets.
+- **Cloudflare Workers (with static assets)** for hosting — a single Worker (`worker/index.ts`) serves the
+  prebuilt `dist/` output for every route and handles one API route itself, `/api/contact`, for the contact
+  form's server-side send. Everything else is prebuilt static HTML/CSS/assets, so this is effectively a
+  static site with one small serverless endpoint, not a server-rendered app.
 
 ## Project structure
 
@@ -28,9 +30,9 @@ src/
 public/
   icons/, favicon.ico, site.webmanifest   Generated favicon/app-icon set
   images/og/default.png                   Default social share image
-  _headers                                Cloudflare Pages security headers
-functions/api/contact.ts   Cloudflare Pages Function backing the contact form
-scripts/                   Build-time tooling (icon/OG generation, link + a11y QA) — not shipped
+  _headers                                Security headers, applied to the Worker's static-asset responses
+worker/index.ts   Cloudflare Worker entry point — serves dist/ via the ASSETS binding, plus /api/contact
+scripts/          Build-time tooling (icon/OG generation, link + a11y QA) — not shipped
 ```
 
 ## Sitemap
@@ -60,18 +62,20 @@ Node 20+ is recommended.
 
 ## Contact form setup (required before the form can send mail)
 
-The "Start a Conversation" form posts to `/api/contact`, a Cloudflare Pages Function
-(`functions/api/contact.ts`). It validates input server-side and sends the message via
-[Resend](https://resend.com). **This repository intentionally contains no credentials** — until it's
-configured, the endpoint responds with a clear, honest 503 and the form's UI tells the visitor to email
-directly instead. It never silently pretends to succeed.
+The "Start a Conversation" form posts to `/api/contact`, handled directly by the Worker
+(`worker/index.ts`) — everything else in that file just proxies to the static assets. It validates input
+server-side and sends the message via [Resend](https://resend.com). **This repository intentionally
+contains no credentials** — until it's configured, the endpoint responds with a clear, honest 503 and the
+form's UI tells the visitor to email directly instead. It never silently pretends to succeed.
 
 To wire it up for real delivery:
 
 1. Create a free [Resend](https://resend.com) account and verify a sending domain (e.g. `curavest.co.uk`,
    or a subdomain like `mail.curavest.co.uk`).
 2. Generate an API key with sending access.
-3. In the Cloudflare Pages project settings → **Environment variables**, add:
+3. In the Cloudflare dashboard → Workers & Pages → curavest-website → **Settings → Variables and Secrets**
+   — make sure you're adding these as **Runtime** variables (the ones the deployed Worker reads), not
+   **Build** ones (those only exist while `npm run build` / the deploy command are running):
    - `RESEND_API_KEY` — the key from step 2 (mark as a secret).
    - `CONTACT_TO_EMAIL` — optional, defaults to `euan.pallister@curavest.co.uk`.
    - `CONTACT_FROM_EMAIL` — optional, e.g. `"Curavest Website <noreply@curavest.co.uk>"`. Must be on the
@@ -79,21 +83,34 @@ To wire it up for real delivery:
 4. Redeploy. See `.env.example` for the same reference locally.
 
 Until configured, nothing needs to change in code — the isolation is deliberate (see the comment block at
-the top of `functions/api/contact.ts`).
+the top of `worker/index.ts`).
 
-## Deploying to Cloudflare Pages
+## Deploying to Cloudflare
+
+This deploys as a **Cloudflare Worker with static assets**, not a classic Cloudflare Pages project — that
+distinction matters because the two use different `wrangler` subcommands and different dashboard URLs
+(`workers/services/view/...` vs `pages/view/...`); using the wrong one fails with either a missing
+entry-point error or a Pages-API authentication error.
 
 - **Build command:** `npm run build`
-- **Build output directory:** `dist`
+- **Deploy command:** `npx wrangler deploy` (not `wrangler pages deploy` — there is no Pages project here)
 - **Root directory:** `/` (repo root)
-- Framework preset: Astro (or "None" — the static output needs no special handling)
 
-Connect the GitHub repository directly in the Cloudflare Pages dashboard for automatic deploys on push to
-`main`, or deploy manually with `npx wrangler pages deploy dist`. `wrangler.toml` at the repo root already
-points `pages_build_output_dir` at `dist`.
+`wrangler.toml` at the repo root already points `main` at `worker/index.ts` and `[assets] directory` at
+`dist`, so a manual deploy is just:
 
-No environment variables are required for the site itself to build and serve; only the contact form
-function needs the variables above, and only once you want it to actually send email.
+```bash
+npm run build
+npx wrangler deploy
+```
+
+Connect the GitHub repository in the Cloudflare dashboard (Workers & Pages → Create → Import a repository)
+for automatic deploys on push to `main` — set the Build command and Deploy command exactly as above in that
+project's Settings → Builds.
+
+No **Build**-time environment variables are required for the site itself to build and deploy; only the
+contact form needs the **Runtime** variables above, and only once you want it to actually send email — see
+"Contact form setup".
 
 ## Design system
 
