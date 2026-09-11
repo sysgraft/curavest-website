@@ -3,7 +3,9 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
 import Icon from '../../../components/Icon.astro';
 import CtaBand from '../../../components/CtaBand.astro';
+import PhotoBand from '../../../components/PhotoBand.astro';
 import { breadcrumbSchema, professionalServiceSchema } from '../../../lib/schema';
+import fractionalCtoBand from '../../../assets/photography/fractional-cto-band.jpg';
 
 const title = 'Fractional CTO Services | Curavest';
 const description =
@@ -56,6 +58,11 @@ const notStartingPoints = [
       improve performance and make better technology decisions.
     </p>
   </PageHero>
+
+  <PhotoBand
+    image={fractionalCtoBand}
+    alt="Industrial warehouse buildings under a stormy sky."
+  />
 
   <section class="section">
     <div class="container">

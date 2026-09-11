@@ -2,7 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
+import PhotoBand from '../../components/PhotoBand.astro';
 import { breadcrumbSchema, professionalServiceSchema, aiIntegrationServiceSchema } from '../../lib/schema';
+import servicesBand from '../../assets/photography/services-band.jpg';
 
 const title = 'Our Services | Curavest';
 const description =
@@ -37,6 +39,11 @@ const starterQuestions = [
       the real constraint sits.
     </p>
   </PageHero>
+
+  <PhotoBand
+    image={servicesBand}
+    alt="Grey pipes mounted along a concrete wall inside an industrial building."
+  />
 
   <section class="section">
     <div class="container">

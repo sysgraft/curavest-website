@@ -3,7 +3,9 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
 import SectorIllustration from '../../../components/SectorIllustration.astro';
 import CtaBand from '../../../components/CtaBand.astro';
+import PhotoBand from '../../../components/PhotoBand.astro';
 import { breadcrumbSchema } from '../../../lib/schema';
+import whoIWorkWithBand from '../../../assets/photography/who-i-work-with-band.jpg';
 
 const title = 'Fractional CTO for Manufacturing and Operational Businesses | Curavest';
 const description =
@@ -101,6 +103,11 @@ const sectors = [
       <p class="lede fit-outro">This service suits businesses that want improvement to show up in the work itself.</p>
     </div>
   </section>
+
+  <PhotoBand
+    image={whoIWorkWithBand}
+    alt="A vast industrial interior with concrete columns and machinery."
+  />
 
   <section class="section section-alt">
     <div class="container">

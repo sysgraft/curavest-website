@@ -4,12 +4,14 @@ import SchematicGraphic from '../components/SchematicGraphic.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import StatRow from '../components/StatRow.astro';
 import CtaBand from '../components/CtaBand.astro';
+import PhotoBand from '../components/PhotoBand.astro';
 import {
   organizationSchema,
   websiteSchema,
   professionalServiceSchema,
   aiIntegrationServiceSchema,
 } from '../lib/schema';
+import homeBand from '../assets/photography/home-band.jpg';
 
 const title = 'Curavest | Fractional CTO and Related Services for UK Businesses';
 const description =
@@ -130,6 +132,11 @@ const whyPoints = [
       </p>
     </div>
   </section>
+
+  <PhotoBand
+    image={homeBand}
+    alt="A vast, empty industrial hall with skylights and a concrete floor."
+  />
 
   <section class="section proof-section">
     <div class="container">

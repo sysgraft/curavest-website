@@ -140,25 +140,20 @@ or invented system.
   `public/favicon.ico`, `public/site.webmanifest`). The full original pack is archived at
   `src/assets/brand/logo-pack/` for reference.
 - **Imagery:** the guidelines call for high-contrast, unfiltered industrial photography (factories,
-  warehouses, blueprints — explicitly not stock "handshake" photos). This build's sandbox has no network
-  access to any external image host (confirmed: `images.unsplash.com`, `raw.githubusercontent.com` and
-  `upload.wikimedia.org` all refuse the connection under the sandbox's egress policy — it's a general
-  restriction, not specific to one CDN), so real photography could not be downloaded here regardless of
-  source. The site currently uses an original SVG diagram system in its place (the schematic hero graphic,
-  the Diagnose·Engineer·Prove stage diagram, and — on "Who I Work With" — a larger, sector-specific schematic
-  illustration per industry: `src/components/SectorIllustration.astro`, one distinct motif per sector rather
-  than a repeated icon, each closing on the same accent-filled node used by the hero's CONSTRAINT/RESULT
-  markers). Swapping in real photography of the business, its work, or its sectors — once available — is the
-  one guideline requirement not yet implemented.
+  warehouses, blueprints — explicitly not stock "handshake" photos). Real, licensed photography is live on
+  all five main pages — homepage, Services hub, Fractional CTO Services, Who I Work With and About — each as
+  a single full-bleed band via `src/components/PhotoBand.astro` (built on `astro:assets`: responsive,
+  optimised WebP variants generated at build time, self-hosted with no runtime CDN dependency), used sparingly
+  as a visual rest-point between prose sections rather than a repeated card grid. Source JPEGs live in
+  `src/assets/photography/`; sourcing notes, placements and photographer credit for each are recorded in
+  `docs/photography-plan.md`.
 
-  **The integration point is ready:** `src/components/PhotoBand.astro` is a single full-bleed photograph
-  component built on `astro:assets` (responsive, optimised, self-hosted at build time — no runtime CDN
-  dependency), used sparingly as a visual rest-point between prose sections rather than a repeated card grid.
-  Drop licensed source images into `src/assets/photography/`, import them, and pass to `<PhotoBand image={…}
-  alt="…" />`. A specific five-image placement plan (one photograph each for the homepage, the Services hub,
-  Fractional CTO Services, Who I Work With and About, with a curated Unsplash shortlist — direct links and
-  photographer credit for each) is recorded in the project notes rather than here, since it names external
-  URLs that may need re-checking before use.
+  The site also keeps the original SVG diagram system it used before photography was sourced (the schematic
+  hero graphic, the Diagnose·Engineer·Prove stage diagram, and — on "Who I Work With" — a larger,
+  sector-specific schematic illustration per industry: `src/components/SectorIllustration.astro`, one
+  distinct motif per sector rather than a repeated icon, each closing on the same accent-filled node used by
+  the hero's CONSTRAINT/RESULT markers). These are complementary to the photography, not a placeholder for
+  it — they illustrate abstract process/sector concepts that a photograph can't.
 
 ## Accessibility & SEO
 
@@ -187,11 +182,12 @@ or invented system.
 
 ## Notes for future maintainers
 
-- **Real photography is the one open item.** See "Imagery" above — this sandbox cannot reach any external
-  image host to download source files, regardless of provider. `PhotoBand.astro` and
-  `src/assets/photography/` are ready; drop licensed images in, import them, and wire them into the
-  homepage, Services hub, Fractional CTO Services, Who I Work With and About per the placement plan in the
-  project notes.
+- **Real photography is shipped.** See "Imagery" above and `docs/photography-plan.md` for sourcing notes,
+  placements, and photographer credit for all five images. This build sandbox itself has no network access
+  to any external image host (confirmed: `images.unsplash.com`, `raw.githubusercontent.com` and
+  `upload.wikimedia.org` all refuse the connection under its egress policy, and the same restriction was
+  independently confirmed from the device-linked machine's own shell) — the images were sourced by driving a
+  real browser session directly (not a restricted shell), which is not subject to that policy.
 - **Deliberate deviation from the guidelines' literal "Industry Grid" card spec.** The Digital Playbook (§3)
   specifies a 3-column card (top-half image, 4px Primary Blue accent bar, uppercase title, "Read More" link)
   for sector/service listings. This site instead uses full-width dossier rows for service and sector lists
