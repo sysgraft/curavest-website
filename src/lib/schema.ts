@@ -13,10 +13,6 @@ export function organizationSchema() {
     logo: `${SITE.url}/icons/icon-512.png`,
     email: SITE.email,
     telephone: SITE.phoneLandline,
-    founder: {
-      '@type': 'Person',
-      name: SITE.founder,
-    },
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'GB',
@@ -29,8 +25,8 @@ export function personSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    '@id': `${SITE.url}/#founder`,
-    name: SITE.founder,
+    '@id': `${SITE.url}/#person`,
+    name: SITE.consultant,
     jobTitle: 'Fractional CTO',
     worksFor: {
       '@type': 'Organization',

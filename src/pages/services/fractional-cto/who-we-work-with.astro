@@ -5,7 +5,7 @@ import SectorIllustration from '../../../components/SectorIllustration.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import PhotoBand from '../../../components/PhotoBand.astro';
 import { breadcrumbSchema } from '../../../lib/schema';
-import whoIWorkWithBand from '../../../assets/photography/who-i-work-with-band.jpg';
+import whoWeWorkWithBand from '../../../assets/photography/who-we-work-with-band.jpg';
 
 const title = 'Fractional CTO for Manufacturing and Operational Businesses | Curavest';
 const description =
@@ -15,7 +15,7 @@ const crumbs = [
   { name: 'Home', path: '/' },
   { name: 'Services', path: '/services/' },
   { name: 'Fractional CTO Services', path: '/services/fractional-cto/' },
-  { name: 'Who I Work With', path: '/services/fractional-cto/who-i-work-with/' },
+  { name: 'Who We Work With', path: '/services/fractional-cto/who-we-work-with/' },
 ];
 
 const rightFit = [
@@ -79,11 +79,11 @@ const sectors = [
 <BaseLayout
   title={title}
   description={description}
-  path="/services/fractional-cto/who-i-work-with/"
+  path="/services/fractional-cto/who-we-work-with/"
   jsonLd={[breadcrumbSchema(crumbs)]}
 >
   <PageHero
-    eyebrow="Who I work with"
+    eyebrow="Who we work with"
     title="For owners who need the business to move"
     lede="Curavest – Fractional CTO Services are designed for owners, MDs and boards of growing UK businesses where operational complexity is beginning to limit performance."
     breadcrumbs={crumbs}
@@ -106,8 +106,8 @@ const sectors = [
   </section>
 
   <PhotoBand
-    image={whoIWorkWithBand}
-    alt="A vast industrial interior with concrete columns and machinery."
+    image={whoWeWorkWithBand}
+    alt="A warm, wood-panelled modern office with a meeting area and workstations beyond a glass partition."
   />
 
   <section class="section section-alt">

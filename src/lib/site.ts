@@ -13,7 +13,7 @@ export const SITE = {
   phoneLandlineDisplay: '+44 (0)118 391 3212',
   phoneMobile: '+447484094848',
   phoneMobileDisplay: '+44 (0)7484 094848',
-  founder: 'Euan Pallister',
+  consultant: 'Euan Pallister',
   locale: 'en_GB',
   sysgraftUrl: 'https://sysgraft.com',
 } as const;
@@ -47,8 +47,8 @@ export const NAV: NavItem[] = [
         description: 'Diagnose, engineer, prove — our three-stage method.',
       },
       {
-        label: 'Who I Work With',
-        href: '/services/fractional-cto/who-i-work-with/',
+        label: 'Who We Work With',
+        href: '/services/fractional-cto/who-we-work-with/',
         description: 'The businesses and sectors we are the right fit for.',
       },
       {
@@ -75,7 +75,7 @@ export const FOOTER_LINKS: NavChild[] = [
   { label: 'Fractional CTO Services', href: '/services/fractional-cto/' },
   { label: 'AI Integration Services', href: '/services/ai-integration/' },
   { label: 'How It Works', href: '/services/fractional-cto/how-it-works/' },
-  { label: 'Who I Work With', href: '/services/fractional-cto/who-i-work-with/' },
+  { label: 'Who We Work With', href: '/services/fractional-cto/who-we-work-with/' },
   { label: 'Track Record', href: '/track-record/' },
   { label: 'About Curavest', href: '/about/' },
   { label: 'Start a Conversation', href: '/start-a-conversation/' },

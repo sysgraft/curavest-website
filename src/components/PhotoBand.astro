@@ -31,8 +31,10 @@ const { image, alt, caption, priority = false } = Astro.props;
     src={image}
     alt={alt}
     class="photo-band-img"
+    width={2000}
     widths={[640, 960, 1440, 2000]}
     sizes="100vw"
+    quality={72}
     loading={priority ? 'eager' : 'lazy'}
     fetchpriority={priority ? 'high' : 'auto'}
     decoding={priority ? 'sync' : 'async'}

@@ -43,7 +43,7 @@ scripts/          Build-time tooling (icon/OG generation, link + a11y QA) — no
 | `/services/` | Services hub |
 | `/services/fractional-cto/` | Fractional CTO Services |
 | `/services/fractional-cto/how-it-works/` | How It Works (Diagnose · Engineer · Prove) |
-| `/services/fractional-cto/who-i-work-with/` | Who I Work With |
+| `/services/fractional-cto/who-we-work-with/` | Who We Work With |
 | `/services/ai-integration/` | AI Integration Services |
 | `/track-record/` | Track Record (case studies) |
 | `/about/` | About Curavest |
@@ -139,20 +139,23 @@ or invented system.
   webmanifest, and the Safari pinned-tab mask icon all come from the same pack (`public/icons/`,
   `public/favicon.ico`, `public/site.webmanifest`). The full original pack is archived at
   `src/assets/brand/logo-pack/` for reference.
-- **Imagery:** the guidelines call for high-contrast, unfiltered industrial photography (factories,
-  warehouses, blueprints — explicitly not stock "handshake" photos). Real, licensed photography is live on
-  every main page — homepage (two placements), Services hub, Fractional CTO Services, How It Works, Who I
-  Work With, AI Integration Services, Track Record and About — each as a single full-bleed band via
+- **Imagery:** the guidelines call for high-contrast, unfiltered photography with genuine industrial impact —
+  explicitly not stock "handshake" photos. The site's photography set reflects the consultancy's actual work
+  (office environments, dashboards and the systems used to manage a business's operations) rather than the
+  factory-floor literalism of the guidelines' original example imagery, while keeping the same high-contrast,
+  premium, people-free (or candidly-peopled) treatment. Real, licensed photography is live on every main page
+  — homepage (two placements), Services hub, Fractional CTO Services, How It Works, Who We Work With, AI
+  Integration Services, Track Record and About — each as a single full-bleed band via
   `src/components/PhotoBand.astro` (built on `astro:assets`: responsive, optimised WebP variants generated at
   build time, self-hosted with no runtime CDN dependency), used sparingly as a visual rest-point between
-  prose sections rather than a repeated card grid. The About page additionally carries a real founder
-  photograph (Euan Pallister, supplied by the client) alongside the "Start with the work, not the org chart"
-  copy. Source JPEGs live in `src/assets/photography/`; sourcing notes, placements and photographer credit
-  for each are recorded in `docs/photography-plan.md`.
+  prose sections rather than a repeated card grid. The About page additionally carries a real photograph of
+  Euan Pallister — Curavest's fractional CTO consultant, not its founder — supplied by the client, alongside
+  the "Start with the work, not the org chart" copy. Source JPEGs live in `src/assets/photography/`; sourcing
+  notes, placements and photographer credit for each are recorded in `docs/photography-plan.md`.
 
   The site also keeps the original SVG diagram system it used before photography was sourced: the homepage
   hero's schematic graphic, the Diagnose·Engineer·Prove / Understand·Create·Implement stage diagrams, and —
-  on "Who I Work With" — a larger, sector-specific schematic illustration per industry
+  on "Who We Work With" — a larger, sector-specific schematic illustration per industry
   (`src/components/SectorIllustration.astro`, one distinct motif per sector rather than a repeated icon, each
   closing on the same accent-filled node used by the hero's CONSTRAINT/RESULT markers). `SchematicGraphic.astro`
   takes `labeled` and `onPaper` props so the same motif can also run, unlabelled and recoloured for a white
@@ -195,7 +198,7 @@ or invented system.
 ## Notes for future maintainers
 
 - **Real photography is shipped.** See "Imagery" above and `docs/photography-plan.md` for sourcing notes,
-  placements, and photographer credit for every image, plus the founder photograph on the About page. This
+  placements, and photographer credit for every image, plus the consultant photograph on the About page. This
   build sandbox itself has no network access to any external image host (confirmed: `images.unsplash.com`,
   `raw.githubusercontent.com` and `upload.wikimedia.org` all refuse the connection under its egress policy,
   and the same restriction was independently confirmed from the device-linked machine's own shell) — the
@@ -204,7 +207,7 @@ or invented system.
 - **Deliberate deviation from the guidelines' literal "Industry Grid" card spec.** The Digital Playbook (§3)
   specifies a 3-column card (top-half image, 4px Primary Blue accent bar, uppercase title, "Read More" link)
   for sector/service listings. This site instead uses full-width dossier rows for service and sector lists
-  (`ServiceCard.astro`, the sector list on "Who I Work With") and, for photography, single full-bleed bands
+  (`ServiceCard.astro`, the sector list on "Who We Work With") and, for photography, single full-bleed bands
   between sections (`PhotoBand.astro`) rather than one image per card. This is a considered choice, not an
   oversight: source-of-truth priority 6 (established UX/accessibility/SEO best practice) and this project's
   explicit instruction to avoid "stock-template layouts" and "cookie-cutter" card grids outrank the literal
