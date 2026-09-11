@@ -3,7 +3,9 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
 import Icon from '../../../components/Icon.astro';
 import CtaBand from '../../../components/CtaBand.astro';
+import PhotoBand from '../../../components/PhotoBand.astro';
 import { breadcrumbSchema } from '../../../lib/schema';
+import howItWorksBand from '../../../assets/photography/how-it-works-band.jpg';
 
 const title = 'How Our Fractional CTO Service Works | Curavest';
 const description =
@@ -108,12 +110,18 @@ const workingTogether = [
     title="Diagnose. Engineer. Prove."
     lede="Every fractional CTO engagement follows the same underlying discipline."
     breadcrumbs={crumbs}
+    graphic
   >
     <p class="lede hero-extra">
       First, understand the real problem. Then design the smallest effective change. Finally, prove that it
       works in the business — not just in a presentation.
     </p>
   </PageHero>
+
+  <PhotoBand
+    image={howItWorksBand}
+    alt="Architectural blueprints on a table with drafting pencils, a metal ruler and a storage tube."
+  />
 
   <section class="section">
     <div class="container">

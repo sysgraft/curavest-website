@@ -4,7 +4,9 @@ import PageHero from '../components/PageHero.astro';
 import CaseStudy from '../components/CaseStudy.astro';
 import ComparisonBar from '../components/ComparisonBar.astro';
 import CtaBand from '../components/CtaBand.astro';
+import PhotoBand from '../components/PhotoBand.astro';
 import { breadcrumbSchema } from '../lib/schema';
+import trackRecordBand from '../assets/photography/track-record-band.jpg';
 
 const title = 'Operational Improvement Case Studies | Curavest';
 const description =
@@ -22,12 +24,18 @@ const crumbs = [
     title="The result has to appear in the work"
     lede="The following examples are anonymised. They show the kind of problems solved inside operational businesses — from production constraints to missed growth opportunities."
     breadcrumbs={crumbs}
+    graphic
   >
     <p class="lede hero-extra">
       These results were achieved before the current fractional CTO service was formalised, but they
       illustrate the underlying approach Curavest applies across its services.
     </p>
   </PageHero>
+
+  <PhotoBand
+    image={trackRecordBand}
+    alt="Rows of warehouse shelving stacked with plain cardboard boxes, viewed down the aisle."
+  />
 
   <section class="section case-studies">
     <div class="container">

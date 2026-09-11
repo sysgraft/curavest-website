@@ -1,7 +1,10 @@
 ---
-// Rendered as a full-width dossier row (large index, hairline rule)
-// rather than a boxed card, so a list of services reads as a register
-// of offerings rather than a stamped-out pricing-card grid. Meant to
+// At desktop widths (>=64rem) this renders as a bordered card in a grid
+// (see the parent page's `.service-list { display: grid }` rule) so the
+// small number of services on offer reads as a confident, scannable
+// comparison rather than a wall of stacked text. Below that it drops back
+// to a full-width dossier row (large index, hairline rule) — sharp
+// corners throughout, no shadow-heavy "pricing card" treatment. Meant to
 // sit inside a parent with class="service-list".
 interface Props {
   index: string;
@@ -85,6 +88,40 @@ const {
     display: flex;
     flex-direction: column;
     gap: var(--space-3);
+  }
+
+  /* ---- Desktop: card-in-a-grid instead of a stacked dossier row ----
+     Activated by the parent page's `.service-list { display: grid }` at
+     the same breakpoint — see index.astro / services/index.astro /
+     about/index.astro. */
+  @media (min-width: 64rem) {
+    .service-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+      height: 100%;
+      padding: var(--space-6);
+      border: 1px solid var(--color-line);
+      border-top: 3px solid var(--color-ink);
+      background: var(--color-paper);
+    }
+
+    .on-panel .service-row {
+      border-color: var(--color-line-on-panel);
+      border-top-color: var(--color-on-panel);
+      background: var(--color-panel-raised);
+    }
+
+    .service-row-featured {
+      border-top-color: var(--color-petrol);
+    }
+
+    .service-index {
+      font-size: var(--text-md);
+    }
+
+    .service-body {
+      max-width: none;
+    }
   }
 
   .service-row-featured h3 {

@@ -1,0 +1,98 @@
+---
+// Pairs a prose column (the site's existing narrow `.statement`/`.lede`
+// treatment — untouched) with a visual companion — a photo or the
+// schematic motif — in the space that column would otherwise leave empty
+// on a wide desktop viewport. Stacks to a single column below the same
+// breakpoint the header's mobile nav switches at, visual first so it reads
+// as an illustration for the text that follows rather than an afterthought.
+//
+// Usage:
+//   <SplitSection>
+//     <Fragment slot="visual"><SchematicGraphic labeled={false} onPaper /></Fragment>
+//     <h2 class="statement statement-wide">...</h2>
+//     <p class="lede">...</p>
+//   </SplitSection>
+interface Props {
+  /** Put the visual on the left instead of the right at desktop widths. */
+  reverse?: boolean;
+  /** 'frame' draws a hairline border + padding around the visual slot —
+   *  right for a contained photo or icon. 'bleed' renders the visual
+   *  edge-to-edge with no chrome — right for an SVG motif that should
+   *  read as part of the page rather than a boxed illustration. */
+  visualStyle?: 'frame' | 'bleed';
+}
+
+const { reverse = false, visualStyle = 'frame' } = Astro.props;
+---
+
+<div class={`split-section ${reverse ? 'split-section-reverse' : ''}`}>
+  <div class="split-section-copy"><slot /></div>
+  <div class={`split-section-visual split-section-visual-${visualStyle}`}>
+    <slot name="visual" />
+  </div>
+</div>
+
+<style>
+  .split-section {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  .split-section-reverse {
+    grid-template-columns: 0.95fr 1.05fr;
+  }
+
+  .split-section-reverse .split-section-copy {
+    order: 2;
+  }
+
+  .split-section-reverse .split-section-visual {
+    order: 1;
+  }
+
+  .split-section-visual {
+    align-self: center;
+  }
+
+  .split-section-visual-frame {
+    padding: var(--space-3);
+    border: 1px solid var(--color-line);
+    background: var(--color-paper-raised);
+  }
+
+  .split-section-visual-frame :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .split-section-visual-bleed {
+    width: 100%;
+  }
+
+  @media (max-width: 63.9375rem) {
+    .split-section,
+    .split-section-reverse {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .split-section-reverse .split-section-copy,
+    .split-section-reverse .split-section-visual,
+    .split-section-copy,
+    .split-section-visual {
+      order: initial;
+    }
+
+    .split-section-visual {
+      max-width: 22rem;
+      margin-inline: auto;
+    }
+
+    .split-section-visual-bleed {
+      max-width: 16rem;
+    }
+  }
+</style>

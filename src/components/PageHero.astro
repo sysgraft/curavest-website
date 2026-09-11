@@ -1,5 +1,6 @@
 ---
 import Breadcrumbs from './Breadcrumbs.astro';
+import SchematicGraphic from './SchematicGraphic.astro';
 
 interface Crumb {
   name: string;
@@ -12,12 +13,25 @@ interface Props {
   lede?: string;
   breadcrumbs?: Crumb[];
   size?: 'default' | 'compact';
+  /** Render the brand schematic motif, faint, in the empty right-hand side
+   *  of the hero. Every "default" size interior hero uses this — see
+   *  home-hero's own, labelled instance of the same graphic on the
+   *  homepage. Skipped on "compact" heroes (legal/form pages) — those are
+   *  meant to be plain and get straight to the point. */
+  graphic?: boolean;
 }
 
-const { eyebrow, title, lede, breadcrumbs, size = 'default' } = Astro.props;
+const { eyebrow, title, lede, breadcrumbs, size = 'default', graphic = false } = Astro.props;
 ---
 
 <section class={`page-hero on-panel ${size === 'compact' ? 'page-hero-compact' : ''}`}>
+  {
+    graphic && (
+      <div class="page-hero-graphic" aria-hidden="true">
+        <SchematicGraphic labeled={false} />
+      </div>
+    )
+  }
   <div class="container hero-content">
     {breadcrumbs && <Breadcrumbs items={breadcrumbs} />}
     {eyebrow && <p class="eyebrow">{eyebrow}</p>}
@@ -56,5 +70,26 @@ const { eyebrow, title, lede, breadcrumbs, size = 'default' } = Astro.props;
     margin-top: var(--space-5);
     max-width: 56ch;
     font-size: var(--text-md);
+  }
+
+  /* Faint brand motif filling the empty right-hand side of an interior
+     hero — ties every page back to the homepage's schematic without
+     competing with the heading/lede for attention. */
+  .page-hero-graphic {
+    position: absolute;
+    top: 50%;
+    right: clamp(-4rem, -2vw, 1rem);
+    z-index: 0;
+    width: clamp(20rem, 28vw, 30rem);
+    aspect-ratio: 1 / 1;
+    transform: translateY(-50%);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  @media (max-width: 74.9375rem) {
+    .page-hero-graphic {
+      display: none;
+    }
   }
 </style>

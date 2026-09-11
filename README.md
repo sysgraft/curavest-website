@@ -21,7 +21,7 @@ fractional CTO and related services.
 
 ```
 src/
-  components/   Reusable UI: Header, Footer, PageHero, ServiceCard, CaseStudy, ContactForm, FaqAccordion…
+  components/   Reusable UI: Header, Footer, PageHero, SplitSection, ServiceCard, CaseStudy, ContactForm, FaqAccordion…
   layouts/       BaseLayout.astro — <head>, header/footer shell, skip link
   lib/          Site data (nav, contact details), FAQ content, schema.org JSON-LD helpers
   pages/        One file/folder per route (see Sitemap below)
@@ -141,19 +141,31 @@ or invented system.
   `src/assets/brand/logo-pack/` for reference.
 - **Imagery:** the guidelines call for high-contrast, unfiltered industrial photography (factories,
   warehouses, blueprints — explicitly not stock "handshake" photos). Real, licensed photography is live on
-  all five main pages — homepage, Services hub, Fractional CTO Services, Who I Work With and About — each as
-  a single full-bleed band via `src/components/PhotoBand.astro` (built on `astro:assets`: responsive,
-  optimised WebP variants generated at build time, self-hosted with no runtime CDN dependency), used sparingly
-  as a visual rest-point between prose sections rather than a repeated card grid. Source JPEGs live in
-  `src/assets/photography/`; sourcing notes, placements and photographer credit for each are recorded in
-  `docs/photography-plan.md`.
+  every main page — homepage (two placements), Services hub, Fractional CTO Services, How It Works, Who I
+  Work With, AI Integration Services, Track Record and About — each as a single full-bleed band via
+  `src/components/PhotoBand.astro` (built on `astro:assets`: responsive, optimised WebP variants generated at
+  build time, self-hosted with no runtime CDN dependency), used sparingly as a visual rest-point between
+  prose sections rather than a repeated card grid. The About page additionally carries a real founder
+  photograph (Euan Pallister, supplied by the client) alongside the "Start with the work, not the org chart"
+  copy. Source JPEGs live in `src/assets/photography/`; sourcing notes, placements and photographer credit
+  for each are recorded in `docs/photography-plan.md`.
 
-  The site also keeps the original SVG diagram system it used before photography was sourced (the schematic
-  hero graphic, the Diagnose·Engineer·Prove stage diagram, and — on "Who I Work With" — a larger,
-  sector-specific schematic illustration per industry: `src/components/SectorIllustration.astro`, one
-  distinct motif per sector rather than a repeated icon, each closing on the same accent-filled node used by
-  the hero's CONSTRAINT/RESULT markers). These are complementary to the photography, not a placeholder for
-  it — they illustrate abstract process/sector concepts that a photograph can't.
+  The site also keeps the original SVG diagram system it used before photography was sourced: the homepage
+  hero's schematic graphic, the Diagnose·Engineer·Prove / Understand·Create·Implement stage diagrams, and —
+  on "Who I Work With" — a larger, sector-specific schematic illustration per industry
+  (`src/components/SectorIllustration.astro`, one distinct motif per sector rather than a repeated icon, each
+  closing on the same accent-filled node used by the hero's CONSTRAINT/RESULT markers). `SchematicGraphic.astro`
+  takes `labeled` and `onPaper` props so the same motif can also run, unlabelled and recoloured for a white
+  background, as a faint watermark in the right-hand dead space of every interior page's `PageHero` (opt in
+  via `<PageHero graphic>`, hidden below ~1200px) and full-size as the visual half of two homepage
+  `SplitSection` blocks. These are complementary to the photography, not a placeholder for it — they
+  illustrate abstract process/sector concepts that a photograph can't.
+- **`SplitSection.astro`:** a reusable two-column layout (prose column + a named `visual` slot, `reverse` to
+  flip sides, `visualStyle="frame"` for a bordered/padded photo or `"bleed"` for an edge-to-edge SVG motif).
+  Used to pair copy with a photo or schematic graphic instead of leaving a wide viewport's second column
+  empty — collapses to one column below ~1024px. `ServiceCard.astro` similarly gained a `@media (min-width:
+  64rem)` mode that renders the 2–3 item service lists as a bordered card grid on wide screens instead of a
+  stacked list, while staying the original single-column "dossier row" on mobile.
 
 ## Accessibility & SEO
 
@@ -183,11 +195,12 @@ or invented system.
 ## Notes for future maintainers
 
 - **Real photography is shipped.** See "Imagery" above and `docs/photography-plan.md` for sourcing notes,
-  placements, and photographer credit for all five images. This build sandbox itself has no network access
-  to any external image host (confirmed: `images.unsplash.com`, `raw.githubusercontent.com` and
-  `upload.wikimedia.org` all refuse the connection under its egress policy, and the same restriction was
-  independently confirmed from the device-linked machine's own shell) — the images were sourced by driving a
-  real browser session directly (not a restricted shell), which is not subject to that policy.
+  placements, and photographer credit for every image, plus the founder photograph on the About page. This
+  build sandbox itself has no network access to any external image host (confirmed: `images.unsplash.com`,
+  `raw.githubusercontent.com` and `upload.wikimedia.org` all refuse the connection under its egress policy,
+  and the same restriction was independently confirmed from the device-linked machine's own shell) — the
+  images were sourced by driving a real browser session directly (not a restricted shell), which is not
+  subject to that policy.
 - **Deliberate deviation from the guidelines' literal "Industry Grid" card spec.** The Digital Playbook (§3)
   specifies a 3-column card (top-half image, 4px Primary Blue accent bar, uppercase title, "Read More" link)
   for sector/service listings. This site instead uses full-width dossier rows for service and sector lists

@@ -1,10 +1,12 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SchematicGraphic from '../components/SchematicGraphic.astro';
 import ServiceCard from '../components/ServiceCard.astro';
 import StatRow from '../components/StatRow.astro';
 import CtaBand from '../components/CtaBand.astro';
 import PhotoBand from '../components/PhotoBand.astro';
+import SplitSection from '../components/SplitSection.astro';
 import {
   organizationSchema,
   websiteSchema,
@@ -12,6 +14,7 @@ import {
   aiIntegrationServiceSchema,
 } from '../lib/schema';
 import homeBand from '../assets/photography/home-band.jpg';
+import homeDetailBand from '../assets/photography/home-detail-band.jpg';
 
 const title = 'Curavest | Fractional CTO and Related Services for UK Businesses';
 const description =
@@ -64,16 +67,19 @@ const whyPoints = [
   </section>
 
   <section class="section">
-    <div class="container fit-section">
-      <h2 class="statement statement-wide">The point where growth outpaces the way you work</h2>
-      <p class="lede fit-lead">Many operational businesses reach a point where:</p>
-      <ul class="check-list fit-list">
-        {fitPoints.map((point) => <li>{point}</li>)}
-      </ul>
-      <p class="lede fit-outro">
-        Curavest provides experienced, practical support at that point — through fractional leadership,
-        targeted projects and focused products.
-      </p>
+    <div class="container">
+      <SplitSection visualStyle="bleed">
+        <Fragment slot="visual"><SchematicGraphic labeled={false} onPaper /></Fragment>
+        <h2 class="statement statement-wide">The point where growth outpaces the way you work</h2>
+        <p class="lede fit-lead">Many operational businesses reach a point where:</p>
+        <ul class="check-list fit-list">
+          {fitPoints.map((point) => <li>{point}</li>)}
+        </ul>
+        <p class="lede fit-outro">
+          Curavest provides experienced, practical support at that point — through fractional leadership,
+          targeted projects and focused products.
+        </p>
+      </SplitSection>
     </div>
   </section>
 
@@ -120,16 +126,27 @@ const whyPoints = [
   </section>
 
   <section class="section">
-    <div class="container why-section">
-      <h2 class="statement statement-wide">Built for businesses where the detail matters</h2>
-      <p class="lede why-lead">Curavest works with companies where:</p>
-      <ul class="check-list why-list">
-        {whyPoints.map((point) => <li>{point}</li>)}
-      </ul>
-      <p class="lede why-outro">
-        Our approach starts with the actual work, not the org chart. That applies across all Curavest
-        services.
-      </p>
+    <div class="container">
+      <SplitSection reverse>
+        <Fragment slot="visual">
+          <Image
+            src={homeDetailBand}
+            alt="A metal rod being precision-machined on a lathe, with a cutting tool actively shaping it."
+            widths={[400, 700, 900]}
+            sizes="(max-width: 63.9375rem) 90vw, 40vw"
+            loading="lazy"
+          />
+        </Fragment>
+        <h2 class="statement statement-wide">Built for businesses where the detail matters</h2>
+        <p class="lede why-lead">Curavest works with companies where:</p>
+        <ul class="check-list why-list">
+          {whyPoints.map((point) => <li>{point}</li>)}
+        </ul>
+        <p class="lede why-outro">
+          Our approach starts with the actual work, not the org chart. That applies across all Curavest
+          services.
+        </p>
+      </SplitSection>
     </div>
   </section>
 
@@ -248,12 +265,9 @@ const whyPoints = [
     margin-top: var(--space-7);
   }
 
-  /* ---- Where Curavest fits / Why Curavest ---- */
-  .fit-section,
-  .why-section {
-    max-width: 48rem;
-  }
-
+  /* ---- Where Curavest fits / Why Curavest (each now paired with a
+     visual via SplitSection, so the copy no longer needs its own
+     max-width — SplitSection's grid column does that job) ---- */
   .fit-lead,
   .why-lead {
     margin-top: var(--space-5);
@@ -280,6 +294,16 @@ const whyPoints = [
 
   .service-list {
     border-top: 1px solid var(--color-line);
+  }
+
+  @media (min-width: 64rem) {
+    .service-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+      border-top: none;
+      align-items: stretch;
+    }
   }
 
   /* ---- Proof snapshot: bordered plate instead of a dark full-bleed band ---- */

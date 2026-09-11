@@ -3,7 +3,9 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import PageHero from '../../../components/PageHero.astro';
 import Icon from '../../../components/Icon.astro';
 import CtaBand from '../../../components/CtaBand.astro';
+import PhotoBand from '../../../components/PhotoBand.astro';
 import { breadcrumbSchema, aiIntegrationServiceSchema } from '../../../lib/schema';
+import aiIntegrationBand from '../../../assets/photography/ai-integration-band.jpg';
 
 const title = 'AI Integration Services for UK Operational Businesses | Curavest';
 const description =
@@ -107,12 +109,18 @@ const relationshipOptions = [
     title="AI implementation built around how the business actually works"
     lede="The same practical, process-first approach as Curavest's fractional CTO service, applied specifically to identifying and implementing AI."
     breadcrumbs={crumbs}
+    graphic
   >
     <p class="lede hero-extra">
       This is not AI for its own sake. Every recommendation starts with a specific process, not a general
       ambition to &ldquo;use more AI&rdquo;.
     </p>
   </PageHero>
+
+  <PhotoBand
+    image={aiIntegrationBand}
+    alt="A large industrial control room lined with analogue control panels, dials and switches."
+  />
 
   <section class="section">
     <div class="container">

@@ -33,6 +33,7 @@ const starterQuestions = [
     title="Complementary support for operational businesses"
     lede="Curavest offers several services designed to help UK businesses improve processes, output and technology decisions."
     breadcrumbs={[{ name: 'Home', path: '/' }, { name: 'Services', path: '/services/' }]}
+    graphic
   >
     <p class="lede hero-extra">
       Each service starts with the actual work: how it moves through people, systems and equipment, and where
@@ -129,6 +130,16 @@ const starterQuestions = [
 
   .service-list {
     border-top: 1px solid var(--color-line);
+  }
+
+  @media (min-width: 64rem) {
+    .service-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+      border-top: none;
+      align-items: stretch;
+    }
   }
 
   .section-heading {

@@ -1,9 +1,11 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PageHero from '../../components/PageHero.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import PhotoBand from '../../components/PhotoBand.astro';
+import SplitSection from '../../components/SplitSection.astro';
 import {
   breadcrumbSchema,
   organizationSchema,
@@ -12,6 +14,7 @@ import {
   aiIntegrationServiceSchema,
 } from '../../lib/schema';
 import aboutBand from '../../assets/photography/about-band.jpg';
+import euanPallister from '../../assets/photography/euan-pallister.jpg';
 
 const title = 'About Curavest | Fractional CTO and Related Services';
 const description =
@@ -54,6 +57,7 @@ const ctoWork = [
     title="Practical support for growing operational businesses"
     lede="Curavest offers several complementary services to help UK operational businesses improve performance, make better technology decisions and use AI where it genuinely earns its place."
     breadcrumbs={crumbs}
+    graphic
   >
     <p class="lede hero-extra">
       Our best-known service is <strong>Curavest – Fractional CTO Services</strong>, but the company&rsquo;s
@@ -67,17 +71,30 @@ const ctoWork = [
   />
 
   <section class="section">
-    <div class="container approach-section">
-      <h2 class="statement statement-wide">Start with the work, not the org chart</h2>
-      <p class="lede approach-lead">Across all Curavest services, the approach is similar:</p>
-      <ul class="check-list approach-list">
-        {approach.map((item) => <li>{item}</li>)}
-      </ul>
-      <p class="lede approach-outro">
-        This discipline comes from experience inside operational businesses: on factory floors, in
-        customer-facing roles, running departments under pressure and building products and services from
-        scratch.
-      </p>
+    <div class="container">
+      <SplitSection>
+        <Fragment slot="visual">
+          <div class="founder-photo">
+            <Image
+              src={euanPallister}
+              alt="Euan Pallister, fractional CTO for UK operational businesses"
+              width={640}
+              height={640}
+            />
+            <p class="founder-caption">Euan Pallister — Founder, Curavest</p>
+          </div>
+        </Fragment>
+        <h2 class="statement statement-wide">Start with the work, not the org chart</h2>
+        <p class="lede approach-lead">Across all Curavest services, the approach is similar:</p>
+        <ul class="check-list approach-list">
+          {approach.map((item) => <li>{item}</li>)}
+        </ul>
+        <p class="lede approach-outro">
+          This discipline comes from experience inside operational businesses: on factory floors, in
+          customer-facing roles, running departments under pressure and building products and services from
+          scratch.
+        </p>
+      </SplitSection>
     </div>
   </section>
 
@@ -137,14 +154,29 @@ const ctoWork = [
     margin-top: var(--space-4);
   }
 
-  .approach-section {
-    max-width: 50rem;
-  }
-
   .approach-lead {
     margin-top: var(--space-5);
     font-weight: 600;
     color: var(--color-ink);
+  }
+
+  .founder-photo {
+    max-width: 20rem;
+    margin-inline: auto;
+  }
+
+  .founder-photo :global(img) {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+
+  .founder-caption {
+    margin-top: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-ink-3);
+    text-align: center;
   }
 
   .approach-list {
@@ -182,5 +214,15 @@ const ctoWork = [
 
   .service-list {
     border-top: 1px solid var(--color-line);
+  }
+
+  @media (min-width: 64rem) {
+    .service-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-5);
+      border-top: none;
+      align-items: stretch;
+    }
   }
 </style>

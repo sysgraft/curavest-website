@@ -5,10 +5,28 @@
 // decoration for its own sake: one node marks where a constraint is found,
 // one marks where the result shows up, and the rest is the connecting
 // system between them.
+//
+// `labeled` (default true) controls whether the CONSTRAINT/RESULT markers
+// render. The homepage hero uses the full labeled version, since that page
+// tells the diagnose → fix story explicitly. Everywhere else the graphic is
+// reused purely as an abstract brand motif (page-hero backdrops, split
+// sections) — those contexts don't narrate "constraint" or "result", so the
+// labels would be out of place; `labeled={false}` renders just the
+// lines/nodes.
+//
+// `onPaper` (default false) switches the palette for use on a light/white
+// background — the default palette is line-on-dark (built for the on-panel
+// hero this graphic was designed for) and is close to invisible on paper.
+interface Props {
+  labeled?: boolean;
+  onPaper?: boolean;
+}
+
+const { labeled = true, onPaper = false } = Astro.props;
 ---
 
 <svg
-  class="schematic"
+  class={`schematic ${onPaper ? 'schematic-on-paper' : ''}`}
   viewBox="0 0 640 640"
   aria-hidden="true"
   focusable="false"
@@ -32,15 +50,33 @@
     <rect x="353" y="513" width="14" height="14" />
   </g>
 
-  <g class="schematic-marker schematic-marker-constraint">
-    <circle cx="280" cy="280" r="10" />
-    <text x="298" y="284">CONSTRAINT</text>
-  </g>
+  {
+    labeled && (
+      <>
+        <g class="schematic-marker schematic-marker-constraint">
+          <circle cx="280" cy="280" r="10" />
+          <text x="298" y="284">
+            CONSTRAINT
+          </text>
+        </g>
 
-  <g class="schematic-marker schematic-marker-result">
-    <circle cx="520" cy="440" r="10" />
-    <text x="538" y="444">RESULT</text>
-  </g>
+        <g class="schematic-marker schematic-marker-result">
+          <circle cx="520" cy="440" r="10" />
+          <text x="538" y="444">
+            RESULT
+          </text>
+        </g>
+      </>
+    )
+  }
+  {
+    !labeled && (
+      <g class="schematic-marker schematic-marker-plain">
+        <circle cx="280" cy="280" r="7" />
+        <circle cx="520" cy="440" r="7" />
+      </g>
+    )
+  }
 </svg>
 
 <style>
@@ -86,5 +122,25 @@
 
   .schematic-marker-result text {
     fill: var(--color-petrol-bright);
+  }
+
+  .schematic-marker-plain circle {
+    fill: var(--color-petrol-bright);
+    stroke: none;
+  }
+
+  /* Light-background palette — the default above is built for an on-panel
+     (dark) hero and is close to invisible on paper. */
+  .schematic-on-paper .schematic-lines path {
+    stroke: var(--color-line-strong);
+  }
+
+  .schematic-on-paper .schematic-nodes rect {
+    fill: var(--color-paper);
+    stroke: var(--color-ink-3);
+  }
+
+  .schematic-on-paper .schematic-marker-plain circle {
+    fill: var(--color-petrol);
   }
 </style>
