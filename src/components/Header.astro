@@ -1,6 +1,6 @@
 ---
 import Logo from './Logo.astro';
-import { NAV, PRIMARY_CTA } from '../lib/site';
+import { NAV, PRIMARY_CTA, SITE } from '../lib/site';
 
 const currentPath = Astro.url.pathname;
 
@@ -83,6 +83,11 @@ function isActive(href: string) {
 
       <div class="nav-panel-cta">
         <a href={PRIMARY_CTA.href} class="btn btn-primary btn-sm">{PRIMARY_CTA.label}</a>
+      </div>
+
+      <div class="nav-panel-contact">
+        <a href={`tel:${SITE.phoneMobile}`} class="nav-panel-contact-link">{SITE.phoneMobileDisplay}</a>
+        <a href={`mailto:${SITE.email}`} class="nav-panel-contact-link">{SITE.email}</a>
       </div>
     </div>
   </div>
@@ -260,6 +265,12 @@ function isActive(href: string) {
     flex-shrink: 0;
   }
 
+  /* Only meaningful inside the mobile overlay panel (see below) — hidden
+     in the desktop horizontal bar. */
+  .nav-panel-contact {
+    display: none;
+  }
+
   /* JS-enhanced state: collapse to a toggleable mobile panel.
      Without JS (.js-enhanced absent), everything stays visible/stacked —
      the site remains fully navigable. */
@@ -337,6 +348,31 @@ function isActive(href: string) {
 
     :global(html.js-enhanced) .nav-panel-cta .btn {
       width: 100%;
+    }
+
+    /* A short link list + one button left a large empty gap beneath them
+       in the full-height mobile overlay, especially on taller phones.
+       margin-top: auto pins this block to the bottom of the panel instead,
+       giving visitors a quick direct-contact option and using the space
+       with purpose rather than leaving it blank. */
+    :global(html.js-enhanced) .nav-panel-contact {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      margin-top: auto;
+      padding-top: var(--space-6);
+      border-top: 1px solid var(--color-line);
+    }
+
+    :global(html.js-enhanced) .nav-panel-contact-link {
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-ink-2);
+      text-decoration: none;
+    }
+
+    :global(html.js-enhanced) .nav-panel-contact-link:hover {
+      color: var(--color-petrol);
     }
   }
 

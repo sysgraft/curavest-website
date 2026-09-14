@@ -19,16 +19,20 @@ interface Props {
    *  homepage. Skipped on "compact" heroes (legal/form pages) — those are
    *  meant to be plain and get straight to the point. */
   graphic?: boolean;
+  /** Mirror the graphic horizontally on this page — see SchematicGraphic's
+   *  `flip` prop. Used to vary the motif across pages that sit next to
+   *  each other in navigation, so it doesn't read as one repeated image. */
+  graphicFlip?: boolean;
 }
 
-const { eyebrow, title, lede, breadcrumbs, size = 'default', graphic = false } = Astro.props;
+const { eyebrow, title, lede, breadcrumbs, size = 'default', graphic = false, graphicFlip = false } = Astro.props;
 ---
 
 <section class={`page-hero on-panel ${size === 'compact' ? 'page-hero-compact' : ''}`}>
   {
     graphic && (
       <div class="page-hero-graphic" aria-hidden="true">
-        <SchematicGraphic labeled={false} />
+        <SchematicGraphic labeled={false} flip={graphicFlip} />
       </div>
     )
   }

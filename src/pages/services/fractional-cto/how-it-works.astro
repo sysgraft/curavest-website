@@ -192,6 +192,12 @@ const workingTogether = [
   .stage-list {
     display: flex;
     flex-direction: column;
+    /* Was full container width with a 62ch-capped copy column, leaving a
+       large dead zone to the right of the text on wide viewports.
+       Constraining + centering the whole row (marker + copy) turns that
+       one-sided gap into balanced, intentional margins. */
+    max-width: 44rem;
+    margin-inline: auto;
   }
 
   .stage-item {
@@ -277,6 +283,7 @@ const workingTogether = [
 
   .together-section {
     max-width: 50rem;
+    margin-inline: auto;
   }
 
   .together-lead {

@@ -80,7 +80,12 @@ const starterQuestions = [
           index="03"
           title="Other Curavest services"
           description="Curavest is developing further services that complement Fractional CTO and AI Integration Services, focused on operational improvement."
-          meta="More detail will appear here as these services are finalised. If you are interested in discussing a specific problem now, we can use an initial conversation to identify which Curavest service is the best fit."
+          points={[
+            'Further operational-improvement services, currently in development.',
+            'More detail will appear here as they are finalised.',
+            'In the meantime, an initial conversation can identify the best fit today.',
+          ]}
+          meta="If you are interested in discussing a specific problem now, we can use an initial conversation to identify which Curavest service is the best fit."
           ctaLabel="Start a conversation"
           ctaHref="/start-a-conversation/"
         />
@@ -134,8 +139,12 @@ const starterQuestions = [
 
   @media (min-width: 64rem) {
     .service-list {
+      /* Four cards in a 3-column grid orphaned the fourth onto its own
+         row, alone on the left with empty space beside it. Two columns
+         gives four cards two full, balanced rows — and more breathing
+         room for the meta copy each card carries. */
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: var(--space-5);
       border-top: none;
       align-items: stretch;

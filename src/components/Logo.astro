@@ -18,7 +18,11 @@ const src = variant === 'paper' ? '/brand/curavest-horizontal-white.svg' : '/bra
   }
 
   .logo-mark {
-    height: 1.9rem;
+    /* Was a fixed 1.9rem (≈30px rendered) at every viewport, reading as
+       undersized against the rest of the header at desktop widths — the
+       wordmark now scales with the viewport, from the original mobile
+       size up to a properly prominent desktop size. */
+    height: clamp(1.9rem, 1.55rem + 1.3vw, 2.75rem);
     width: auto;
     display: block;
   }

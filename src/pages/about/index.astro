@@ -99,7 +99,7 @@ const ctoWork = [
   </section>
 
   <section class="section on-panel">
-    <div class="container">
+    <div class="container cto-work-section">
       <h2 class="section-head">Part-time, embedded technology and process leadership</h2>
       <div class="cto-work-body">
         <p class="lede">
@@ -191,6 +191,15 @@ const ctoWork = [
   .section-head {
     margin-bottom: var(--space-7);
     max-width: 36ch;
+  }
+
+  /* Was full container width with a 56ch-capped body, leaving a large
+     dead zone to the right of the text on wide viewports. Wrapping the
+     heading and body together in a shared, centered measure turns that
+     one-sided gap into balanced margins. */
+  .cto-work-section {
+    max-width: 50rem;
+    margin-inline: auto;
   }
 
   .cto-work-body {

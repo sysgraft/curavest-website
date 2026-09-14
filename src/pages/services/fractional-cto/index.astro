@@ -53,6 +53,7 @@ const notStartingPoints = [
     lede="A fractional CTO gives an owner or board access to senior technology and process judgement without committing to a full-time technology leadership hire."
     breadcrumbs={crumbs}
     graphic
+    graphicFlip
   >
     <p class="lede hero-extra">
       Within Curavest, this is one of several complementary services focused on helping operational businesses
@@ -233,6 +234,12 @@ const notStartingPoints = [
   .overview-list {
     display: flex;
     flex-direction: column;
+    /* Was full container width with a 62ch-capped copy column, leaving a
+       large dead zone to the right of the text on wide viewports.
+       Constraining + centering the whole row (index + copy) turns that
+       one-sided gap into balanced, intentional margins. */
+    max-width: 44rem;
+    margin-inline: auto;
   }
 
   .overview-item {
@@ -364,6 +371,7 @@ const notStartingPoints = [
 
   .relationship-section {
     max-width: 50rem;
+    margin-inline: auto;
   }
 
   .relationship-lead {

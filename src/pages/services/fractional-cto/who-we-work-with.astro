@@ -88,6 +88,7 @@ const sectors = [
     lede="Curavest – Fractional CTO Services are designed for owners, MDs and boards of growing UK businesses where operational complexity is beginning to limit performance."
     breadcrumbs={crumbs}
     graphic
+    graphicFlip
   >
     <p class="lede hero-extra">
       The business may be successful already. The problem is that the way it works has not kept pace with its
@@ -111,7 +112,7 @@ const sectors = [
   />
 
   <section class="section section-alt">
-    <div class="container">
+    <div class="container sector-section">
       <h2 class="section-head">Experience closest to operational businesses</h2>
       <div class="sector-list">
         {
@@ -135,7 +136,7 @@ const sectors = [
   </section>
 
   <section class="section on-panel">
-    <div class="container">
+    <div class="container wrong-fit-section">
       <h2 class="section-head">Not every business needs this service</h2>
       <p class="lede wrong-fit-lead">
         Curavest – Fractional CTO Services are unlikely to be the right fit for a business that:
@@ -177,6 +178,22 @@ const sectors = [
 
   .fit-section {
     max-width: 50rem;
+    margin-inline: auto;
+  }
+
+  /* Sector list and "not every business" panel previously sat at full
+     container width with narrow internal content, leaving a large dead
+     zone to the right on wide viewports. Wrapping heading + body + list
+     together in a shared, centered measure turns that one-sided gap into
+     balanced margins while keeping every element's left edge aligned. */
+  .sector-section {
+    max-width: 42rem;
+    margin-inline: auto;
+  }
+
+  .wrong-fit-section {
+    max-width: 50rem;
+    margin-inline: auto;
   }
 
   .fit-list,
