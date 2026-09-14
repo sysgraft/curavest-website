@@ -9,28 +9,34 @@
 //   1. Writes the enquiry to public.curavest_contact_submissions (service
 //      role — RLS on that table has no policies, so no anon/authenticated
 //      client can read or write it directly; only this function can).
-//   2. Emails a full notification to Curavest (Resend), so the enquiry is
-//      read directly by a person, as the site's copy promises.
+//   2. Emails a full notification to Curavest (via Brevo), so the enquiry
+//      is read directly by a person, as the site's copy promises.
 //   3. Emails a short confirmation back to the visitor.
 //
 // REQUIRED CONFIGURATION (set as Edge Function secrets — Supabase dashboard
 // → Project Settings → Edge Functions → curavest-contact-form → Secrets, or
 // `supabase secrets set` — NOT available to set via this project's tooling,
 // so this is the one manual step left to make sending live):
-//   RESEND_API_KEY      Required to actually send mail. Create a free
-//                        account at https://resend.com, verify the
-//                        curavest.co.uk sending domain, and generate an API
-//                        key with "Sending access". Until this is set, the
-//                        function still records every submission in the
-//                        database, but honestly reports 503 to the visitor
-//                        instead of claiming an email was sent — see
-//                        README.md "Contact form setup".
+//   BREVO_API_KEY        Required to actually send mail. In the Brevo
+//                        dashboard: Settings → SMTP & API → API Keys →
+//                        "Generate a new API key". Also required: the
+//                        CONTACT_FROM_EMAIL address below (or its domain)
+//                        must be added and verified as a sender under
+//                        Settings → Senders, Domains & Dedicated IPs —
+//                        Brevo rejects sends from an unverified address.
+//                        Until BREVO_API_KEY is set, the function still
+//                        records every submission in the database, but
+//                        honestly reports 503 to the visitor instead of
+//                        claiming an email was sent — see README.md
+//                        "Contact form setup".
 //   CONTACT_TO_EMAIL     Optional. Destination inbox for the notification.
 //                        Defaults to euan.pallister@curavest.co.uk.
-//   CONTACT_FROM_EMAIL   Optional. Verified "from" address on the Resend
-//                        domain, e.g. "Curavest <noreply@curavest.co.uk>".
-//                        Defaults to a Resend sandbox address that only
-//                        works for test sends, not real delivery.
+//   CONTACT_FROM_EMAIL   Optional. Verified "from" address in Brevo, as
+//                        "Name <email>", e.g.
+//                        "Curavest <noreply@curavest.co.uk>". Defaults to
+//                        "Curavest <euan.pallister@curavest.co.uk>" — this
+//                        (or its domain) must be verified in Brevo before
+//                        sending will work.
 //
 // SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are provided automatically to
 // every Edge Function by the Supabase runtime — nothing to configure there.
@@ -43,7 +49,7 @@ const SITE_URL = 'https://curavest.co.uk';
 const SITE_NAME = 'Curavest';
 const LOGO_URL = `${SITE_URL}/brand/email/curavest-logo.png`;
 const DEFAULT_TO_EMAIL = 'euan.pallister@curavest.co.uk';
-const DEFAULT_FROM_EMAIL = 'Curavest Website <onboarding@resend.dev>';
+const DEFAULT_FROM_EMAIL = 'Curavest <euan.pallister@curavest.co.uk>';
 
 // Curavest brand tokens (src/styles/tokens.css) — kept in sync by hand,
 // since email HTML can't read the site's CSS custom properties.
@@ -352,8 +358,19 @@ function renderConfirmationEmail(fields: {
 }
 
 // ---------------------------------------------------------------------------
-// Resend
+// Brevo (transactional email API — https://api.brevo.com/v3/smtp/email)
 // ---------------------------------------------------------------------------
+
+// "Name <email>" (Resend's format, kept because it's the friendliest thing
+// to put in a Supabase secret) -> Brevo's structured { name, email } shape.
+function parseFromAddress(value: string): { name?: string; email: string } {
+  const match = value.match(/^\s*(.*?)\s*<([^<>]+)>\s*$/);
+  if (match) {
+    const name = match[1].replace(/^"|"$/g, '').trim();
+    return { name: name || undefined, email: match[2].trim() };
+  }
+  return { email: value.trim() };
+}
 
 async function sendEmail(env: {
   apiKey: string;
@@ -364,24 +381,25 @@ async function sendEmail(env: {
   html: string;
 }): Promise<{ ok: true } | { ok: false; detail: string }> {
   try {
-    const response = await fetch('https://api.resend.com/emails', {
+    const response = await fetch('https://api.brevo.com/v3/smtp/email', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${env.apiKey}`,
+        'api-key': env.apiKey,
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: env.from,
-        to: [env.to],
-        reply_to: env.replyTo,
+        sender: parseFromAddress(env.from),
+        to: [{ email: env.to }],
+        replyTo: { email: env.replyTo },
         subject: env.subject,
-        html: env.html,
+        htmlContent: env.html,
       }),
     });
 
     if (!response.ok) {
       const detail = await response.text();
-      return { ok: false, detail: `Resend ${response.status}: ${detail}` };
+      return { ok: false, detail: `Brevo ${response.status}: ${detail}` };
     }
     return { ok: true };
   } catch (error) {
@@ -465,8 +483,8 @@ Deno.serve(async (req: Request) => {
     }, origin);
   }
 
-  const resendApiKey = Deno.env.get('RESEND_API_KEY');
-  if (!resendApiKey) {
+  const brevoApiKey = Deno.env.get('BREVO_API_KEY');
+  if (!brevoApiKey) {
     // Isolated, honest failure — see file header. The submission is safely
     // recorded above; only the email send is unavailable.
     return jsonResponse(503, {
@@ -491,7 +509,7 @@ Deno.serve(async (req: Request) => {
   });
 
   const notificationResult = await sendEmail({
-    apiKey: resendApiKey,
+    apiKey: brevoApiKey,
     from: fromEmail,
     to: toEmail,
     replyTo: email,
@@ -523,7 +541,7 @@ Deno.serve(async (req: Request) => {
   try {
     const confirmation = renderConfirmationEmail({ name, business, message, serviceLabel, preferenceLabel });
     const confirmationResult = await sendEmail({
-      apiKey: resendApiKey,
+      apiKey: brevoApiKey,
       from: fromEmail,
       to: email,
       replyTo: toEmail,

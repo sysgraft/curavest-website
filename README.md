@@ -16,7 +16,7 @@ fractional CTO and related services.
   prebuilt `dist/` output for every route. It has no API routes of its own; this is a fully static site.
 - **[Supabase](https://supabase.com) Edge Function** (`supabase/functions/curavest-contact-form/`) as the
   contact form's backend — called directly from the browser, independent of the Worker/hosting above. It
-  records every submission in Postgres and emails a notification via [Resend](https://resend.com). See
+  records every submission in Postgres and emails a notification via [Brevo](https://www.brevo.com). See
   "Contact form setup" below.
 
 ## Project structure
@@ -84,25 +84,27 @@ On every valid submission the function:
    Function) can. This means every enquiry is safely recorded even on the rare occasion the email below
    fails to send.
 2. Emails a full notification, with a polished on-brand HTML template, to Curavest via
-   [Resend](https://resend.com).
+   [Brevo](https://www.brevo.com)'s transactional email API.
 3. Emails a short on-brand confirmation back to the visitor.
 
-**This repository intentionally contains no credentials.** Until Resend is configured, the function still
+**This repository intentionally contains no credentials.** Until Brevo is configured, the function still
 records every submission (step 1 always happens), but honestly responds with a 503 and the form's UI tells
 the visitor to email directly instead — it never silently pretends to send an email it hasn't.
 
 To wire up real delivery:
 
-1. Create a free [Resend](https://resend.com) account and verify a sending domain (e.g. `curavest.co.uk`,
-   or a subdomain like `mail.curavest.co.uk`).
-2. Generate an API key with sending access.
+1. In the [Brevo dashboard](https://app.brevo.com), verify a sender: **Settings → Senders, Domains & IPs**
+   — either verify a single sender address (e.g. `euan.pallister@curavest.co.uk`) or, for better
+   deliverability, authenticate the whole `curavest.co.uk` domain (SPF/DKIM records Brevo provides). Brevo
+   rejects any send whose "from" address isn't verified this way.
+2. Generate an API key: **Settings → SMTP & API → API Keys → Generate a new API key**.
 3. In the [Supabase dashboard](https://supabase.com/dashboard/project/aoadptvrfuietytyfccp) → **Edge
    Functions → curavest-contact-form → Secrets** (or `supabase secrets set` via the CLI, scoped to this
    project), set:
-   - `RESEND_API_KEY` — the key from step 2.
+   - `BREVO_API_KEY` — the key from step 2.
    - `CONTACT_TO_EMAIL` — optional, defaults to `euan.pallister@curavest.co.uk`.
-   - `CONTACT_FROM_EMAIL` — optional, e.g. `"Curavest <noreply@curavest.co.uk>"`. Must be on the verified
-     domain from step 1, otherwise Resend will reject the send.
+   - `CONTACT_FROM_EMAIL` — optional, e.g. `"Curavest <noreply@curavest.co.uk>"`. Must be the verified
+     sender (or on the verified domain) from step 1, otherwise Brevo will reject the send.
 
 No redeploy of the website itself is needed — secrets take effect on the next function invocation. See
 `.env.example` for the same reference. Until configured, nothing needs to change in code — the isolation is
