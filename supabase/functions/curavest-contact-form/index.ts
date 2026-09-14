@@ -37,6 +37,12 @@
 //                        "Curavest <euan.pallister@curavest.co.uk>" — this
 //                        (or its domain) must be verified in Brevo before
 //                        sending will work.
+//   CONTACT_BCC_EMAIL    Optional. BCC'd on both the notification and the
+//                        visitor confirmation, for visibility into every
+//                        outbound message. Defaults to
+//                        euan.pallister@sysgraft.com. Skipped automatically
+//                        if it matches the "to" address on a given send (to
+//                        avoid emailing the same address twice).
 //
 // SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY are provided automatically to
 // every Edge Function by the Supabase runtime — nothing to configure there.
@@ -50,6 +56,9 @@ const SITE_NAME = 'Curavest';
 const LOGO_URL = `${SITE_URL}/brand/email/curavest-logo.png`;
 const DEFAULT_TO_EMAIL = 'euan.pallister@curavest.co.uk';
 const DEFAULT_FROM_EMAIL = 'Curavest <euan.pallister@curavest.co.uk>';
+// Every outbound email (the enquiry notification and the visitor's
+// confirmation) is BCC'd here for visibility, per Euan's request.
+const DEFAULT_BCC_EMAIL = 'euan.pallister@sysgraft.com';
 
 // Curavest brand tokens (src/styles/tokens.css) — kept in sync by hand,
 // since email HTML can't read the site's CSS custom properties.
@@ -74,7 +83,11 @@ const FONT_STACK =
 
 const ALLOWED_ORIGIN_PATTERNS: RegExp[] = [
   /^https:\/\/(www\.)?curavest\.co\.uk$/,
-  /^https:\/\/[a-z0-9-]+\.curavest-website(-[a-z0-9]+)?\.workers\.dev$/,
+  // Cloudflare Workers URLs are <worker-name>.<account-subdomain>.workers.dev
+  // (e.g. curavest-website.tictakt-app.workers.dev) — worker name first, then
+  // the account's workers.dev subdomain. An optional "-suffix" on the worker
+  // name covers a staging/preview environment (e.g. curavest-website-preview).
+  /^https:\/\/curavest-website(-[a-z0-9]+)?\.[a-z0-9-]+\.workers\.dev$/,
   /^http:\/\/localhost(:\d+)?$/,
 ];
 
@@ -376,6 +389,7 @@ async function sendEmail(env: {
   apiKey: string;
   from: string;
   to: string;
+  bcc?: string;
   replyTo: string;
   subject: string;
   html: string;
@@ -391,6 +405,9 @@ async function sendEmail(env: {
       body: JSON.stringify({
         sender: parseFromAddress(env.from),
         to: [{ email: env.to }],
+        ...(env.bcc && env.bcc.toLowerCase() !== env.to.toLowerCase()
+          ? { bcc: [{ email: env.bcc }] }
+          : {}),
         replyTo: { email: env.replyTo },
         subject: env.subject,
         htmlContent: env.html,
@@ -496,6 +513,7 @@ Deno.serve(async (req: Request) => {
 
   const toEmail = Deno.env.get('CONTACT_TO_EMAIL') || DEFAULT_TO_EMAIL;
   const fromEmail = Deno.env.get('CONTACT_FROM_EMAIL') || DEFAULT_FROM_EMAIL;
+  const bccEmail = Deno.env.get('CONTACT_BCC_EMAIL') || DEFAULT_BCC_EMAIL;
 
   const notification = renderNotificationEmail({
     name,
@@ -512,6 +530,7 @@ Deno.serve(async (req: Request) => {
     apiKey: brevoApiKey,
     from: fromEmail,
     to: toEmail,
+    bcc: bccEmail,
     replyTo: email,
     subject: notification.subject,
     html: notification.html,
@@ -544,6 +563,7 @@ Deno.serve(async (req: Request) => {
       apiKey: brevoApiKey,
       from: fromEmail,
       to: email,
+      bcc: bccEmail,
       replyTo: toEmail,
       subject: confirmation.subject,
       html: confirmation.html,
