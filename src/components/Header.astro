@@ -387,9 +387,10 @@ function isActive(href: string) {
 </style>
 
 <script>
-  const html = document.documentElement;
-  html.classList.add('js-enhanced');
-
+  // The 'js-enhanced' class itself is added synchronously in BaseLayout's
+  // <head>, before first paint — see the comment there. This script only
+  // wires up behaviour (menu toggle, dropdowns), which can safely wait
+  // until after paint since it doesn't affect layout.
   const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
   const panel = document.querySelector<HTMLDivElement>('[data-nav-panel]');
 

@@ -7,6 +7,16 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Astro's actual hashed build output (JS, CSS, fonts, optimised images) is
+# emitted under /_astro/, not /assets/ or /fonts/ — those two rules above
+# were never matching real build output (found during the Sept 2026 audit:
+# every hashed font/script/style asset was falling through to Cloudflare's
+# default `max-age=0, must-revalidate`, forcing a revalidation round-trip
+# on every repeat visit for files that are safe to cache forever, since the
+# filename hash changes whenever the content does).
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
 /icons/*
   Cache-Control: public, max-age=31536000, immutable
 

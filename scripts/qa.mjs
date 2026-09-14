@@ -9,6 +9,7 @@ const ROUTES = [
   '/services/fractional-cto/',
   '/services/fractional-cto/how-it-works/',
   '/services/fractional-cto/who-we-work-with/',
+  '/services/ai-integration/',
   '/track-record/',
   '/about/',
   '/start-a-conversation/',

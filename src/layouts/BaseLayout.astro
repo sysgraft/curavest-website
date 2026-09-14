@@ -33,6 +33,24 @@ const { title, description, path, image, noindex, jsonLd = [], bodyClass } = Ast
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#1E2228" />
     <meta name="generator" content={Astro.generator} />
+
+    <script is:inline>
+      /* Runs synchronously, before <body> paints — deliberately not a
+         module/deferred script. Header.astro's mobile nav has a no-JS
+         fallback (the full nav renders stacked and visible at mobile
+         widths so the site stays navigable without JavaScript); once JS
+         is available, that nav collapses into a toggleable off-canvas
+         panel via CSS scoped to html.js-enhanced. Adding that class here,
+         before first paint, means the collapsed layout is what the
+         browser paints from the start — the pre-JS "everything visible"
+         state never actually paints for JS-enabled visitors, so nothing
+         shifts once Header.astro's own (deferred) script runs later.
+         Found via a real Lighthouse CLS measurement (0.223 on mobile,
+         traced to this exact mechanism) during the Sept 2026 audit — the
+         class used to be added by a deferred module script instead, which
+         ran after the tall, un-enhanced header had already painted. */
+      document.documentElement.classList.add('js-enhanced');
+    </script>
   </head>
   <body class={bodyClass}>
     <a href="#main" class="skip-link">Skip to main content</a>

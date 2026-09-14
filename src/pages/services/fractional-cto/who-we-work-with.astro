@@ -4,12 +4,12 @@ import PageHero from '../../../components/PageHero.astro';
 import SectorIllustration from '../../../components/SectorIllustration.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import PhotoBand from '../../../components/PhotoBand.astro';
-import { breadcrumbSchema } from '../../../lib/schema';
+import { breadcrumbSchema, professionalServiceSchema } from '../../../lib/schema';
 import whoWeWorkWithBand from '../../../assets/photography/who-we-work-with-band.jpg';
 
-const title = 'Fractional CTO for Manufacturing and Operational Businesses | Curavest';
+const title = 'Fractional CTO for UK Manufacturing Businesses | Curavest';
 const description =
-  'Curavest – Fractional CTO Services help ambitious UK manufacturers and operational businesses improve processes, output and technology decisions through part-time CTO support.';
+  'Curavest – Fractional CTO Services help ambitious UK manufacturers improve processes, output and technology decisions.';
 
 const crumbs = [
   { name: 'Home', path: '/' },
@@ -80,7 +80,7 @@ const sectors = [
   title={title}
   description={description}
   path="/services/fractional-cto/who-we-work-with/"
-  jsonLd={[breadcrumbSchema(crumbs)]}
+  jsonLd={[breadcrumbSchema(crumbs), professionalServiceSchema()]}
 >
   <PageHero
     eyebrow="Who we work with"

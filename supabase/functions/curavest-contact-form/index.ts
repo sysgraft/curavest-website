@@ -6,12 +6,15 @@
 // (not the Cloudflare Worker) is the site's entire contact-form backend.
 //
 // On every valid, non-honeypot submission this:
-//   1. Writes the enquiry to public.curavest_contact_submissions (service
+//   1. Checks the submitting IP hasn't exceeded a simple rate limit (see
+//      "Rate limiting" below) — added in the Sept 2026 audit; the honeypot
+//      alone did nothing to stop a script simply POSTing repeatedly.
+//   2. Writes the enquiry to public.curavest_contact_submissions (service
 //      role — RLS on that table has no policies, so no anon/authenticated
 //      client can read or write it directly; only this function can).
-//   2. Emails a full notification to Curavest (via Brevo), so the enquiry
+//   3. Emails a full notification to Curavest (via Brevo), so the enquiry
 //      is read directly by a person, as the site's copy promises.
-//   3. Emails a short confirmation back to the visitor.
+//   4. Emails a short confirmation back to the visitor.
 //
 // REQUIRED CONFIGURATION (set as Edge Function secrets — Supabase dashboard
 // → Project Settings → Edge Functions → curavest-contact-form → Secrets, or
@@ -94,6 +97,28 @@ const ALLOWED_ORIGIN_PATTERNS: RegExp[] = [
 function isAllowedOrigin(origin: string | null): boolean {
   if (!origin) return false;
   return ALLOWED_ORIGIN_PATTERNS.some((pattern) => pattern.test(origin));
+}
+
+// ---------------------------------------------------------------------------
+// Rate limiting
+// ---------------------------------------------------------------------------
+// The form had a honeypot (above) but nothing to stop a real script simply
+// POSTing to this endpoint repeatedly — found during the Sept 2026 audit.
+// Deno Deploy (which runs Supabase Edge Functions) sets x-forwarded-for to
+// the real client IP; there's no Redis/Upstash or similar in this project,
+// so the limit is enforced with a plain count query against the table this
+// function already writes to — no new infrastructure required.
+const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+const RATE_LIMIT_MAX_SUBMISSIONS = 3; // per IP, per window
+
+function clientIpFrom(req: Request): string | null {
+  const forwardedFor = req.headers.get('x-forwarded-for');
+  if (forwardedFor) {
+    // Left-most entry is the original client; proxies append their own.
+    const first = forwardedFor.split(',')[0]?.trim();
+    if (first) return first;
+  }
+  return req.headers.get('cf-connecting-ip') || req.headers.get('x-real-ip') || null;
 }
 
 function corsHeaders(origin: string | null): HeadersInit {
@@ -478,6 +503,26 @@ Deno.serve(async (req: Request) => {
     Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '',
   );
 
+  const clientIp = clientIpFrom(req);
+  if (clientIp) {
+    const { count, error: rateLimitError } = await supabase
+      .from('curavest_contact_submissions')
+      .select('id', { count: 'exact', head: true })
+      .eq('client_ip', clientIp)
+      .gte('created_at', new Date(Date.now() - RATE_LIMIT_WINDOW_MS).toISOString());
+
+    // A failed rate-limit check shouldn't block a genuine enquiry — log and
+    // continue rather than fail the whole request over a secondary query.
+    if (rateLimitError) {
+      console.error('curavest-contact-form: rate-limit lookup failed', rateLimitError);
+    } else if ((count ?? 0) >= RATE_LIMIT_MAX_SUBMISSIONS) {
+      return jsonResponse(429, {
+        ok: false,
+        message: "You've sent several messages in quick succession. Please wait a few minutes before trying again, or email us directly.",
+      }, origin);
+    }
+  }
+
   const { data: inserted, error: insertError } = await supabase
     .from('curavest_contact_submissions')
     .insert({
@@ -488,6 +533,7 @@ Deno.serve(async (req: Request) => {
       message,
       service: service || null,
       contact_preference: contactPreference || null,
+      client_ip: clientIp,
     })
     .select('id')
     .single();

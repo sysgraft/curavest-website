@@ -5,7 +5,7 @@ import CaseStudy from '../components/CaseStudy.astro';
 import ComparisonBar from '../components/ComparisonBar.astro';
 import CtaBand from '../components/CtaBand.astro';
 import PhotoBand from '../components/PhotoBand.astro';
-import { breadcrumbSchema } from '../lib/schema';
+import { breadcrumbSchema, professionalServiceSchema, personSchema } from '../lib/schema';
 import trackRecordBand from '../assets/photography/track-record-band.jpg';
 
 const title = 'Operational Improvement Case Studies | Curavest';
@@ -18,7 +18,7 @@ const crumbs = [
 ];
 ---
 
-<BaseLayout title={title} description={description} path="/track-record/" jsonLd={[breadcrumbSchema(crumbs)]}>
+<BaseLayout title={title} description={description} path="/track-record/" jsonLd={[breadcrumbSchema(crumbs), professionalServiceSchema(), personSchema()]}>
   <PageHero
     eyebrow="Track record"
     title="The result has to appear in the work"

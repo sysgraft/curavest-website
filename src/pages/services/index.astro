@@ -8,7 +8,7 @@ import servicesBand from '../../assets/photography/services-band.jpg';
 
 const title = 'Our Services | Curavest';
 const description =
-  'Explore Curavest services for UK operational businesses, including fractional CTO support and related offerings focused on process improvement and practical technology use.';
+  'Explore Curavest services for UK operational businesses, including fractional CTO support and related offerings focused on process improvement.';
 
 const starterQuestions = [
   'Our quoting process is too slow.',
@@ -48,6 +48,7 @@ const starterQuestions = [
 
   <section class="section">
     <div class="container">
+      <h2 class="section-head">Our services</h2>
       <div class="service-list">
         <ServiceCard
           featured
@@ -131,6 +132,17 @@ const starterQuestions = [
 <style>
   .hero-extra {
     margin-top: var(--space-4);
+  }
+
+  /* Matches the homepage's .section-head pattern (styles are scoped
+     per-component in Astro, so this is a local copy, not a shared class) —
+     a plain, understated section heading ahead of the service cards. Added
+     to fix a real heading-order violation (H1 -> H3 with no H2 between,
+     found via Lighthouse during the Sept 2026 audit): ServiceCard always
+     renders an <h3>, so every page using it needs its own <h2> above it. */
+  .section-head {
+    margin-bottom: var(--space-7);
+    max-width: 32ch;
   }
 
   .service-list {

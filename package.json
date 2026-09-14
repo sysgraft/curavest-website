@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check --minimumSeverity error && astro build",
+    "build": "astro check --minimumSeverity error && astro build && node scripts/generate-csp.mjs",
     "build:fast": "astro build",
     "preview": "astro preview",
     "check": "astro check",
@@ -20,7 +20,10 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@axe-core/playwright": "^4.13.0",
     "@cloudflare/workers-types": "^5.20260908.1",
+    "pa11y": "^10.0.0",
+    "playwright": "^1.63.0",
     "typescript": "^5.9.2"
   }
 }

@@ -1,0 +1,10 @@
+# Cloudflare redirects — see public/_headers for the header-rules
+# equivalent. Parsed the same way by the Workers static-assets binding
+# (confirmed via `wrangler dev`) as by Cloudflare Pages.
+#
+# "Who I Work With" was renamed to "Who We Work With" (site voice
+# correction, Sept 2026) — the old URL was live before the rename, so if it
+# was ever indexed, bookmarked or linked externally, send it on rather than
+# 404ing. Found still 404ing during the Sept 2026 audit (L1).
+/services/fractional-cto/who-i-work-with/  /services/fractional-cto/who-we-work-with/  301
+/services/fractional-cto/who-i-work-with   /services/fractional-cto/who-we-work-with/  301

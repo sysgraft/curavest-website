@@ -4,7 +4,7 @@ import PageHero from '../../../components/PageHero.astro';
 import Icon from '../../../components/Icon.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import PhotoBand from '../../../components/PhotoBand.astro';
-import { breadcrumbSchema } from '../../../lib/schema';
+import { breadcrumbSchema, professionalServiceSchema } from '../../../lib/schema';
 import howItWorksBand from '../../../assets/photography/how-it-works-band.jpg';
 
 const title = 'How Our Fractional CTO Service Works | Curavest';
@@ -103,7 +103,7 @@ const workingTogether = [
   title={title}
   description={description}
   path="/services/fractional-cto/how-it-works/"
-  jsonLd={[breadcrumbSchema(crumbs)]}
+  jsonLd={[breadcrumbSchema(crumbs), professionalServiceSchema()]}
 >
   <PageHero
     eyebrow="Method"
