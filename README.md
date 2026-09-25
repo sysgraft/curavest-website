@@ -114,7 +114,7 @@ To review or export submitted enquiries directly (e.g. if you ever need to cross
 received), query the `curavest_contact_submissions` table via the Supabase dashboard's Table Editor or SQL
 Editor for that project — it includes a `notification_sent` flag per row so a failed send is easy to spot.
 
-The site's origin (`https://curavest.co.uk`, plus its `*.workers.dev` preview domain and `localhost` for
+The site's origin (`https://www.curavest.co.uk` and `https://curavest.co.uk`, plus its `*.workers.dev` preview domain and `localhost` for
 local development) is allow-listed inside the function for CORS; update
 `ALLOWED_ORIGIN_PATTERNS` in `supabase/functions/curavest-contact-form/index.ts` (and redeploy the
 function) if the production domain ever changes.
@@ -127,7 +127,7 @@ distinction matters because the two use different `wrangler` subcommands and dif
 entry-point error or a Pages-API authentication error.
 
 - **Build command:** `npm run build`
-- **Deploy command:** `npx wrangler deploy` (not `wrangler pages deploy` — there is no Pages project here)
+- **Deploy command:** `npx wrangler deploy` for the Worker (see below for the separate Pages project that serves www)
 - **Root directory:** `/` (repo root)
 
 `wrangler.toml` at the repo root already points `main` at `worker/index.ts` and `[assets] directory` at
@@ -144,6 +144,33 @@ project's Settings → Builds.
 
 No environment variables or secrets are required in Cloudflare at all — the Worker is a pure static-asset
 server. The contact form's configuration lives entirely in Supabase; see "Contact form setup".
+
+### How www.curavest.co.uk is served (read this before changing DNS)
+
+The `curavest.co.uk` domain and its DNS are held at GoDaddy by the domain's owner, not in the Cloudflare
+account that runs this site. A Worker can only take a custom domain when the domain's DNS is on Cloudflare,
+so the Worker above is reachable only on its `workers.dev` address. The public site reaches visitors this
+way instead:
+
+- **`www.curavest.co.uk`** is attached as a custom domain to a Cloudflare **Pages** project, also named
+  `curavest-website` (`curavest-website.pages.dev`). Pages accepts custom domains whose DNS lives
+  elsewhere. That project does not build from GitHub, so after every release, publish the same build to it:
+
+  ```bash
+  npm run deploy:www
+  ```
+
+  This runs `npm run build`, then `wrangler pages deploy dist --project-name curavest-website --branch main`.
+  If the Pages project's production branch is not `main`, the upload lands as a preview and www doesn't
+  change: check the branch with `npx wrangler pages deployment list --project-name curavest-website`.
+- **`curavest.co.uk`** (no www) is a GoDaddy forward. It sends the homepage to www and returns a blank page
+  for every deeper path. That is why `SITE.url` and `astro.config.mjs` `site` use `https://www.curavest.co.uk`:
+  every canonical, sitemap entry and structured-data URL points at the host that actually serves pages.
+
+If the domain's nameservers are ever moved to this Cloudflare account, attach both hostnames to the Worker
+(Settings → Domains & Routes → Custom domain), remove them from the Pages project, add a Redirect Rule
+sending the bare domain to `https://www.curavest.co.uk` with the path preserved, and retire the Pages
+project. `www` can stay the main address, so nothing in the code needs to change.
 
 ## Design system
 

@@ -2,9 +2,12 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Curavest — static marketing site, built for Cloudflare Pages deployment.
+// Curavest — static marketing site. Deploys as a Cloudflare Worker with static
+// assets; www.curavest.co.uk is also served by the curavest-website Pages
+// project (see README "Deploying to Cloudflare").
 export default defineConfig({
-  site: 'https://curavest.co.uk',
+  // Must match SITE.url in src/lib/site.ts — www is the main address.
+  site: 'https://www.curavest.co.uk',
   trailingSlash: 'always',
   output: 'static',
   integrations: [sitemap()],

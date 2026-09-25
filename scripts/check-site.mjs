@@ -41,7 +41,7 @@ for (const file of htmlFiles) {
     if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) continue;
     if (href.startsWith('http')) {
       const host = new URL(href).host.replace(/^www\./, '');
-      if (!KNOWN_EXTERNAL_HOSTS.some((h) => host.endsWith(h)) && !href.startsWith('https://curavest.co.uk')) {
+      if (!KNOWN_EXTERNAL_HOSTS.some((h) => host.endsWith(h)) && !/^https:\/\/(www\.)?curavest\.co\.uk(\/|$)/.test(href)) {
         warnings++;
         console.warn(`[warn] ${relFile}: external link to unexpected host: ${href}`);
       }

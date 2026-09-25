@@ -28,6 +28,14 @@ const HEADERS_FILE = path.join(DIST, '_headers');
 // this Supabase Edge Function from the browser — see src/lib/site.ts.
 const SUPABASE_ORIGIN = 'https://aoadptvrfuietytyfccp.supabase.co';
 
+// Cloudflare Web Analytics (cookie-free, no consent banner needed). When it's
+// switched on for the Pages project that serves www.curavest.co.uk, Cloudflare
+// injects its beacon script at the edge; the script loads from the first
+// origin and reports to the second. Without these two entries the CSP would
+// silently block it and the dashboard would show no visits.
+const CF_ANALYTICS_SCRIPT = 'https://static.cloudflareinsights.com';
+const CF_ANALYTICS_REPORT = 'https://cloudflareinsights.com';
+
 function sha256Base64(text) {
   return createHash('sha256').update(text, 'utf-8').digest('base64');
 }
@@ -114,7 +122,7 @@ for (const file of files) {
     ...new Set(extractInlineStyleAttrs(html).map((c) => `'sha256-${sha256Base64(c)}'`)),
   ];
 
-  const scriptSrc = ["'self'", ...scriptHashes].join(' ');
+  const scriptSrc = ["'self'", CF_ANALYTICS_SCRIPT, ...scriptHashes].join(' ');
   // 'unsafe-hashes' only relaxes style *attributes* (and event-handler
   // attributes, unused here) matching one of the listed hashes — every
   // other inline style still needs a matching <style>-element hash above.
@@ -132,7 +140,7 @@ for (const file of files) {
     `style-src ${styleSrc}`,
     "img-src 'self'",
     "font-src 'self'",
-    `connect-src 'self' ${SUPABASE_ORIGIN}`,
+    `connect-src 'self' ${SUPABASE_ORIGIN} ${CF_ANALYTICS_REPORT}`,
     `form-action 'self' ${SUPABASE_ORIGIN}`,
     "object-src 'none'",
     "base-uri 'self'",

@@ -54,7 +54,9 @@
 
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 
-const SITE_URL = 'https://curavest.co.uk';
+// www is the host that serves every page (the bare domain only forwards its
+// homepage), so the email logo must be fetched from www to load.
+const SITE_URL = 'https://www.curavest.co.uk';
 const SITE_NAME = 'Curavest';
 const LOGO_URL = `${SITE_URL}/brand/email/curavest-logo.png`;
 const DEFAULT_TO_EMAIL = 'euan.pallister@curavest.co.uk';

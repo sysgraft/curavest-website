@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://curavest.co.uk/sitemap-index.xml
+Sitemap: https://www.curavest.co.uk/sitemap-index.xml

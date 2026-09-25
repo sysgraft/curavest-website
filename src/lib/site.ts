@@ -4,7 +4,12 @@
 export const SITE = {
   name: 'Curavest',
   legalName: 'Curavest Ltd',
-  url: 'https://curavest.co.uk',
+  // The www host is the site's main address. The curavest.co.uk DNS zone is
+  // held at GoDaddy by the domain's owner, and the bare domain is a GoDaddy
+  // forward that sends only the homepage to www (every deeper path on the
+  // bare domain returns a blank page). www is the host that actually serves
+  // every page, so canonicals, the sitemap and structured data all use it.
+  url: 'https://www.curavest.co.uk',
   tagline: 'Fractional CTO and related services for UK operational businesses',
   description:
     'Curavest offers several complementary services for UK operational businesses. Explore our fractional CTO service and related offerings to improve processes, output and technology decisions.',
