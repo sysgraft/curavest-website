@@ -1,12 +1,13 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHero from '../components/PageHero.astro';
-import CaseStudy from '../components/CaseStudy.astro';
-import ComparisonBar from '../components/ComparisonBar.astro';
-import CtaBand from '../components/CtaBand.astro';
-import PhotoBand from '../components/PhotoBand.astro';
-import { breadcrumbSchema, professionalServiceSchema, personSchema } from '../lib/schema';
-import trackRecordBand from '../assets/photography/track-record-band.jpg';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CaseStudy from '../../components/CaseStudy.astro';
+import ComparisonBar from '../../components/ComparisonBar.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import PhotoBand from '../../components/PhotoBand.astro';
+import StatRow from '../../components/StatRow.astro';
+import { breadcrumbSchema, professionalServiceSchema, personSchema } from '../../lib/schema';
+import trackRecordBand from '../../assets/photography/track-record-band.jpg';
 
 const title = 'Operational Improvement Case Studies | Curavest';
 const description =
@@ -141,6 +142,30 @@ const crumbs = [
     </div>
   </section>
 
+  <section class="section on-paper-raised recent-work" aria-labelledby="recent-work">
+    <div class="container">
+      <p class="eyebrow">Recent client work · September 2026</p>
+      <h2 id="recent-work">Limak Coffee Co.: audited, fixed and recommended by Google’s AI within three days</h2>
+      <p class="lede recent-lede">
+        A named case study, published with the client’s permission. Limak is a two-person coffee roastery in St
+        Austell. We audited its website, fixed it within 24 hours, and two days later Google’s AI was
+        recommending Limak by name.
+      </p>
+      <div class="recent-stats">
+        <StatRow
+          stats={[
+            { value: '<24h', label: 'from finished audit to every on-site fix live' },
+            { value: '#1', label: 'in Google’s AI answer for “small batch coffee in Cornwall”' },
+            { value: '#2', label: 'in Google search for the same phrase' },
+            { value: '100+', label: 'fixes made across 24 products and 12 pages' },
+          ]}
+        />
+      </div>
+      <p class="recent-fine">Checked on google.co.uk, 25 September 2026. Results vary with location, device and time.</p>
+      <a href="/track-record/limak-coffee/" class="btn btn-outline recent-cta">Read the Limak Coffee Co. case study</a>
+    </div>
+  </section>
+
   <CtaBand
     title="Your problem will have its own shape"
     lede="No case study is a substitute for understanding your business. If the examples above resemble the pressure you are facing, start a conversation about the specific constraint."
@@ -169,5 +194,28 @@ const crumbs = [
 
   .stat-callout .stat-figure {
     font-size: var(--text-2xl);
+  }
+
+  .recent-work h2 {
+    margin-top: var(--space-3);
+    max-width: 26ch;
+  }
+
+  .recent-lede {
+    margin-top: var(--space-5);
+  }
+
+  .recent-stats {
+    margin-top: var(--space-7);
+  }
+
+  .recent-fine {
+    margin-top: var(--space-4);
+    font-size: var(--text-xs);
+    color: var(--color-ink-3);
+  }
+
+  .recent-cta {
+    margin-top: var(--space-6);
   }
 </style>

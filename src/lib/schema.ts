@@ -127,6 +127,50 @@ export function faqSchema(items: { question: string; answer: string }[]) {
   };
 }
 
+/**
+ * A dated, named case study. Author and publisher reference the Person and
+ * Organization nodes by @id rather than restating them, so every page tells
+ * search engines and AI assistants the same thing about who wrote it.
+ */
+export function caseStudyArticleSchema(options: {
+  headline: string;
+  description: string;
+  path: string;
+  datePublished: string;
+  aboutName: string;
+}) {
+  const url = new URL(options.path, SITE.url).toString();
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${url}#article`,
+    headline: options.headline,
+    description: options.description,
+    url,
+    mainEntityOfPage: url,
+    datePublished: options.datePublished,
+    dateModified: options.datePublished,
+    inLanguage: 'en-GB',
+    image: `${SITE.url}/images/og/default.png`,
+    author: {
+      '@type': 'Person',
+      '@id': `${SITE.url}/#person`,
+      name: SITE.consultant,
+      url: `${SITE.url}/about/`,
+    },
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${SITE.url}/#organization`,
+      name: SITE.legalName,
+      logo: `${SITE.url}/icons/icon-512.png`,
+    },
+    about: {
+      '@type': 'Organization',
+      name: options.aboutName,
+    },
+  };
+}
+
 export function contactPageSchema() {
   return {
     '@context': 'https://schema.org',

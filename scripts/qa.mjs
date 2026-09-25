@@ -11,6 +11,7 @@ const ROUTES = [
   '/services/fractional-cto/who-we-work-with/',
   '/services/ai-integration/',
   '/track-record/',
+  '/track-record/limak-coffee/',
   '/about/',
   '/start-a-conversation/',
   '/privacy/',

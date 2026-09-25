@@ -1,0 +1,682 @@
+---
+// Named case study: Limak Coffee Co. Copy is as supplied by Curavest (Sept
+// 2026), with the client's written permission to be named and quoted.
+// Only change from the supplied copy: the chart source line now says "Google
+// US, desktop" instead of "all devices". That matches how Advanced Web
+// Ranking's own table labels those July 2026 figures (checked 25 Sep 2026).
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import StatRow from '../../components/StatRow.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { SITE } from '../../lib/site';
+import { breadcrumbSchema, caseStudyArticleSchema } from '../../lib/schema';
+
+const path = '/track-record/limak-coffee/';
+const headline = 'Limak Coffee Co.: audited, fixed and recommended by Google’s AI within three days';
+const title = 'Limak Coffee Co.: audit and fixes in 24 hours | Curavest';
+const description =
+  'How Curavest audited Limak Coffee Co.’s website and made every on-site fix within 24 hours. Two days later, Google’s AI was recommending Limak.';
+const datePublished = '2026-09-25';
+
+const crumbs = [
+  { name: 'Home', path: '/' },
+  { name: 'Track Record', path: '/track-record/' },
+  { name: 'Limak Coffee Co.', path },
+];
+
+const fixes = [
+  {
+    area: 'Refund policy',
+    before: 'Still said “[INSERT RETURN ADDRESS]” and ruled out returns on coffee',
+    after: 'Clear 14-day policy with the real return address',
+  },
+  {
+    area: 'Product pages (24)',
+    before: 'Sample text from the website theme under every bag of coffee',
+    after: 'Real delivery and returns information, plus a roast-and-post promise',
+  },
+  {
+    area: 'Delivery information',
+    before: 'None anywhere on the site',
+    after: 'A dedicated delivery page, with click & collect explained',
+  },
+  {
+    area: 'Google titles and descriptions',
+    before: 'Every title too long and cut off in results',
+    after: 'Rewritten for all 24 products, 4 collections and the key pages',
+  },
+  {
+    area: 'Web addresses',
+    before: 'Decaf page at “/ecaf”; two candles with each other’s names',
+    after: 'Corrected, with redirects so no old link breaks',
+  },
+  {
+    area: 'Main coffee page',
+    before: 'Never indexed by Google',
+    after: 'Submitted and requested for indexing',
+  },
+  {
+    area: 'Content for AI answers',
+    before: 'No blog posts, no FAQ',
+    after: '12-question FAQ, 5 guides and a gift guide',
+  },
+  {
+    area: 'Postage weights',
+    before: '1kg bags charged as 250g; merchandise at 0g',
+    after: 'All corrected',
+  },
+];
+
+const timeline = [
+  {
+    day: 'Day 1',
+    heading: 'Audit',
+    body: 'A 40-page audit covering technical SEO, on-page content, answer-engine (AEO) and generative-engine (GEO) readiness, local search, authority, conversion and six Cornish competitors. 38 pages crawled, 15 real searches tested, 8 areas scored.',
+  },
+  {
+    day: 'Day 2',
+    heading: 'Implementation',
+    body: 'Over 100 fixes made directly in the Shopify store: 24 products rewritten, web addresses fixed with redirects, new delivery, FAQ, subscription and gift pages, five coffee guides, and the policies rewritten. The owners made the settings changes from step-by-step checklists that we wrote for them. The sitemap was resubmitted and Google was asked to re-crawl the key pages.',
+  },
+  {
+    day: 'Day 3',
+    heading: 'Result',
+    body: 'Google had picked up the new wording and was using it in both its search results and its AI answer.',
+  },
+];
+
+// Organic CTR by position, Advanced Web Ranking, July 2026 (Google US,
+// desktop, all intents). Bar widths are scaled against position 1 (20%).
+const ctr = [
+  { label: 'Position 1', value: 20.0 },
+  { label: 'Position 2', value: 10.4, note: 'Limak now', tone: 'after' },
+  { label: 'Position 3', value: 3.9 },
+  { label: 'Position 5', value: 1.1 },
+  { label: 'Position 10', value: 0.6 },
+  { label: 'Position 20 (page 2)', value: 0.3, note: 'Limak before', tone: 'before' },
+];
+const ctrMax = 20;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  path={path}
+  ogType="article"
+  publishedTime={datePublished}
+  jsonLd={[
+    breadcrumbSchema(crumbs),
+    caseStudyArticleSchema({ headline, description, path, datePublished, aboutName: 'Limak Coffee Co.' }),
+  ]}
+>
+  <PageHero
+    eyebrow="Track record · Website search & AI visibility"
+    title={headline}
+    lede="Limak is a two-person coffee roastery in St Austell. Its coffee was good, but its website was holding it back: placeholder text, a half-finished returns policy, and nothing that Google or AI assistants could quote. We audited the site, fixed it within 24 hours, and two days later Google’s AI was recommending Limak by name."
+    breadcrumbs={crumbs}
+    wideTitle
+  >
+    <div class="hero-stats">
+      <StatRow
+        stats={[
+          { value: '<24h', label: 'from finished audit to every on-site fix live' },
+          { value: '#1', label: 'in Google’s AI answer for “small batch coffee in Cornwall”' },
+          { value: '#2', label: 'in Google search for the same phrase' },
+          { value: '100+', label: 'fixes made across 24 products and 12 pages' },
+        ]}
+      />
+      <p class="fine on-dark">
+        Checked on google.co.uk, <time datetime="2026-09-25">25 September 2026</time>. Results vary with location,
+        device and time.
+      </p>
+    </div>
+  </PageHero>
+
+  <article class="case-article" aria-labelledby="case-start">
+    <div class="container-narrow">
+      <section class="case-section">
+        <h2 id="case-start">The starting point</h2>
+        <p>
+          Limak Coffee Co. roasts nine coffees in small batches on an electric roaster that runs mainly on its own
+          solar panels. It sells online through Shopify, with free UK delivery over £30 and a subscription that
+          saves 15%. The coffee was good and the prices were competitive. The website, though, undersold it.
+        </p>
+        <p>
+          Our audit scored the site <b>34 out of 100</b> overall. The weakest areas were the ones that decide
+          whether AI assistants recommend a business: answer-engine readiness (24), generative-engine visibility
+          (22), local search (18) and authority (14). We ran 15 test searches, and Limak appeared in only two: its
+          own name and one product. It was absent from every “coffee roasters in Cornwall” search we tried. In
+          Google Search Console, its average position was 14.8, which is page two for most searches.
+        </p>
+      </section>
+
+      <section class="case-section" aria-labelledby="case-fixes">
+        <h2 id="case-fixes">What we found and fixed</h2>
+        <div class="table-wrap">
+          <table class="ba-table" role="table" aria-labelledby="case-fixes">
+            <thead role="rowgroup">
+              <tr role="row">
+                <th scope="col" role="columnheader">Area</th>
+                <th scope="col" role="columnheader">Before</th>
+                <th scope="col" role="columnheader">After</th>
+              </tr>
+            </thead>
+            <tbody role="rowgroup">
+              {
+                fixes.map((row) => (
+                  <tr role="row">
+                    <th scope="row" role="rowheader">{row.area}</th>
+                    <td role="cell" class="before" data-label="Before">{row.before}</td>
+                    <td role="cell" data-label="After">{row.after}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="case-section" aria-labelledby="case-timeline">
+        <h2 id="case-timeline">How it ran</h2>
+        <ol class="timeline">
+          {
+            timeline.map((step) => (
+              <li>
+                <p class="timeline-day">{step.day}</p>
+                <div>
+                  <h3>{step.heading}</h3>
+                  <p>{step.body}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+        <p>
+          Wherever we had access, we made the changes ourselves through Shopify’s admin connection, then checked
+          each one on the live site. Anything that needed the owners’ own accounts or decisions, such as postage
+          rates, theme settings and returns terms, went into a copy-and-paste checklist they could work through in
+          an afternoon. We also wrote them a one-page plan in plain English, and a schedule of the regular jobs
+          that keep the results coming.
+        </p>
+      </section>
+
+      <section class="case-section" aria-labelledby="case-result">
+        <h2 id="case-result">The result</h2>
+        <p>
+          Two days after the audit, a search for <b>“small batch coffee in Cornwall”</b> on Google showed Limak at
+          <b>#2 in the web results</b> and <b>first in Google’s AI answer</b>. That AI answer described Limak as
+          “a fantastic choice for locals looking to buy hyper-fresh whole beans”, and the text Google showed for
+          the site came straight from the new homepage copy.
+        </p>
+        <p class="fine">
+          Checked on google.co.uk, <time datetime="2026-09-25">25 September 2026</time>. Results vary with
+          location, device and time. Google’s AI answers are generated fresh each time, so the order can change
+          between searches.
+        </p>
+      </section>
+
+      <section class="case-section" aria-labelledby="case-impact">
+        <h2 id="case-impact">Likely impact</h2>
+        <p>
+          Where a site ranks decides how many searchers click. Across the industry, a result in position 2 gets
+          about <b>10.4%</b> of clicks. On page two, the figure is about <b>0.3%</b>. For the Cornish coffee
+          searches where Limak has moved from page two to the top of page one, that means roughly <b>30 times</b>
+          as many clicks from the same number of searches.
+        </p>
+
+        <figure class="ctr-chart">
+          <p class="ctr-title" id="ctr-title">Share of searchers who click, by Google position</p>
+          <div class="ctr-axis" aria-hidden="true">
+            <span></span>
+            <span class="ctr-ticks">
+              <span class="t0">0%</span><span class="t5">5%</span><span class="t10">10%</span><span class="t15">15%</span><span class="t20">20%</span>
+            </span>
+            <span></span>
+          </div>
+          <ol class="ctr-rows" aria-labelledby="ctr-title">
+            {
+              ctr.map((row) => (
+                <li class={`ctr-row ${row.tone ? `is-${row.tone}` : ''}`}>
+                  <span class="ctr-label">
+                    {row.label}
+                    {row.note && <span class="ctr-note">{row.note}</span>}
+                  </span>
+                  <span class="ctr-track" aria-hidden="true">
+                    <span class="ctr-bar" style={`width:${(row.value / ctrMax) * 100}%`} />
+                  </span>
+                  <span class="ctr-value">{row.value.toFixed(1)}%</span>
+                </li>
+              ))
+            }
+          </ol>
+          <figcaption>
+            Organic click-through rate by Google position (Google US, desktop, all intents). Source: Advanced Web
+            Ranking CTR study, July 2026.
+          </figcaption>
+        </figure>
+
+        <p>We expect three effects to build over the next 90 days:</p>
+        <ul class="bullets">
+          <li>
+            <b>More people finding Limak who didn’t know it existed.</b> Before the work, most of its Google clicks
+            came from people searching its name. Local searches like “coffee roasters Cornwall”, where it used to
+            sit around position 16, are where the new customers are.
+          </li>
+          <li>
+            <b>More of those visitors buying.</b> Clear delivery costs, a real returns policy and no placeholder
+            text remove the doubts that stop a first-time buyer at checkout.
+          </li>
+          <li>
+            <b>More recommendations from AI assistants.</b> The new FAQ, guides and structured information give
+            ChatGPT, Google’s AI and Perplexity accurate facts to quote.
+          </li>
+        </ul>
+        <p>We’re tracking all of this against the baseline in Search Console, and we’ll publish the 90-day figures here.</p>
+      </section>
+
+      <section class="case-section" aria-labelledby="case-fast">
+        <h2 id="case-fast">What made it fast</h2>
+        <ul class="method">
+          <li>
+            <b>Evidence first.</b> Every finding came from the live site, real searches and competitor pages, not
+            from a generic checklist.
+          </li>
+          <li>
+            <b>Fixes made, not just recommended.</b> Wherever we had access, we did the work ourselves and checked
+            it on the live site the same day.
+          </li>
+          <li>
+            <b>Instructions the owners could follow.</b> Anything that needed the owners went into plain-English,
+            copy-and-paste steps.
+          </li>
+        </ul>
+      </section>
+
+      <p class="back-link"><a href="/track-record/" class="text-link">← Back to the track record</a></p>
+    </div>
+  </article>
+
+  <CtaBand
+    title="Want the same for your website?"
+    lede="Delivered by Sysgraft, part of Curavest. We work with Shopify, WordPress, Squarespace, Wix and custom sites. The audit takes a day, and the fixes usually go in the next."
+    ctaLabel="Start a conversation"
+    ctaHref="/start-a-conversation/"
+    tone="ink"
+  >
+    <p class="cta-contact">
+      Euan Pallister · <a href={`mailto:${SITE.email}`}>{SITE.email}</a> ·
+      <a href={`tel:${SITE.phoneLandline}`}>{SITE.phoneLandlineDisplay}</a>
+    </p>
+  </CtaBand>
+</BaseLayout>
+
+<style>
+  .hero-stats {
+    margin-top: var(--space-7);
+    max-width: 60rem;
+  }
+
+  .fine {
+    margin-top: var(--space-4);
+    font-size: var(--text-xs);
+    color: var(--color-ink-3);
+    max-width: 68ch;
+  }
+
+  .fine.on-dark {
+    color: var(--color-on-panel-muted);
+  }
+
+  .case-article {
+    padding-block: var(--section-pad-y);
+  }
+
+  .case-section + .case-section {
+    margin-top: var(--space-8);
+    padding-top: var(--space-7);
+    border-top: 1px solid var(--color-line);
+  }
+
+  .case-section h2 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-5);
+  }
+
+  .case-section > p,
+  .case-section li {
+    color: var(--color-ink-2);
+    line-height: var(--leading-relaxed);
+    max-width: 68ch;
+  }
+
+  .case-section > p + p,
+  .case-section > p + .bullets,
+  .case-section > .bullets + p,
+  .case-section > .timeline + p {
+    margin-top: var(--space-4);
+  }
+
+  .case-section b {
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  /* ---- Before/after table ---- */
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--color-line);
+  }
+
+  .ba-table {
+    width: 100%;
+    font-size: var(--text-sm);
+  }
+
+  .ba-table th,
+  .ba-table td {
+    text-align: left;
+    vertical-align: top;
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--color-line);
+    line-height: var(--leading-normal);
+  }
+
+  .ba-table thead th {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-ink-3);
+    background: var(--color-paper-raised);
+  }
+
+  .ba-table tbody th {
+    width: 24%;
+    font-weight: 600;
+    color: var(--color-ink);
+  }
+
+  .ba-table td {
+    color: var(--color-ink);
+  }
+
+  .ba-table td.before {
+    color: var(--color-ink-3);
+  }
+
+  .ba-table tbody tr:last-child th,
+  .ba-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  /* ---- Timeline ---- */
+  .timeline {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .timeline li {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: var(--space-4);
+    padding-block: var(--space-4);
+    border-bottom: 1px solid var(--color-line);
+    max-width: none;
+  }
+
+  .timeline-day {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-petrol);
+    padding-top: 0.15rem;
+  }
+
+  .timeline h3 {
+    font-size: var(--text-md);
+    margin-bottom: var(--space-1);
+  }
+
+  .timeline p {
+    color: var(--color-ink-2);
+  }
+
+  /* ---- CTR chart: one series, two emphasised bars (before/after) ---- */
+  .ctr-chart {
+    margin-block: var(--space-6);
+    padding: var(--space-5);
+    border: 1px solid var(--color-line);
+    background: var(--color-paper);
+  }
+
+  .ctr-title {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-ink);
+    margin-bottom: var(--space-4);
+  }
+
+  .ctr-axis,
+  .ctr-row {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr 3.5rem;
+    gap: var(--space-3);
+    align-items: center;
+  }
+
+  /* Tick labels sit centred on the track's gridlines (0, 25, 50, 75, 100%);
+     the two ends are pinned inside the track so they never overhang it. */
+  .ctr-ticks {
+    position: relative;
+    display: block;
+    height: 1.2em;
+    font-size: var(--text-xs);
+    color: var(--color-ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ctr-ticks span {
+    position: absolute;
+    top: 0;
+    transform: translateX(-50%);
+  }
+
+  .ctr-ticks .t0 {
+    left: 0;
+    transform: none;
+  }
+
+  .ctr-ticks .t5 {
+    left: 25%;
+  }
+
+  .ctr-ticks .t10 {
+    left: 50%;
+  }
+
+  .ctr-ticks .t15 {
+    left: 75%;
+  }
+
+  .ctr-ticks .t20 {
+    right: 0;
+    transform: none;
+  }
+
+  .ctr-rows {
+    margin-top: var(--space-2);
+  }
+
+  /* Overrides the prose max-width .case-section gives every <li> — the
+     chart rows must span the full figure so bars line up with the axis. */
+  .case-section .ctr-row {
+    max-width: none;
+  }
+
+  .ctr-row + .ctr-row {
+    margin-top: 2px;
+  }
+
+  .ctr-row {
+    padding-block: var(--space-2);
+  }
+
+  .ctr-label {
+    font-size: var(--text-sm);
+    color: var(--color-ink-2);
+    line-height: var(--leading-snug);
+  }
+
+  .ctr-note {
+    display: block;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-ink-3);
+  }
+
+  .is-after .ctr-note {
+    color: var(--color-petrol);
+  }
+
+  /* Solid hairline gridlines at 0, 5, 10, 15 and 20% of the track. */
+  .ctr-track {
+    position: relative;
+    display: block;
+    height: 1.25rem;
+    background-image: linear-gradient(to right, var(--color-line) 1px, transparent 1px);
+    background-size: 25% 100%;
+    border-right: 1px solid var(--color-line);
+  }
+
+  .ctr-bar {
+    position: absolute;
+    inset-block: 0.2rem;
+    left: 0;
+    min-width: 2px;
+    background: var(--color-line-strong);
+  }
+
+  .is-after .ctr-bar {
+    background: var(--color-petrol);
+  }
+
+  .is-before .ctr-bar {
+    background: var(--color-ink-3);
+  }
+
+  .ctr-value {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-ink);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .ctr-chart figcaption {
+    margin-top: var(--space-4);
+    font-size: var(--text-xs);
+    color: var(--color-ink-3);
+  }
+
+  /* ---- Lists ---- */
+  .bullets {
+    list-style: disc;
+    padding-left: 1.25rem;
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .method {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .method li {
+    padding-left: var(--space-4);
+    border-left: 3px solid var(--color-petrol);
+  }
+
+  .back-link {
+    margin-top: var(--space-8);
+  }
+
+  .cta-contact {
+    margin-top: var(--space-5);
+    font-size: var(--text-sm);
+    color: var(--color-on-panel-muted);
+  }
+
+  .cta-contact a {
+    color: var(--color-on-panel);
+  }
+
+  @media (max-width: 40rem) {
+    .timeline li {
+      grid-template-columns: 1fr;
+      gap: var(--space-1);
+    }
+
+    .ctr-chart {
+      padding: var(--space-4);
+    }
+
+    .ctr-axis,
+    .ctr-row {
+      grid-template-columns: 6.25rem 1fr 3rem;
+      gap: var(--space-2);
+    }
+
+    .ctr-ticks .t5,
+    .ctr-ticks .t15 {
+      display: none;
+    }
+
+    /* The three-column table restacks into one card per area on phones,
+       so "After" is never hidden off-screen behind a horizontal scroll.
+       Explicit table roles in the markup keep the table semantics that
+       some browsers drop when a table's display type changes. */
+    .ba-table thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+    }
+
+    .ba-table tbody,
+    .ba-table tr,
+    .ba-table th,
+    .ba-table td,
+    .ba-table tbody th {
+      display: block;
+      width: auto;
+    }
+
+    .ba-table tbody tr {
+      padding: var(--space-4);
+      border-bottom: 1px solid var(--color-line);
+    }
+
+    .ba-table tbody tr:last-child {
+      border-bottom: none;
+    }
+
+    .ba-table tbody th,
+    .ba-table td {
+      padding: 0;
+      border-bottom: none;
+    }
+
+    .ba-table td {
+      margin-top: var(--space-2);
+    }
+
+    .ba-table td::before {
+      content: attr(data-label);
+      display: block;
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: var(--tracking-wide);
+      text-transform: uppercase;
+      color: var(--color-ink-3);
+    }
+  }
+</style>

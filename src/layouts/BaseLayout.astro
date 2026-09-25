@@ -12,9 +12,11 @@ interface Props {
   noindex?: boolean;
   jsonLd?: Record<string, unknown>[];
   bodyClass?: string;
+  ogType?: 'website' | 'article';
+  publishedTime?: string;
 }
 
-const { title, description, path, image, noindex, jsonLd = [], bodyClass } = Astro.props;
+const { title, description, path, image, noindex, jsonLd = [], bodyClass, ogType, publishedTime } = Astro.props;
 ---
 
 <!doctype html>
@@ -22,7 +24,16 @@ const { title, description, path, image, noindex, jsonLd = [], bodyClass } = Ast
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <Seo title={title} description={description} path={path} image={image} noindex={noindex} jsonLd={jsonLd} />
+    <Seo
+      title={title}
+      description={description}
+      path={path}
+      image={image}
+      noindex={noindex}
+      jsonLd={jsonLd}
+      ogType={ogType}
+      publishedTime={publishedTime}
+    />
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png" />

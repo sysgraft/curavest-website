@@ -20,6 +20,14 @@ walk(root);
 const KNOWN_EXTERNAL_HOSTS = ['sysgraft.com', 'ico.org.uk'];
 const PLACEHOLDER_PATTERNS = [/lorem ipsum/i, /\btodo\b/i, /\bfixme\b/i, /\btbd\b/i, /placeholder text/i, /\[insert/i];
 
+// Pages that legitimately *quote* placeholder text as a "before" example
+// (the Limak Coffee case study describes the placeholder text it removed
+// from the client's site). Only these exact phrases, only on these pages,
+// are exempt — anything else still fails the check.
+const QUOTED_EXAMPLES = {
+  'track-record/limak-coffee/index.html': ['[INSERT RETURN ADDRESS]', 'placeholder text'],
+};
+
 let errors = 0;
 let warnings = 0;
 
@@ -71,8 +79,12 @@ for (const file of htmlFiles) {
   }
 
   // Placeholder content
+  let scannable = html;
+  for (const phrase of QUOTED_EXAMPLES[relFile.replace(/\\/g, '/')] ?? []) {
+    scannable = scannable.split(phrase).join('');
+  }
   for (const pattern of PLACEHOLDER_PATTERNS) {
-    if (pattern.test(html)) {
+    if (pattern.test(scannable)) {
       errors++;
       console.error(`[error] ${relFile}: possible placeholder content matching ${pattern}`);
     }

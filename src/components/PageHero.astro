@@ -23,12 +23,26 @@ interface Props {
    *  `flip` prop. Used to vary the motif across pages that sit next to
    *  each other in navigation, so it doesn't read as one repeated image. */
   graphicFlip?: boolean;
+  /** Give a long headline (e.g. a named case study's) more measure than the
+   *  default 22ch, so it doesn't stack to five lines at desktop width. */
+  wideTitle?: boolean;
 }
 
-const { eyebrow, title, lede, breadcrumbs, size = 'default', graphic = false, graphicFlip = false } = Astro.props;
+const {
+  eyebrow,
+  title,
+  lede,
+  breadcrumbs,
+  size = 'default',
+  graphic = false,
+  graphicFlip = false,
+  wideTitle = false,
+} = Astro.props;
 ---
 
-<section class={`page-hero on-panel ${size === 'compact' ? 'page-hero-compact' : ''}`}>
+<section
+  class={`page-hero on-panel ${size === 'compact' ? 'page-hero-compact' : ''} ${wideTitle ? 'page-hero-wide' : ''}`}
+>
   {
     graphic && (
       <div class="page-hero-graphic" aria-hidden="true">
@@ -68,6 +82,10 @@ const { eyebrow, title, lede, breadcrumbs, size = 'default', graphic = false, gr
 
   .page-hero h1 {
     max-width: 22ch;
+  }
+
+  .page-hero-wide h1 {
+    max-width: 30ch;
   }
 
   .hero-lede {

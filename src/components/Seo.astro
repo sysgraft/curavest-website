@@ -8,9 +8,22 @@ interface Props {
   image?: string;
   noindex?: boolean;
   jsonLd?: Record<string, unknown>[];
+  /** 'article' for dated editorial pages such as named case studies. */
+  ogType?: 'website' | 'article';
+  /** ISO date, e.g. '2026-09-25'. Only used when ogType is 'article'. */
+  publishedTime?: string;
 }
 
-const { title, description, path, image, noindex = false, jsonLd = [] } = Astro.props;
+const {
+  title,
+  description,
+  path,
+  image,
+  noindex = false,
+  jsonLd = [],
+  ogType = 'website',
+  publishedTime,
+} = Astro.props;
 const canonical = new URL(path, SITE.url).toString();
 const ogImage = new URL(image ?? '/images/og/default.png', SITE.url).toString();
 // Every page's `title` prop is already a complete, final title (each one
@@ -25,7 +38,8 @@ const fullTitle = title;
 <link rel="canonical" href={canonical} />
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-<meta property="og:type" content="website" />
+<meta property="og:type" content={ogType} />
+{ogType === 'article' && publishedTime && <meta property="article:published_time" content={publishedTime} />}
 <meta property="og:site_name" content={SITE.name} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
