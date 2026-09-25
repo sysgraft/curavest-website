@@ -52,13 +52,12 @@ const ctoWork = [
     aiIntegrationServiceSchema(),
   ]}
 >
-  <PageHero
-    eyebrow="About Curavest"
-    title="Practical support for growing operational businesses"
-    lede="Curavest offers several complementary services to help UK operational businesses improve performance, make better technology decisions and use AI where it genuinely earns its place."
-    breadcrumbs={crumbs}
-    graphic
-  >
+  <PageHero title="About Curavest" breadcrumbs={crumbs} graphic>
+    <p class="hero-tagline">Practical support for growing operational businesses</p>
+    <p class="lede hero-lede-about">
+      Curavest offers several complementary services to help UK operational businesses improve performance, make
+      better technology decisions and use AI where it genuinely earns its place.
+    </p>
     <p class="lede hero-extra">
       Our best-known service is <strong>Curavest – Fractional CTO Services</strong>, but the company&rsquo;s
       capabilities extend beyond this single offer.
@@ -150,6 +149,22 @@ const ctoWork = [
 </BaseLayout>
 
 <style>
+  /* The supplied copy's hero is "About Curavest" followed by the tagline —
+     the tagline was previously the H1, duplicating the homepage's H1. */
+  .hero-tagline {
+    margin-top: var(--space-4);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    line-height: var(--leading-snug);
+    color: var(--color-on-panel);
+    max-width: 30ch;
+  }
+
+  .hero-lede-about {
+    margin-top: var(--space-5);
+    max-width: 56ch;
+  }
+
   .hero-extra {
     margin-top: var(--space-4);
   }

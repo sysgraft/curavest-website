@@ -7,17 +7,32 @@ export function organizationSchema() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     '@id': `${SITE.url}/#organization`,
-    name: SITE.legalName,
-    alternateName: SITE.name,
+    name: SITE.name,
+    legalName: SITE.legalName,
     url: SITE.url,
     logo: `${SITE.url}/icons/icon-512.png`,
     email: SITE.email,
     telephone: SITE.phoneLandline,
+    foundingDate: SITE.foundingDate,
+    // Company number as a machine-readable identifier — the strongest
+    // disambiguator from the unrelated US firm Curavest Partners.
+    identifier: {
+      '@type': 'PropertyValue',
+      propertyID: 'Companies House company number',
+      value: SITE.companyNumber,
+    },
     address: {
       '@type': 'PostalAddress',
-      addressCountry: 'GB',
+      streetAddress: SITE.registeredOffice.street,
+      addressLocality: SITE.registeredOffice.town,
+      postalCode: SITE.registeredOffice.postcode,
+      addressCountry: SITE.registeredOffice.country,
     },
-    sameAs: [SITE.sysgraftUrl],
+    areaServed: {
+      '@type': 'Country',
+      name: 'United Kingdom',
+    },
+    sameAs: [SITE.companiesHouseUrl, SITE.linkedinCompanyUrl, SITE.sysgraftUrl],
   };
 }
 
@@ -30,10 +45,12 @@ export function personSchema() {
     jobTitle: 'Fractional CTO',
     worksFor: {
       '@type': 'Organization',
+      '@id': `${SITE.url}/#organization`,
       name: SITE.legalName,
     },
     email: SITE.email,
     url: `${SITE.url}/about/`,
+    sameAs: [SITE.consultantLinkedinUrl],
   };
 }
 
@@ -47,6 +64,7 @@ export function professionalServiceSchema() {
       'Part-time, embedded technology and process leadership for owners, MDs and boards of UK operational businesses.',
     provider: {
       '@type': 'Organization',
+      '@id': `${SITE.url}/#organization`,
       name: SITE.legalName,
     },
     areaServed: {
@@ -71,6 +89,7 @@ export function aiIntegrationServiceSchema() {
       'Identifying where AI can genuinely improve an operational business, then designing and implementing it — understand, create, implement.',
     provider: {
       '@type': 'Organization',
+      '@id': `${SITE.url}/#organization`,
       name: SITE.legalName,
     },
     areaServed: {

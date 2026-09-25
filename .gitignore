@@ -22,3 +22,8 @@ npm-debug.log*
 
 # wrangler
 .wrangler/
+
+# working notes, audit output and QA scratch — kept out of the public repo
+# (internal findings were previously committed here; removed Sept 2026)
+Claude outputs/
+.audit-scratch/

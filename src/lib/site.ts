@@ -16,6 +16,25 @@ export const SITE = {
   consultant: 'Euan Pallister',
   locale: 'en_GB',
   sysgraftUrl: 'https://sysgraft.com',
+  // Statutory company details (Companies House, checked 25 Sep 2026). UK
+  // limited companies must show these on their website; they're also the
+  // clearest signal separating Curavest Ltd from the unrelated US firm
+  // Curavest Partners in search and AI answers.
+  companyNumber: '15433116',
+  registeredIn: 'England and Wales',
+  registeredOffice: {
+    street: '334 Reading Road',
+    locality: 'Winnersh',
+    town: 'Wokingham',
+    postcode: 'RG41 5EJ',
+    country: 'GB',
+  },
+  registeredOfficeDisplay: '334 Reading Road, Winnersh, Wokingham, RG41 5EJ',
+  foundingDate: '2024-01-22',
+  companiesHouseUrl: 'https://find-and-update.company-information.service.gov.uk/company/15433116',
+  // Profiles confirmed as Curavest's / Euan's own (25 Sep 2026).
+  linkedinCompanyUrl: 'https://www.linkedin.com/company/curavest-ltd/',
+  consultantLinkedinUrl: 'https://www.linkedin.com/in/euan-pallister/',
 } as const;
 
 // Contact form backend — a Supabase Edge Function (supabase/functions/

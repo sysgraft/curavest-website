@@ -67,3 +67,47 @@ export const FAQ_ITEMS = [
       'Sysgraft is an AI-integration product for wholesale and distribution businesses, built by Curavest. It is a specific product for one sector and one use — reviewing customer interactions. AI Integration Services is broader: it applies the same AI-implementation discipline to any process, in any of the sectors Curavest works with. Depending on your situation, we may recommend Sysgraft, AI Integration Services, the fractional CTO service or a combination.',
   },
 ] as const;
+
+// ---------------------------------------------------------------------------
+// Service-page FAQs (added in the Sept 2026 growth audit)
+// ---------------------------------------------------------------------------
+// These answer the questions buyers most often type into Google about these
+// services (collected from "People also ask" boxes and competitors' FAQs).
+// Items reused from FAQ_ITEMS keep the supplied copy word for word. The
+// items marked NEW are new copy, written only from facts already on the
+// site — no prices, day counts or claims that aren't elsewhere in the copy.
+// Owner to review.
+const byQuestion = (q: string) => {
+  const item = FAQ_ITEMS.find((f) => f.question === q);
+  if (!item) throw new Error(`FAQ item not found: ${q}`);
+  return item;
+};
+
+export const FRACTIONAL_CTO_FAQ = [
+  // NEW
+  {
+    question: 'How much does a fractional CTO cost?',
+    answer:
+      'Curavest does not publish a fixed price, because the right amount of time depends on the problem. Fractional CTO Services are contracted on a part-time basis, so the business pays for a defined share of senior time rather than a full-time CTO salary. Scope and cost are agreed after the first conversation, once the constraint is understood.',
+  },
+  // NEW
+  {
+    question: 'What is the difference between a fractional CTO and IT support?',
+    answer:
+      'IT support keeps existing systems running. A fractional CTO works on how the business operates: diagnosing where time, money or opportunity is being lost, redesigning the process, deciding where technology belongs, and overseeing delivery until the change becomes normal practice. The two can work side by side.',
+  },
+  byQuestion('How long does a fractional CTO engagement last?'),
+  byQuestion('Will you replace our existing systems?'),
+] as const;
+
+export const AI_INTEGRATION_FAQ = [
+  // NEW
+  {
+    question: 'Where do you start with AI in an operational business?',
+    answer:
+      'With one specific process, not a general ambition to use AI. We trace how the work actually happens, including the workarounds nobody wrote down, and identify where AI would make a measurable difference. The output is a specific target and a practical plan, including the cases where AI is not the right answer.',
+  },
+  byQuestion('Is Curavest an AI consultancy?'),
+  byQuestion('Do you sell software?'),
+  byQuestion('How do you measure success?'),
+] as const;

@@ -4,7 +4,9 @@ import PageHero from '../../../components/PageHero.astro';
 import Icon from '../../../components/Icon.astro';
 import CtaBand from '../../../components/CtaBand.astro';
 import PhotoBand from '../../../components/PhotoBand.astro';
-import { breadcrumbSchema, aiIntegrationServiceSchema } from '../../../lib/schema';
+import FaqAccordion from '../../../components/FaqAccordion.astro';
+import { breadcrumbSchema, aiIntegrationServiceSchema, faqSchema } from '../../../lib/schema';
+import { AI_INTEGRATION_FAQ } from '../../../lib/faq';
 import aiIntegrationBand from '../../../assets/photography/ai-integration-band.jpg';
 
 const title = 'AI Integration Services for UK Businesses | Curavest';
@@ -102,7 +104,11 @@ const relationshipOptions = [
   title={title}
   description={description}
   path="/services/ai-integration/"
-  jsonLd={[breadcrumbSchema(crumbs), aiIntegrationServiceSchema()]}
+  jsonLd={[
+    breadcrumbSchema(crumbs),
+    aiIntegrationServiceSchema(),
+    faqSchema(AI_INTEGRATION_FAQ.map((f) => ({ question: f.question, answer: f.answer }))),
+  ]}
 >
   <PageHero
     eyebrow="Curavest – AI Integration Services"
@@ -222,6 +228,16 @@ const relationshipOptions = [
     </div>
   </section>
 
+  <section class="section on-paper-raised" aria-labelledby="ai-faq">
+    <div class="container faq-wrap">
+      <h2 id="ai-faq" class="faq-heading">Questions owners ask about AI integration</h2>
+      <FaqAccordion items={AI_INTEGRATION_FAQ} />
+      <p class="faq-more">
+        More answers on the <a href="/start-a-conversation/" class="text-link">Start a Conversation page</a>.
+      </p>
+    </div>
+  </section>
+
   <CtaBand
     title="Not sure where AI would actually help?"
     lede="Start with the process, not the technology. We can identify whether AI Integration Services, the fractional CTO service or a combination is the right fit."
@@ -234,6 +250,20 @@ const relationshipOptions = [
 <style>
   .hero-extra {
     margin-top: var(--space-4);
+  }
+
+  .faq-wrap {
+    max-width: 52rem;
+  }
+
+  .faq-heading {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-4);
+  }
+
+  .faq-more {
+    margin-top: var(--space-5);
+    color: var(--color-ink-2);
   }
 
   /* ---- Understand / Create / Implement stage list (mirrors the

@@ -35,7 +35,7 @@ const fullTitle = title;
 
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
-<link rel="canonical" href={canonical} />
+{!noindex && <link rel="canonical" href={canonical} />}
 {noindex && <meta name="robots" content="noindex, nofollow" />}
 
 <meta property="og:type" content={ogType} />

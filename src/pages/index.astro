@@ -151,6 +151,7 @@ const whyPoints = [
           Our approach starts with the actual work, not the org chart. That applies across all Curavest
           services.
         </p>
+        <p class="why-link"><a href="/about/" class="text-link">More about Curavest →</a></p>
       </SplitSection>
     </div>
   </section>
@@ -188,7 +189,10 @@ const whyPoints = [
           />
         </div>
       </div>
-      <p class="proof-link"><a href="/track-record/" class="text-link">See the full track record →</a></p>
+      <p class="proof-link">
+        <a href="/track-record/" class="text-link">See the full track record →</a>
+        <a href="/track-record/limak-coffee/" class="text-link">Read the Limak Coffee Co. case study →</a>
+      </p>
     </div>
   </section>
 
@@ -330,7 +334,14 @@ const whyPoints = [
   }
 
   .proof-link {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3) var(--space-6);
     margin-top: var(--space-6);
+  }
+
+  .why-link {
+    margin-top: var(--space-5);
   }
 
   .proof-stats :global(.stat-row) {

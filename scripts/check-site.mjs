@@ -106,7 +106,10 @@ for (const file of htmlFiles) {
     errors++;
     console.error(`[error] ${relFile}: missing meta description`);
   }
-  if (!/<link rel="canonical" href="[^"]+"/.test(html)) {
+  // noindex pages (the 404) deliberately carry no canonical — pointing an
+  // error page's canonical at a URL is a mixed signal. Everything else must.
+  const isNoindex = /<meta name="robots" content="noindex/.test(html);
+  if (!isNoindex && !/<link rel="canonical" href="[^"]+"/.test(html)) {
     errors++;
     console.error(`[error] ${relFile}: missing canonical link`);
   }

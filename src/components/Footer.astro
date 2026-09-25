@@ -51,7 +51,13 @@ const more = FOOTER_LINKS.slice(7);
   </div>
 
   <div class="container footer-bottom">
-    <p>&copy; {year} {SITE.legalName}. All rights reserved.</p>
+    <div class="footer-legal-text">
+      <p>&copy; {year} {SITE.legalName}. All rights reserved.</p>
+      <p class="footer-company">
+        {SITE.legalName} · Registered in {SITE.registeredIn} · Company no. {SITE.companyNumber} · Registered
+        office: {SITE.registeredOfficeDisplay}
+      </p>
+    </div>
     <ul class="footer-legal">
       {more.filter((l) => l.label === 'Privacy Policy').map((link) => (
         <li><a href={link.href}>{link.label}</a></li>
@@ -61,6 +67,10 @@ const more = FOOTER_LINKS.slice(7);
 </footer>
 
 <style>
+  .footer-company {
+    margin-top: var(--space-1);
+  }
+
   .site-footer {
     padding-block: var(--space-8) var(--space-6);
   }
